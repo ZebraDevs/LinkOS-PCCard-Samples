@@ -1,0 +1,1136 @@
+// Created by Microsoft (R) C/C++ Compiler Version 12.00.9782.0 (5e6983e3).
+//
+// ZMotifPrinter.tli
+//
+// Wrapper implementations for Win32 type library ZMotifPrinter.dll
+// compiler-generated file created 01/27/10 at 09:18:36 - DO NOT EDIT!
+
+#pragma once
+
+//
+// interface IJob wrapper method implementations
+//
+
+inline HRESULT IJob::GetPrinters ( enum ConnectionTypeEnum conType, VARIANT * printerList ) {
+    HRESULT _hr = raw_GetPrinters(conType, printerList);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline short IJob::Open ( _bstr_t deviceName ) {
+    short _result;
+    HRESULT _hr = raw_Open(deviceName, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline HRESULT IJob::Close ( ) {
+    HRESULT _hr = raw_Close();
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline short IJob::TestPrint ( unsigned char testImage, long copies, VARIANT_BOOL doubleSided, long * actionID ) {
+    short _result;
+    HRESULT _hr = raw_TestPrint(testImage, copies, doubleSided, actionID, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::ReserveDevice ( enum ReservationTypeEnum reservationType, long * reservationToken ) {
+    short _result;
+    HRESULT _hr = raw_ReserveDevice(reservationType, reservationToken, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::Reset ( enum ResetTypeEnum resetType ) {
+    short _result;
+    HRESULT _hr = raw_Reset(resetType, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::ClearError ( ) {
+    short _result;
+    HRESULT _hr = raw_ClearError(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::JobReprint ( long copies ) {
+    short _result;
+    HRESULT _hr = raw_JobReprint(copies, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::ReleaseDevice ( long reservationToken ) {
+    short _result;
+    HRESULT _hr = raw_ReleaseDevice(reservationToken, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::JobAbort ( VARIANT_BOOL cardReject ) {
+    short _result;
+    HRESULT _hr = raw_JobAbort(cardReject, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::JobResume ( ) {
+    short _result;
+    HRESULT _hr = raw_JobResume(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::JobRetry ( ) {
+    short _result;
+    HRESULT _hr = raw_JobRetry(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline IDevicePtr IJob::GetDevice ( ) {
+    struct IDevice * _result;
+    HRESULT _hr = get_Device(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IDevicePtr(_result, false);
+}
+
+inline VARIANT_BOOL IJob::IsDeviceInSession ( long * reservationToken ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = raw_IsDeviceInSession(reservationToken, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::GetJobStatus ( long actionID, BSTR * uuidJob, BSTR * printingStatus, BSTR * cardPosition, long * errorCode, long * copiesCompleted, long * copiesRequested, BSTR * magStatus, BSTR * contactStatus, BSTR * contactlessStatus ) {
+    short _result;
+    HRESULT _hr = raw_GetJobStatus(actionID, uuidJob, printingStatus, cardPosition, errorCode, copiesCompleted, copiesRequested, magStatus, contactStatus, contactlessStatus, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::GetJobList ( VARIANT * jobList ) {
+    short _result;
+    HRESULT _hr = raw_GetJobList(jobList, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline IJobControlPtr IJob::GetJobControl ( ) {
+    struct IJobControl * _result;
+    HRESULT _hr = get_JobControl(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IJobControlPtr(_result, false);
+}
+
+inline VARIANT_BOOL IJob::GetIsOpen ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_IsOpen(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline HRESULT IJob::BuildGraphicsLayers ( enum SideEnum side, enum PrintTypeEnum printType, long xOffset, long yOffset, long imgOpacity, long fillColor, enum GraphicTypeEnum graphicType, const _variant_t & graphicData ) {
+    HRESULT _hr = raw_BuildGraphicsLayers(side, printType, xOffset, yOffset, imgOpacity, fillColor, graphicType, graphicData);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IJob::ClearGraphicsLayers ( ) {
+    HRESULT _hr = raw_ClearGraphicsLayers();
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline short IJob::PrintGraphicsLayers ( long copies, long * actionID ) {
+    short _result;
+    HRESULT _hr = raw_PrintGraphicsLayers(copies, actionID, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::PrintGraphicsLayersWithMagData ( long copies, _bstr_t track1, _bstr_t track2, _bstr_t track3, long * actionID ) {
+    short _result;
+    HRESULT _hr = raw_PrintGraphicsLayersWithMagData(copies, track1, track2, track3, actionID, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::MagDataOnly ( long copies, _bstr_t track1, _bstr_t track2, _bstr_t track3, long * actionID ) {
+    short _result;
+    HRESULT _hr = raw_MagDataOnly(copies, track1, track2, track3, actionID, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::SmartCardDataOnly ( long copies, long * actionID ) {
+    short _result;
+    HRESULT _hr = raw_SmartCardDataOnly(copies, actionID, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline VARIANT_BOOL IJob::GetReadResponse ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_ReadResponse(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJob::PutReadResponse ( VARIANT_BOOL pVal ) {
+    HRESULT _hr = put_ReadResponse(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline short IJob::GetHostTCPPort ( ) {
+    short _result;
+    HRESULT _hr = get_HostTCPPort(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJob::PutHostTCPPort ( short pVal ) {
+    HRESULT _hr = put_HostTCPPort(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline short IJob::JobCancel ( long actionID ) {
+    short _result;
+    HRESULT _hr = raw_JobCancel(actionID, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::ReadMagData ( enum DataSourceEnum tracksToRead, BSTR * Track1Data, BSTR * Track2Data, BSTR * Track3Data, long * actionID ) {
+    short _result;
+    HRESULT _hr = raw_ReadMagData(tracksToRead, Track1Data, Track2Data, Track3Data, actionID, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline HRESULT IJob::GetSDKVersion ( unsigned char * major, unsigned char * minor, unsigned char * build, unsigned char * revision ) {
+    HRESULT _hr = raw_GetSDKVersion(major, minor, build, revision);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline IUtilitiesPtr IJob::GetUtilities ( ) {
+    struct IUtilities * _result;
+    HRESULT _hr = get_Utilities(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IUtilitiesPtr(_result, false);
+}
+
+inline HRESULT IJob::SetBroadcastConfiguration ( long retries, float timeout, long maxDevices ) {
+    HRESULT _hr = raw_SetBroadcastConfiguration(retries, timeout, maxDevices);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IJob::GetBroadcastConfiguration ( long * retries, float * timeout, long * maxDevices ) {
+    HRESULT _hr = raw_GetBroadcastConfiguration(retries, timeout, maxDevices);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IJob::GetSDKProductVersion ( BSTR * productVersion ) {
+    HRESULT _hr = raw_GetSDKProductVersion(productVersion);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline short IJob::SmartCardRetry ( enum SmartCardTypeEnum scType ) {
+    short _result;
+    HRESULT _hr = raw_SmartCardRetry(scType, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::EjectCard ( ) {
+    short _result;
+    HRESULT _hr = raw_EjectCard(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline _bstr_t IJob::GetDriverName ( _bstr_t deviceName ) {
+    BSTR _result;
+    HRESULT _hr = raw_GetDriverName(deviceName, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline short IJob::RejectCard ( ) {
+    short _result;
+    HRESULT _hr = raw_RejectCard(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::ReturnCardToFeeder ( ) {
+    short _result;
+    HRESULT _hr = raw_ReturnCardToFeeder(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::PositionCard ( long * actionID ) {
+    short _result;
+    HRESULT _hr = raw_PositionCard(actionID, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IJob::GetReservationStatus ( long reservationToken, VARIANT_BOOL * sessionGranted ) {
+    short _result;
+    HRESULT _hr = raw_GetReservationStatus(reservationToken, sessionGranted, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline HRESULT IJob::LoadJobConfigFile ( _bstr_t configFilePath ) {
+    HRESULT _hr = raw_LoadJobConfigFile(configFilePath);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline ILaminatorPtr IJob::GetLaminator ( ) {
+    struct ILaminator * _result;
+    HRESULT _hr = get_Laminator(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return ILaminatorPtr(_result, false);
+}
+
+inline float IJob::GetEthernetOpenTimeout ( ) {
+    float _result;
+    HRESULT _hr = get_EthernetOpenTimeout(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJob::PutEthernetOpenTimeout ( float seconds ) {
+    HRESULT _hr = put_EthernetOpenTimeout(seconds);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IDevice wrapper method implementations
+//
+
+inline long IDevice::GetHeadResistance ( ) {
+    long _result;
+    HRESULT _hr = get_HeadResistance(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IDevice::PutHeadResistance ( long pVal ) {
+    HRESULT _hr = put_HeadResistance(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline short IDevice::SetNetworkParams ( _bstr_t ipAddress, _bstr_t submask, _bstr_t gateway, enum BoolTypeEnum dhcpEnabled ) {
+    short _result;
+    HRESULT _hr = raw_SetNetworkParams(ipAddress, submask, gateway, dhcpEnabled, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetDeviceInfo ( BSTR * vendor, BSTR * model, BSTR * serialNumber, BSTR * MAC, BSTR * headSerialNumber, BSTR * oemCode, BSTR * fwVersion, BSTR * mediaVersion, BSTR * heaterVersion, BSTR * zmotifVersion ) {
+    short _result;
+    HRESULT _hr = raw_GetDeviceInfo(vendor, model, serialNumber, MAC, headSerialNumber, oemCode, fwVersion, mediaVersion, heaterVersion, zmotifVersion, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetNetworkParams ( BSTR * MAC, BSTR * ipAddress, BSTR * submask, BSTR * gateway, VARIANT_BOOL * dhcpEnabled ) {
+    short _result;
+    HRESULT _hr = raw_GetNetworkParams(MAC, ipAddress, submask, gateway, dhcpEnabled, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetRibbonParams ( long * type, BSTR * partNumber, BSTR * description, BSTR * oemCode, long * initialSize, long * panelsRemaining ) {
+    short _result;
+    HRESULT _hr = raw_GetRibbonParams(type, partNumber, description, oemCode, initialSize, panelsRemaining, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetFilmParams ( long * type, BSTR * partNumber, BSTR * description, BSTR * oemCode, long * initialSize, long * panelsRemaining ) {
+    short _result;
+    HRESULT _hr = raw_GetFilmParams(type, partNumber, description, oemCode, initialSize, panelsRemaining, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline HRESULT IDevice::GetSmartCardConfiguration ( BSTR * commChannel, BSTR * scContact, BSTR * scContactless ) {
+    HRESULT _hr = raw_GetSmartCardConfiguration(commChannel, scContact, scContactless);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IDevice::GetMagneticEncoderConfiguration ( BSTR * headType, BSTR * stripeLocation ) {
+    HRESULT _hr = raw_GetMagneticEncoderConfiguration(headType, stripeLocation);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline enum TransferTypeEnum IDevice::GetImageTransferType ( ) {
+    enum TransferTypeEnum _result;
+    HRESULT _hr = get_ImageTransferType(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline unsigned char IDevice::GetLCDContrast ( ) {
+    unsigned char _result;
+    HRESULT _hr = get_LCDContrast(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IDevice::PutLCDContrast ( unsigned char pVal ) {
+    HRESULT _hr = put_LCDContrast(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum StandbyTimeoutEnum IDevice::GetStandbyTimeout ( ) {
+    enum StandbyTimeoutEnum _result;
+    HRESULT _hr = get_StandbyTimeout(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IDevice::PutStandbyTimeout ( enum StandbyTimeoutEnum pVal ) {
+    HRESULT _hr = put_StandbyTimeout(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline short IDevice::UpgradeFirmware ( _bstr_t firmwareFile ) {
+    short _result;
+    HRESULT _hr = raw_UpgradeFirmware(firmwareFile, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::SetPanelPowerLevels ( unsigned char yellowPanel, unsigned char magentaPanel, unsigned char cyanPanel, unsigned char kResinFront, unsigned char kResinBack, unsigned char kDye, unsigned char overlayPanel, unsigned char uvFront, unsigned char uvBack ) {
+    short _result;
+    HRESULT _hr = raw_SetPanelPowerLevels(yellowPanel, magentaPanel, cyanPanel, kResinFront, kResinBack, kDye, overlayPanel, uvFront, uvBack, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetPanelPowerLevels ( unsigned char * yellowPanel, unsigned char * magentaPanel, unsigned char * cyanPanel, unsigned char * kResinFront, unsigned char * kResinBack, unsigned char * kDye, unsigned char * overlayPanel, unsigned char * uvFront, unsigned char * uvBack ) {
+    short _result;
+    HRESULT _hr = raw_GetPanelPowerLevels(yellowPanel, magentaPanel, cyanPanel, kResinFront, kResinBack, kDye, overlayPanel, uvFront, uvBack, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetSensorStates ( VARIANT * sensorStates ) {
+    short _result;
+    HRESULT _hr = raw_GetSensorStates(sensorStates, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetSensorValues ( VARIANT * sensorValues ) {
+    short _result;
+    HRESULT _hr = raw_GetSensorValues(sensorValues, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetPrinterStatus ( BSTR * status, long * error, long * jobsPending, long * jobsActive, long * jobsComplete, long * jobErrors, long * jobsTotal, long * nextActionID ) {
+    short _result;
+    HRESULT _hr = raw_GetPrinterStatus(status, error, jobsPending, jobsActive, jobsComplete, jobErrors, jobsTotal, nextActionID, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetTotalCardCount ( long * cardCount ) {
+    short _result;
+    HRESULT _hr = raw_GetTotalCardCount(cardCount, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetAvailableMemory ( enum MemorySourceEnum memType, long * memSize ) {
+    short _result;
+    HRESULT _hr = raw_GetAvailableMemory(memType, memSize, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetLog ( enum LogTypeEnum logType, VARIANT_BOOL clear, BSTR * xmlLog ) {
+    short _result;
+    HRESULT _hr = raw_GetLog(logType, clear, xmlLog, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetCustomCardConfiguration ( unsigned char cardNumber, BSTR * xmlCardConfig ) {
+    short _result;
+    HRESULT _hr = raw_GetCustomCardConfiguration(cardNumber, xmlCardConfig, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::SetCustomCardConfiguration ( _bstr_t xmlCardConfig ) {
+    short _result;
+    HRESULT _hr = raw_SetCustomCardConfiguration(xmlCardConfig, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline VARIANT_BOOL IDevice::GetAuthenticationEnabled ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_AuthenticationEnabled(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetCapabilities ( enum CapabilitiesReportTypeEnum reportType, BSTR * xmlCapabilities ) {
+    short _result;
+    HRESULT _hr = raw_GetCapabilities(reportType, xmlCapabilities, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetConfiguration ( BSTR * xmlConfig ) {
+    short _result;
+    HRESULT _hr = raw_GetConfiguration(xmlConfig, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline _bstr_t IDevice::GetStatusMessageString ( short statusCode ) {
+    BSTR _result;
+    HRESULT _hr = raw_GetStatusMessageString(statusCode, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline short IDevice::CleanDevice ( enum CleanPathTypeEnum path ) {
+    short _result;
+    HRESULT _hr = raw_CleanDevice(path, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::SetCleaningIntervals ( long FeederPath, long ATMPath, long TransferPath ) {
+    short _result;
+    HRESULT _hr = raw_SetCleaningIntervals(FeederPath, ATMPath, TransferPath, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline HRESULT IDevice::GetCleaningIntervals ( long * FeederPath, long * ATMPath, long * TransferPath ) {
+    HRESULT _hr = raw_GetCleaningIntervals(FeederPath, ATMPath, TransferPath);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline VARIANT_BOOL IDevice::GetEncryptionEnabled ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_EncryptionEnabled(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetTransferTempOffsets ( long * topSnglOffset, long * botSnglOffset, long * topDblOffset, long * botDblOffset ) {
+    short _result;
+    HRESULT _hr = raw_GetTransferTempOffsets(topSnglOffset, botSnglOffset, topDblOffset, botDblOffset, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::SetTransferTempOffsets ( long topSnglOffset, long botSnglOffset, long topDblOffset, long botDblOffset ) {
+    short _result;
+    HRESULT _hr = raw_SetTransferTempOffsets(topSnglOffset, botSnglOffset, topDblOffset, botDblOffset, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::DisplayOCPMessage ( VARIANT_BOOL lockOCP ) {
+    short _result;
+    HRESULT _hr = raw_DisplayOCPMessage(lockOCP, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline HRESULT IDevice::BuildOCPMessage ( unsigned char lineNumber, _bstr_t message, VARIANT_BOOL underline, VARIANT_BOOL reverse, VARIANT_BOOL toggle, VARIANT_BOOL doubleSize ) {
+    HRESULT _hr = raw_BuildOCPMessage(lineNumber, message, underline, reverse, toggle, doubleSize);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline short IDevice::ClearOCPMessage ( VARIANT_BOOL lockOCP ) {
+    short _result;
+    HRESULT _hr = raw_ClearOCPMessage(lockOCP, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline long IDevice::GetSmartCardOffset ( ) {
+    long _result;
+    HRESULT _hr = get_SmartCardOffset(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IDevice::PutSmartCardOffset ( long pVal ) {
+    HRESULT _hr = put_SmartCardOffset(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline short IDevice::ResumeFromStandby ( ) {
+    short _result;
+    HRESULT _hr = raw_ResumeFromStandby(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline enum TransferTypeEnum IDevice::GetPrintCapability ( ) {
+    enum TransferTypeEnum _result;
+    HRESULT _hr = get_PrintCapability(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetDisplayedOCPMessage ( BSTR * ocpMessage ) {
+    short _result;
+    HRESULT _hr = raw_GetDisplayedOCPMessage(ocpMessage, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::SelectOCPButton ( enum OCPButtonEnum button ) {
+    short _result;
+    HRESULT _hr = raw_SelectOCPButton(button, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::SetConfiguration ( _bstr_t xmlConfigData ) {
+    short _result;
+    HRESULT _hr = raw_SetConfiguration(xmlConfigData, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline enum ErrorControlLevelEnum IDevice::GetErrorControlLevel ( ) {
+    enum ErrorControlLevelEnum _result;
+    HRESULT _hr = get_ErrorControlLevel(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IDevice::PutErrorControlLevel ( enum ErrorControlLevelEnum pVal ) {
+    HRESULT _hr = put_ErrorControlLevel(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline long IDevice::GetParamChgCounter ( ) {
+    long _result;
+    HRESULT _hr = get_ParamChgCounter(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::GetPanelPowerLevelsEx ( unsigned char * yellowPanel, unsigned char * magentaPanel, unsigned char * cyanPanel, unsigned char * kResinFront, unsigned char * kResinBack, unsigned char * kDye, unsigned char * overlayPanel, unsigned char * uvFront, unsigned char * uvBack, unsigned char * inhibitPanel, unsigned char * helperPanel ) {
+    short _result;
+    HRESULT _hr = raw_GetPanelPowerLevelsEx(yellowPanel, magentaPanel, cyanPanel, kResinFront, kResinBack, kDye, overlayPanel, uvFront, uvBack, inhibitPanel, helperPanel, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short IDevice::SetPanelPowerLevelsEx ( unsigned char yellowPanel, unsigned char magentaPanel, unsigned char cyanPanel, unsigned char kResinFront, unsigned char kResinBack, unsigned char kDye, unsigned char overlayPanel, unsigned char uvFront, unsigned char uvBack, unsigned char inhibitPanel, unsigned char helperPanel ) {
+    short _result;
+    HRESULT _hr = raw_SetPanelPowerLevelsEx(yellowPanel, magentaPanel, cyanPanel, kResinFront, kResinBack, kDye, overlayPanel, uvFront, uvBack, inhibitPanel, helperPanel, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline enum OCPLanguageEnum IDevice::GetOCPLanguage ( ) {
+    enum OCPLanguageEnum _result;
+    HRESULT _hr = get_OCPLanguage(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IDevice::PutOCPLanguage ( enum OCPLanguageEnum pVal ) {
+    HRESULT _hr = put_OCPLanguage(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline _bstr_t IDevice::GetPrinterType ( ) {
+    BSTR _result;
+    HRESULT _hr = get_PrinterType(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline VARIANT_BOOL IDevice::GetHasLaminator ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_HasLaminator(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+//
+// interface IJobControl wrapper method implementations
+//
+
+inline HRESULT IJobControl::SideConfiguration ( enum SideEnum side, enum OrientationEnum imgOrientation, enum RotationEnum imgRotation, enum SharpnessLevelEnum imgSharpness ) {
+    HRESULT _hr = raw_SideConfiguration(side, imgOrientation, imgRotation, imgSharpness);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IJobControl::SmartCardConfiguration ( enum SideEnum side, enum SmartCardTypeEnum smartCardType, VARIANT_BOOL program ) {
+    HRESULT _hr = raw_SmartCardConfiguration(side, smartCardType, program);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IJobControl::JobConfiguration ( enum FeederSourceEnum cardSrc, _bstr_t card, long cardSize, enum DataSourceEnum dataSrc, VARIANT_BOOL deleteJob ) {
+    HRESULT _hr = raw_JobConfiguration(cardSrc, card, cardSize, dataSrc, deleteJob);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline _bstr_t IJobControl::GetCardType ( ) {
+    BSTR _result;
+    HRESULT _hr = get_CardType(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline void IJobControl::PutCardType ( _bstr_t pVal ) {
+    HRESULT _hr = put_CardType(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline HRESULT IJobControl::MagConfiguration ( enum SideEnum side, enum MagCoercivityEnum coercivity, enum MagEncodingTypeEnum encodingType, enum MagDataFormatEnum trk1Format, enum MagDataFormatEnum trk2Format, enum MagDataFormatEnum trk3Format, VARIANT_BOOL verify ) {
+    HRESULT _hr = raw_MagConfiguration(side, coercivity, encodingType, trk1Format, trk2Format, trk3Format, verify);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline enum DataSourceEnum IJobControl::GetDataSource ( ) {
+    enum DataSourceEnum _result;
+    HRESULT _hr = get_DataSource(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutDataSource ( enum DataSourceEnum pVal ) {
+    HRESULT _hr = put_DataSource(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum OrientationEnum IJobControl::GetOrientationFront ( ) {
+    enum OrientationEnum _result;
+    HRESULT _hr = get_OrientationFront(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutOrientationFront ( enum OrientationEnum pVal ) {
+    HRESULT _hr = put_OrientationFront(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum OrientationEnum IJobControl::GetOrientationBack ( ) {
+    enum OrientationEnum _result;
+    HRESULT _hr = get_OrientationBack(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutOrientationBack ( enum OrientationEnum pVal ) {
+    HRESULT _hr = put_OrientationBack(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum MagCoercivityEnum IJobControl::GetMagCoercivity ( ) {
+    enum MagCoercivityEnum _result;
+    HRESULT _hr = get_MagCoercivity(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutMagCoercivity ( enum MagCoercivityEnum pVal ) {
+    HRESULT _hr = put_MagCoercivity(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum MagEncodingTypeEnum IJobControl::GetMagEncodingType ( ) {
+    enum MagEncodingTypeEnum _result;
+    HRESULT _hr = get_MagEncodingType(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutMagEncodingType ( enum MagEncodingTypeEnum pVal ) {
+    HRESULT _hr = put_MagEncodingType(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum MagDataFormatEnum IJobControl::GetMagDataTrk1Format ( ) {
+    enum MagDataFormatEnum _result;
+    HRESULT _hr = get_MagDataTrk1Format(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutMagDataTrk1Format ( enum MagDataFormatEnum pVal ) {
+    HRESULT _hr = put_MagDataTrk1Format(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum MagDataFormatEnum IJobControl::GetMagDataTrk2Format ( ) {
+    enum MagDataFormatEnum _result;
+    HRESULT _hr = get_MagDataTrk2Format(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutMagDataTrk2Format ( enum MagDataFormatEnum pVal ) {
+    HRESULT _hr = put_MagDataTrk2Format(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum MagDataFormatEnum IJobControl::GetMagDataTrk3Format ( ) {
+    enum MagDataFormatEnum _result;
+    HRESULT _hr = get_MagDataTrk3Format(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutMagDataTrk3Format ( enum MagDataFormatEnum pVal ) {
+    HRESULT _hr = put_MagDataTrk3Format(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline VARIANT_BOOL IJobControl::GetDeleteAfter ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_DeleteAfter(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutDeleteAfter ( VARIANT_BOOL pVal ) {
+    HRESULT _hr = put_DeleteAfter(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline long IJobControl::GetCardThickness ( ) {
+    long _result;
+    HRESULT _hr = get_CardThickness(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutCardThickness ( long pVal ) {
+    HRESULT _hr = put_CardThickness(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum FeederSourceEnum IJobControl::GetFeederSource ( ) {
+    enum FeederSourceEnum _result;
+    HRESULT _hr = get_FeederSource(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutFeederSource ( enum FeederSourceEnum pVal ) {
+    HRESULT _hr = put_FeederSource(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum RotationEnum IJobControl::GetRotationFront ( ) {
+    enum RotationEnum _result;
+    HRESULT _hr = get_RotationFront(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutRotationFront ( enum RotationEnum pVal ) {
+    HRESULT _hr = put_RotationFront(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum RotationEnum IJobControl::GetRotationBack ( ) {
+    enum RotationEnum _result;
+    HRESULT _hr = get_RotationBack(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutRotationBack ( enum RotationEnum pVal ) {
+    HRESULT _hr = put_RotationBack(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline VARIANT_BOOL IJobControl::GetMagVerification ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_MagVerification(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutMagVerification ( VARIANT_BOOL pVal ) {
+    HRESULT _hr = put_MagVerification(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum SideEnum IJobControl::GetMagEncodeSide ( ) {
+    enum SideEnum _result;
+    HRESULT _hr = get_MagEncodeSide(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutMagEncodeSide ( enum SideEnum pVal ) {
+    HRESULT _hr = put_MagEncodeSide(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum SharpnessLevelEnum IJobControl::GetSharpnessLevelFront ( ) {
+    enum SharpnessLevelEnum _result;
+    HRESULT _hr = get_SharpnessLevelFront(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutSharpnessLevelFront ( enum SharpnessLevelEnum pVal ) {
+    HRESULT _hr = put_SharpnessLevelFront(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum SharpnessLevelEnum IJobControl::GetSharpnessLevelBack ( ) {
+    enum SharpnessLevelEnum _result;
+    HRESULT _hr = get_SharpnessLevelBack(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutSharpnessLevelBack ( enum SharpnessLevelEnum pVal ) {
+    HRESULT _hr = put_SharpnessLevelBack(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline HRESULT IJobControl::ConfigureDataEncryption ( enum EncryptionTypeEnum encryptionType, VARIANT_BOOL encJobControl, VARIANT_BOOL encGraphics ) {
+    HRESULT _hr = raw_ConfigureDataEncryption(encryptionType, encJobControl, encGraphics);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IJobControl::GetDataEncryptionConfiguration ( enum EncryptionTypeEnum * encryptionType, VARIANT_BOOL * encJobControl, VARIANT_BOOL * encGraphics ) {
+    HRESULT _hr = raw_GetDataEncryptionConfiguration(encryptionType, encJobControl, encGraphics);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline int IJobControl::IntegerFromColorName ( _bstr_t colorName ) {
+    int _result;
+    HRESULT _hr = raw_IntegerFromColorName(colorName, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline HRESULT IJobControl::GetAvailableCardTypes ( VARIANT * cardTypes ) {
+    HRESULT _hr = raw_GetAvailableCardTypes(cardTypes);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IJobControl::GetCardTypeInformation ( _bstr_t CardType, BSTR * xmlCardData ) {
+    HRESULT _hr = raw_GetCardTypeInformation(CardType, xmlCardData);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline enum DestinationTypeEnum IJobControl::GetDestination ( ) {
+    enum DestinationTypeEnum _result;
+    HRESULT _hr = get_Destination(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IJobControl::PutDestination ( enum DestinationTypeEnum pVal ) {
+    HRESULT _hr = put_Destination(pVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IUtilities wrapper method implementations
+//
+
+inline _variant_t IUtilities::BytePtrToVariantArray ( unsigned char * byteArray, long byteCount ) {
+    VARIANT _result;
+    VariantInit(&_result);
+    HRESULT _hr = raw_BytePtrToVariantArray(byteArray, byteCount, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _variant_t(_result, false);
+}
+
+inline HRESULT IUtilities::VariantArrayToIntArray ( const _variant_t & varArray, VARIANT * intArray ) {
+    HRESULT _hr = raw_VariantArrayToIntArray(varArray, intArray);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IUtilities::VariantArrayToLongArray ( const _variant_t & varArray, VARIANT * longArray ) {
+    HRESULT _hr = raw_VariantArrayToLongArray(varArray, longArray);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IUtilities::IntArrayToVariantArray ( const _variant_t & intArray, VARIANT * varArray ) {
+    HRESULT _hr = raw_IntArrayToVariantArray(intArray, varArray);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IUtilities::LongArrayToVariantArray ( const _variant_t & longArray, VARIANT * varArray ) {
+    HRESULT _hr = raw_LongArrayToVariantArray(longArray, varArray);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IUtilities::ByteArrayToVariantArray ( const _variant_t & byteArray, VARIANT * varArray ) {
+    HRESULT _hr = raw_ByteArrayToVariantArray(byteArray, varArray);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IUtilities::VariantArrayToByteArray ( const _variant_t & varArray, VARIANT * byteArray ) {
+    HRESULT _hr = raw_VariantArrayToByteArray(varArray, byteArray);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+//
+// interface ILaminator wrapper method implementations
+//
+
+inline short ILaminator::GetLaminatorInfo ( BSTR * serialNumber, BSTR * firmwareVersion, BSTR * mediaVersion ) {
+    short _result;
+    HRESULT _hr = raw_GetLaminatorInfo(serialNumber, firmwareVersion, mediaVersion, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short ILaminator::GetLaminatorCardCount ( long * cardsLaminated, long * cardsProcessed ) {
+    short _result;
+    HRESULT _hr = raw_GetLaminatorCardCount(cardsLaminated, cardsProcessed, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short ILaminator::GetLaminateParams ( VARIANT_BOOL topLaminate, long * type, BSTR * partNumber, BSTR * description, BSTR * oem, long * initialSize, long * panelsRemaining ) {
+    short _result;
+    HRESULT _hr = raw_GetLaminateParams(topLaminate, type, partNumber, description, oem, initialSize, panelsRemaining, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short ILaminator::GetLaminatorSensorStates ( VARIANT * sensorStates ) {
+    short _result;
+    HRESULT _hr = raw_GetLaminatorSensorStates(sensorStates, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short ILaminator::GetLaminatorSensorValues ( VARIANT * sensorValues ) {
+    short _result;
+    HRESULT _hr = raw_GetLaminatorSensorValues(sensorValues, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short ILaminator::SetLaminationSpeedOffsets ( long lamination, long passthru ) {
+    short _result;
+    HRESULT _hr = raw_SetLaminationSpeedOffsets(lamination, passthru, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short ILaminator::GetLaminationSpeedOffsets ( long * lamination, long * passthru ) {
+    short _result;
+    HRESULT _hr = raw_GetLaminationSpeedOffsets(lamination, passthru, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short ILaminator::GetTopLaminateOffsets ( long * xOffset, long * tempOffset ) {
+    short _result;
+    HRESULT _hr = raw_GetTopLaminateOffsets(xOffset, tempOffset, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short ILaminator::SetTopLaminateOffsets ( long xOffset, long tempOffset ) {
+    short _result;
+    HRESULT _hr = raw_SetTopLaminateOffsets(xOffset, tempOffset, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short ILaminator::GetBottomLaminateOffsets ( long * xOffset, long * tempOffset ) {
+    short _result;
+    HRESULT _hr = raw_GetBottomLaminateOffsets(xOffset, tempOffset, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short ILaminator::SetBottomLaminateOffsets ( long xOffset, long tempOffset ) {
+    short _result;
+    HRESULT _hr = raw_SetBottomLaminateOffsets(xOffset, tempOffset, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short ILaminator::SetLaminatorOffsets ( long patchLen, long coarseXOffset ) {
+    short _result;
+    HRESULT _hr = raw_SetLaminatorOffsets(patchLen, coarseXOffset, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short ILaminator::GetLaminatorOffsets ( long * patchLen, long * coarseXOffset ) {
+    short _result;
+    HRESULT _hr = raw_GetLaminatorOffsets(patchLen, coarseXOffset, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short ILaminator::GetLaminatorStatus ( BSTR * status, long * errorCode, long * jobsPending, long * jobsActive, long * jobsComplete, long * jobErrors, long * jobsTotal, long * nextActionID ) {
+    short _result;
+    HRESULT _hr = raw_GetLaminatorStatus(status, errorCode, jobsPending, jobsActive, jobsComplete, jobErrors, jobsTotal, nextActionID, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short ILaminator::RestoreDefaultConfiguration ( ) {
+    short _result;
+    HRESULT _hr = raw_RestoreDefaultConfiguration(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline short ILaminator::CalibrateLaminate ( ) {
+    short _result;
+    HRESULT _hr = raw_CalibrateLaminate(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}

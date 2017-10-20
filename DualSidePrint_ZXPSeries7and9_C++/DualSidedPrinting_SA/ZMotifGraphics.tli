@@ -1,0 +1,1666 @@
+// Created by Microsoft (R) C/C++ Compiler Version 12.00.9782.0 (d95abb14).
+//
+// ZMotifGraphics.tli
+//
+// Wrapper implementations for Win32 type library ZMotifGraphics.tlb
+// compiler-generated file created 01/27/10 at 13:44:12 - DO NOT EDIT!
+
+#pragma once
+
+//
+// interface IZMotifGraphics wrapper method implementations
+//
+
+inline HRESULT IZMotifGraphics::GetSDKVersion ( unsigned char * major, unsigned char * minor, unsigned char * build, unsigned char * revision ) {
+    HRESULT _hr = raw_GetSDKVersion(major, minor, build, revision);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::GetSDKProductVersion ( BSTR * productVersion ) {
+    HRESULT _hr = raw_GetSDKProductVersion(productVersion);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::InitGraphics ( long maxWidth, long maxHeight, enum ImageOrientationEnum imgOrientation, enum RibbonTypeEnum ribType, long fillColor ) {
+    HRESULT _hr = raw_InitGraphics(maxWidth, maxHeight, imgOrientation, ribType, fillColor);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::InitGraphics_2 ( long maxWidth, long maxHeight, enum ImageOrientationEnum imgOrientation, enum RibbonTypeEnum ribType ) {
+    HRESULT _hr = raw_InitGraphics_2(maxWidth, maxHeight, imgOrientation, ribType);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::ClearGraphics ( ) {
+    HRESULT _hr = raw_ClearGraphics();
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::CloseGraphics ( ) {
+    HRESULT _hr = raw_CloseGraphics();
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline SAFEARRAY * IZMotifGraphics::CreateBitmap ( long * dataLen ) {
+    SAFEARRAY * _result;
+    HRESULT _hr = raw_CreateBitmap(dataLen, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline HRESULT IZMotifGraphics::SharpenImage ( SAFEARRAY * * imageData, long level ) {
+    HRESULT _hr = raw_SharpenImage(imageData, level);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::AdjustBrightness ( long brightnessLevel ) {
+    HRESULT _hr = raw_AdjustBrightness(brightnessLevel);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::AdjustContrast ( long contrastLevel ) {
+    HRESULT _hr = raw_AdjustContrast(contrastLevel);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::AdjustColorScale ( long redLevel, long greenLevel, long blueLevel ) {
+    HRESULT _hr = raw_AdjustColorScale(redLevel, greenLevel, blueLevel);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::AdjustSaturation ( long saturationLevel ) {
+    HRESULT _hr = raw_AdjustSaturation(saturationLevel);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::RotateHue ( float rotation ) {
+    HRESULT _hr = raw_RotateHue(rotation);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::SetBlackExtractionLevels ( long red, long green, long blue ) {
+    HRESULT _hr = raw_SetBlackExtractionLevels(red, green, blue);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::ExtractBlackData ( SAFEARRAY * * imageData, SAFEARRAY * * colorImg, SAFEARRAY * * blackImg ) {
+    HRESULT _hr = raw_ExtractBlackData(imageData, colorImg, blackImg);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::AdjustGamma ( long level ) {
+    HRESULT _hr = raw_AdjustGamma(level);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::ConvertToGrayScale ( float scaleFactor ) {
+    HRESULT _hr = raw_ConvertToGrayScale(scaleFactor);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::SaveImageProfile ( _bstr_t profilePath ) {
+    HRESULT _hr = raw_SaveImageProfile(profilePath);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::LoadImageProfile ( _bstr_t profilePath ) {
+    HRESULT _hr = raw_LoadImageProfile(profilePath);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline SAFEARRAY * IZMotifGraphics::ImageFileToByteArray ( _bstr_t filename ) {
+    SAFEARRAY * _result;
+    HRESULT _hr = raw_ImageFileToByteArray(filename, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline _variant_t IZMotifGraphics::ImageFromByteArray ( SAFEARRAY * * imageData ) {
+    VARIANT _result;
+    VariantInit(&_result);
+    HRESULT _hr = raw_ImageFromByteArray(imageData, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _variant_t(_result, false);
+}
+
+inline _variant_t IZMotifGraphics::IPictureFromByteArray ( SAFEARRAY * * imageData ) {
+    VARIANT _result;
+    VariantInit(&_result);
+    HRESULT _hr = raw_IPictureFromByteArray(imageData, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _variant_t(_result, false);
+}
+
+inline long IZMotifGraphics::IntegerFromColor ( OLE_COLOR color ) {
+    long _result;
+    HRESULT _hr = raw_IntegerFromColor(color, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline long IZMotifGraphics::IntegerFromColorName ( _bstr_t colorName ) {
+    long _result;
+    HRESULT _hr = raw_IntegerFromColorName(colorName, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline HRESULT IZMotifGraphics::DrawEllipse ( float x, float y, float width, float height, float thickness, long color ) {
+    HRESULT _hr = raw_DrawEllipse(x, y, width, height, thickness, color);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::DrawFillEllipse ( float x, float y, float width, float height, long fillColor ) {
+    HRESULT _hr = raw_DrawFillEllipse(x, y, width, height, fillColor);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline enum RotationTypeEnum IZMotifGraphics::GetImageRotation ( ) {
+    enum RotationTypeEnum _result;
+    HRESULT _hr = get_ImageRotation(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IZMotifGraphics::PutImageRotation ( enum RotationTypeEnum pRetVal ) {
+    HRESULT _hr = put_ImageRotation(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline HRESULT IZMotifGraphics::DrawImage ( SAFEARRAY * * imageData, float x, float y, long imgWidth, long imgHeight, float opacity ) {
+    HRESULT _hr = raw_DrawImage(imageData, x, y, imgWidth, imgHeight, opacity);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::DrawImage_2 ( SAFEARRAY * * imageData, float x, float y, long imgWidth, long imgHeight, float opacity, long transparencyColorLow, long transparencyColorHigh ) {
+    HRESULT _hr = raw_DrawImage_2(imageData, x, y, imgWidth, imgHeight, opacity, transparencyColorLow, transparencyColorHigh);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::DrawImage_3 ( SAFEARRAY * * imageData, enum ImagePositionEnum position, long imgWidth, long imgHeight, float opacity ) {
+    HRESULT _hr = raw_DrawImage_3(imageData, position, imgWidth, imgHeight, opacity);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::DrawLine ( float x1, float y1, float x2, float y2, long color, float thickness ) {
+    HRESULT _hr = raw_DrawLine(x1, y1, x2, y2, color, thickness);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::DrawRectangle ( float x, float y, float width, float height, float thickness, long color ) {
+    HRESULT _hr = raw_DrawRectangle(x, y, width, height, thickness, color);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::DrawFillRectangle ( float x, float y, float width, float height, long fillColor ) {
+    HRESULT _hr = raw_DrawFillRectangle(x, y, width, height, fillColor);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::DrawTextString ( float x, float y, float angle, enum TextAlignmentEnum alignment, _bstr_t text, _bstr_t font, float fontSize, enum FontTypeEnum fontStyle, long color ) {
+    HRESULT _hr = raw_DrawTextString(x, y, angle, alignment, text, font, fontSize, fontStyle, color);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::DrawTextString_2 ( float x, float y, _bstr_t text, _bstr_t font, float fontSize, enum FontTypeEnum fontStyle, long color ) {
+    HRESULT _hr = raw_DrawTextString_2(x, y, text, font, fontSize, fontStyle, color);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::DrawTextRect ( float x, float y, float rectWidth, float rectHeight, enum TextAlignmentEnum alignment, _bstr_t text, _bstr_t font, float fontSize, enum FontTypeEnum fontStyle, long color ) {
+    HRESULT _hr = raw_DrawTextRect(x, y, rectWidth, rectHeight, alignment, text, font, fontSize, fontStyle, color);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IZMotifGraphics::DrawTextRect_2 ( float x, float y, float rectWidth, float rectHeight, float angle, enum TextAlignmentEnum alignment, _bstr_t text, _bstr_t font, float fontSize, enum FontTypeEnum fontStyle, long color ) {
+    HRESULT _hr = raw_DrawTextRect_2(x, y, rectWidth, rectHeight, angle, alignment, text, font, fontSize, fontStyle, color);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline IBarcodePtr IZMotifGraphics::GetBarcode ( ) {
+    struct IBarcode * _result;
+    HRESULT _hr = get_Barcode(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IBarcodePtr(_result, false);
+}
+
+//
+// interface IAztecCodeProperties wrapper method implementations
+//
+
+inline enum CodeFormatEnum IAztecCodeProperties::GetCodeFormat ( ) {
+    enum CodeFormatEnum _result;
+    HRESULT _hr = get_CodeFormat(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IAztecCodeProperties::PutCodeFormat ( enum CodeFormatEnum pRetVal ) {
+    HRESULT _hr = put_CodeFormat(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IAztecCodeProperties::GetCodeModuleSize ( ) {
+    double _result;
+    HRESULT _hr = get_CodeModuleSize(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IAztecCodeProperties::PutCodeModuleSize ( double pRetVal ) {
+    HRESULT _hr = put_CodeModuleSize(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline long IAztecCodeProperties::GetCodeRune ( ) {
+    long _result;
+    HRESULT _hr = get_CodeRune(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IAztecCodeProperties::PutCodeRune ( long pRetVal ) {
+    HRESULT _hr = put_CodeRune(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline long IAztecCodeProperties::GetErrorCorrection ( ) {
+    long _result;
+    HRESULT _hr = get_ErrorCorrection(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IAztecCodeProperties::PutErrorCorrection ( long pRetVal ) {
+    HRESULT _hr = put_ErrorCorrection(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IBarcode wrapper method implementations
+//
+
+inline VARIANT_BOOL IBarcode::GetAddChecksum ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_AddChecksum(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutAddChecksum ( VARIANT_BOOL pRetVal ) {
+    HRESULT _hr = put_AddChecksum(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline VARIANT_BOOL IBarcode::GetAntiAlias ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_AntiAlias(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutAntiAlias ( VARIANT_BOOL pRetVal ) {
+    HRESULT _hr = put_AntiAlias(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline VARIANT_BOOL IBarcode::GetAutoSize ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_AutoSize(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutAutoSize ( VARIANT_BOOL pRetVal ) {
+    HRESULT _hr = put_AutoSize(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IBarcode::GetBarcodeHeight ( ) {
+    double _result;
+    HRESULT _hr = get_BarcodeHeight(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutBarcodeHeight ( double pRetVal ) {
+    HRESULT _hr = put_BarcodeHeight(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IBarcode::GetBarcodeWidth ( ) {
+    double _result;
+    HRESULT _hr = get_BarcodeWidth(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutBarcodeWidth ( double pRetVal ) {
+    HRESULT _hr = put_BarcodeWidth(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IBarcode::GetBarcodeTopMargin ( ) {
+    double _result;
+    HRESULT _hr = get_BarcodeTopMargin(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutBarcodeTopMargin ( double pRetVal ) {
+    HRESULT _hr = put_BarcodeTopMargin(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IBarcode::GetBarcodeBottomMargin ( ) {
+    double _result;
+    HRESULT _hr = get_BarcodeBottomMargin(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutBarcodeBottomMargin ( double pRetVal ) {
+    HRESULT _hr = put_BarcodeBottomMargin(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline IAztecCodePropertiesPtr IBarcode::GetAztecCodeProperties ( ) {
+    struct IAztecCodeProperties * _result;
+    HRESULT _hr = get_AztecCodeProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IAztecCodePropertiesPtr(_result, false);
+}
+
+inline IBarcodeMarginPtr IBarcode::GetBarcodeMarginProperties ( ) {
+    struct IBarcodeMargin * _result;
+    HRESULT _hr = get_BarcodeMarginProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IBarcodeMarginPtr(_result, false);
+}
+
+inline ICode128PropertiesPtr IBarcode::GetCode128Properties ( ) {
+    struct ICode128Properties * _result;
+    HRESULT _hr = get_Code128Properties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return ICode128PropertiesPtr(_result, false);
+}
+
+inline ICode16kPropertiesPtr IBarcode::GetCode16kProperties ( ) {
+    struct ICode16kProperties * _result;
+    HRESULT _hr = get_Code16kProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return ICode16kPropertiesPtr(_result, false);
+}
+
+inline ICode39And93PropertiesPtr IBarcode::GetCode39And93Properties ( ) {
+    struct ICode39And93Properties * _result;
+    HRESULT _hr = get_Code39And93Properties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return ICode39And93PropertiesPtr(_result, false);
+}
+
+inline IIsbt128PropertiesPtr IBarcode::GetIsbt128Properties ( ) {
+    struct IIsbt128Properties * _result;
+    HRESULT _hr = get_Isbt128Properties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IIsbt128PropertiesPtr(_result, false);
+}
+
+inline IMaxiCodePropertiesPtr IBarcode::GetMaxiCodeProperties ( ) {
+    struct IMaxiCodeProperties * _result;
+    HRESULT _hr = get_MaxiCodeProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IMaxiCodePropertiesPtr(_result, false);
+}
+
+inline IMicroQRPropertiesPtr IBarcode::GetMicroQRProperties ( ) {
+    struct IMicroQRProperties * _result;
+    HRESULT _hr = get_MicroQRProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IMicroQRPropertiesPtr(_result, false);
+}
+
+inline IMSIPropertiesPtr IBarcode::GetMSIProperties ( ) {
+    struct IMSIProperties * _result;
+    HRESULT _hr = get_MSIProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IMSIPropertiesPtr(_result, false);
+}
+
+inline IGS1DataBarAndRSSExpandedStackedPropertiesPtr IBarcode::GetGS1DatBarAndRSSExpandedStackedProperties ( ) {
+    struct IGS1DataBarAndRSSExpandedStackedProperties * _result;
+    HRESULT _hr = get_GS1DatBarAndRSSExpandedStackedProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IGS1DataBarAndRSSExpandedStackedPropertiesPtr(_result, false);
+}
+
+inline IBearerBarPropertiesPtr IBarcode::GetBearerBarProperties ( ) {
+    struct IBearerBarProperties * _result;
+    HRESULT _hr = get_BearerBarProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IBearerBarPropertiesPtr(_result, false);
+}
+
+inline _bstr_t IBarcode::GetDisplayHumanReadableText ( ) {
+    BSTR _result;
+    HRESULT _hr = get_DisplayHumanReadableText(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline void IBarcode::PutDisplayHumanReadableText ( _bstr_t pRetVal ) {
+    HRESULT _hr = put_DisplayHumanReadableText(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline VARIANT_BOOL IBarcode::GetHIBCFormattedHumanReadableText ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_HIBCFormattedHumanReadableText(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutHIBCFormattedHumanReadableText ( VARIANT_BOOL pRetVal ) {
+    HRESULT _hr = put_HIBCFormattedHumanReadableText(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline long IBarcode::GetBackColor ( ) {
+    long _result;
+    HRESULT _hr = get_BackColor(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutBackColor ( long pRetVal ) {
+    HRESULT _hr = put_BackColor(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline _variant_t IBarcode::Getfont ( ) {
+    VARIANT _result;
+    VariantInit(&_result);
+    HRESULT _hr = get_font(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _variant_t(_result, false);
+}
+
+inline void IBarcode::PutReffont ( const _variant_t & pRetVal ) {
+    HRESULT _hr = putref_font(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline long IBarcode::GetForeColor ( ) {
+    long _result;
+    HRESULT _hr = get_ForeColor(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutForeColor ( long pRetVal ) {
+    HRESULT _hr = put_ForeColor(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum BarcodeTypeEnum IBarcode::GetBarcodeType ( ) {
+    enum BarcodeTypeEnum _result;
+    HRESULT _hr = get_BarcodeType(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutBarcodeType ( enum BarcodeTypeEnum pRetVal ) {
+    HRESULT _hr = put_BarcodeType(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline long IBarcode::GetBarColor ( ) {
+    long _result;
+    HRESULT _hr = get_BarColor(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutBarColor ( long pRetVal ) {
+    HRESULT _hr = put_BarColor(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IBarcode::GetBarHeight ( ) {
+    double _result;
+    HRESULT _hr = get_BarHeight(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutBarHeight ( double pRetVal ) {
+    HRESULT _hr = put_BarHeight(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IBarcode::GetBarRatio ( ) {
+    double _result;
+    HRESULT _hr = get_BarRatio(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutBarRatio ( double pRetVal ) {
+    HRESULT _hr = put_BarRatio(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IBarcode::GetBarWidth ( ) {
+    double _result;
+    HRESULT _hr = get_BarWidth(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutBarWidth ( double pRetVal ) {
+    HRESULT _hr = put_BarWidth(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline long IBarcode::GetBorderColor ( ) {
+    long _result;
+    HRESULT _hr = get_BorderColor(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutBorderColor ( long pRetVal ) {
+    HRESULT _hr = put_BorderColor(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IBarcode::GetBorderWidth ( ) {
+    double _result;
+    HRESULT _hr = get_BorderWidth(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutBorderWidth ( double pRetVal ) {
+    HRESULT _hr = put_BorderWidth(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline HRESULT IBarcode::ClearBarcode ( ) {
+    HRESULT _hr = raw_ClearBarcode();
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline ICodabarPropertiesPtr IBarcode::GetCodabarProperties ( ) {
+    struct ICodabarProperties * _result;
+    HRESULT _hr = get_CodabarProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return ICodabarPropertiesPtr(_result, false);
+}
+
+inline IDataMatrixPropertiesPtr IBarcode::GetDataMatrixProperties ( ) {
+    struct IDataMatrixProperties * _result;
+    HRESULT _hr = get_DataMatrixProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IDataMatrixPropertiesPtr(_result, false);
+}
+
+inline VARIANT_BOOL IBarcode::GetDisplayStopStartChars ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_DisplayStopStartChars(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutDisplayStopStartChars ( VARIANT_BOOL pRetVal ) {
+    HRESULT _hr = put_DisplayStopStartChars(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline VARIANT_BOOL IBarcode::GetDisplayCode ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_DisplayCode(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutDisplayCode ( VARIANT_BOOL pRetVal ) {
+    HRESULT _hr = put_DisplayCode(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum RotationTypeEnum_2 IBarcode::Getrotation ( ) {
+    enum RotationTypeEnum_2 _result;
+    HRESULT _hr = get_rotation(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::Putrotation ( enum RotationTypeEnum_2 pRetVal ) {
+    HRESULT _hr = put_rotation(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline HRESULT IBarcode::DrawBarcode ( float x, float y, float width, float height, float scale ) {
+    HRESULT _hr = raw_DrawBarcode(x, y, width, height, scale);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IBarcode::DrawBarcode_2 ( float x, float y, float width, float height, enum RotationTypeEnum_2 rotation, _bstr_t font, long fontSize, enum FontTypeEnum fontStyle, float scale ) {
+    HRESULT _hr = raw_DrawBarcode_2(x, y, width, height, rotation, font, fontSize, fontStyle, scale);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline HRESULT IBarcode::DrawBarcode_3 ( ) {
+    HRESULT _hr = raw_DrawBarcode_3();
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline IEANUPCPropertiesPtr IBarcode::GetEanUpcProperties ( ) {
+    struct IEANUPCProperties * _result;
+    HRESULT _hr = get_EanUpcProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IEANUPCPropertiesPtr(_result, false);
+}
+
+inline IPdf417PropertiesPtr IBarcode::GetPdf417Properties ( ) {
+    struct IPdf417Properties * _result;
+    HRESULT _hr = get_Pdf417Properties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IPdf417PropertiesPtr(_result, false);
+}
+
+inline IPharmacodePropertiesPtr IBarcode::GetPharmacodeProperties ( ) {
+    struct IPharmacodeProperties * _result;
+    HRESULT _hr = get_PharmacodeProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IPharmacodePropertiesPtr(_result, false);
+}
+
+inline IPlanetPropertiesPtr IBarcode::GetPlanetProperties ( ) {
+    struct IPlanetProperties * _result;
+    HRESULT _hr = get_PlanetProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IPlanetPropertiesPtr(_result, false);
+}
+
+inline IPostalStatePropertiesPtr IBarcode::GetPostalStateProperties ( ) {
+    struct IPostalStateProperties * _result;
+    HRESULT _hr = get_PostalStateProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IPostalStatePropertiesPtr(_result, false);
+}
+
+inline IQRCodePropertiesPtr IBarcode::GetQRCodeProperties ( ) {
+    struct IQRCodeProperties * _result;
+    HRESULT _hr = get_QRCodeProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IQRCodePropertiesPtr(_result, false);
+}
+
+inline double IBarcode::GetQuietZoneWidth ( ) {
+    double _result;
+    HRESULT _hr = get_QuietZoneWidth(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutQuietZoneWidth ( double pRetVal ) {
+    HRESULT _hr = put_QuietZoneWidth(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline ITelepenPropertiesPtr IBarcode::GetTelepenProperties ( ) {
+    struct ITelepenProperties * _result;
+    HRESULT _hr = get_TelepenProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return ITelepenPropertiesPtr(_result, false);
+}
+
+inline enum TextAlignmentEnum_2 IBarcode::GetCodeAlignment ( ) {
+    enum TextAlignmentEnum_2 _result;
+    HRESULT _hr = get_CodeAlignment(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutCodeAlignment ( enum TextAlignmentEnum_2 pRetVal ) {
+    HRESULT _hr = put_CodeAlignment(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline VARIANT_BOOL IBarcode::GetUseQuietZoneForText ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_UseQuietZoneForText(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutUseQuietZoneForText ( VARIANT_BOOL pRetVal ) {
+    HRESULT _hr = put_UseQuietZoneForText(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline IUSPSPropertiesPtr IBarcode::GetUSPSProperties ( ) {
+    struct IUSPSProperties * _result;
+    HRESULT _hr = get_USPSProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IUSPSPropertiesPtr(_result, false);
+}
+
+inline IPostnetPropertiesPtr IBarcode::GetPostnetProperties ( ) {
+    struct IPostnetProperties * _result;
+    HRESULT _hr = get_PostnetProperties(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return IPostnetPropertiesPtr(_result, false);
+}
+
+inline _bstr_t IBarcode::GetValueToEncode ( ) {
+    BSTR _result;
+    HRESULT _hr = get_ValueToEncode(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline void IBarcode::PutValueToEncode ( _bstr_t pRetVal ) {
+    HRESULT _hr = put_ValueToEncode(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline _bstr_t IBarcode::GetDisplayText ( ) {
+    BSTR _result;
+    HRESULT _hr = get_DisplayText(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline void IBarcode::PutDisplayText ( _bstr_t pRetVal ) {
+    HRESULT _hr = put_DisplayText(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline _variant_t IBarcode::GetTextFont ( ) {
+    VARIANT _result;
+    VariantInit(&_result);
+    HRESULT _hr = get_TextFont(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _variant_t(_result, false);
+}
+
+inline void IBarcode::PutRefTextFont ( const _variant_t & pRetVal ) {
+    HRESULT _hr = putref_TextFont(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline long IBarcode::GetTextForeColor ( ) {
+    long _result;
+    HRESULT _hr = get_TextForeColor(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutTextForeColor ( long pRetVal ) {
+    HRESULT _hr = put_TextForeColor(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum TextAlignmentEnum_2 IBarcode::GetTextAlignment ( ) {
+    enum TextAlignmentEnum_2 _result;
+    HRESULT _hr = get_TextAlignment(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcode::PutTextAlignment ( enum TextAlignmentEnum_2 pRetVal ) {
+    HRESULT _hr = put_TextAlignment(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IPdf417Properties wrapper method implementations
+//
+
+inline double IPdf417Properties::GetAspectRatio ( ) {
+    double _result;
+    HRESULT _hr = get_AspectRatio(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPdf417Properties::PutAspectRatio ( double pRetVal ) {
+    HRESULT _hr = put_AspectRatio(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline long IPdf417Properties::GetColumns ( ) {
+    long _result;
+    HRESULT _hr = get_Columns(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPdf417Properties::PutColumns ( long pRetVal ) {
+    HRESULT _hr = put_Columns(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum CompactionTypeEnum IPdf417Properties::GetCompactionType ( ) {
+    enum CompactionTypeEnum _result;
+    HRESULT _hr = get_CompactionType(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPdf417Properties::PutCompactionType ( enum CompactionTypeEnum pRetVal ) {
+    HRESULT _hr = put_CompactionType(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum ErrorCorrectionLevelEnum IPdf417Properties::GetErrorCorrectionLevel ( ) {
+    enum ErrorCorrectionLevelEnum _result;
+    HRESULT _hr = get_ErrorCorrectionLevel(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPdf417Properties::PutErrorCorrectionLevel ( enum ErrorCorrectionLevelEnum pRetVal ) {
+    HRESULT _hr = put_ErrorCorrectionLevel(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline _bstr_t IPdf417Properties::GetFileID ( ) {
+    BSTR _result;
+    HRESULT _hr = get_FileID(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline void IPdf417Properties::PutFileID ( _bstr_t pRetVal ) {
+    HRESULT _hr = put_FileID(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum MicroPDF417VersionEnum IPdf417Properties::GetMicroPDF417Version ( ) {
+    enum MicroPDF417VersionEnum _result;
+    HRESULT _hr = get_MicroPDF417Version(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPdf417Properties::PutMicroPDF417Version ( enum MicroPDF417VersionEnum pRetVal ) {
+    HRESULT _hr = put_MicroPDF417Version(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline long IPdf417Properties::GetRows ( ) {
+    long _result;
+    HRESULT _hr = get_Rows(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPdf417Properties::PutRows ( long pRetVal ) {
+    HRESULT _hr = put_Rows(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline long IPdf417Properties::GetSegmentCount ( ) {
+    long _result;
+    HRESULT _hr = get_SegmentCount(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPdf417Properties::PutSegmentCount ( long pRetVal ) {
+    HRESULT _hr = put_SegmentCount(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline long IPdf417Properties::GetSegmentIndex ( ) {
+    long _result;
+    HRESULT _hr = get_SegmentIndex(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPdf417Properties::PutSegmentIndex ( long pRetVal ) {
+    HRESULT _hr = put_SegmentIndex(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline VARIANT_BOOL IPdf417Properties::GetTruncated ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_Truncated(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPdf417Properties::PutTruncated ( VARIANT_BOOL pRetVal ) {
+    HRESULT _hr = put_Truncated(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IEANUPCProperties wrapper method implementations
+//
+
+inline VARIANT_BOOL IEANUPCProperties::GetDisplayLightMarginIndicator ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_DisplayLightMarginIndicator(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IEANUPCProperties::PutDisplayLightMarginIndicator ( VARIANT_BOOL pRetVal ) {
+    HRESULT _hr = put_DisplayLightMarginIndicator(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline _bstr_t IEANUPCProperties::GetSupplementCode ( ) {
+    BSTR _result;
+    HRESULT _hr = get_SupplementCode(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline void IEANUPCProperties::PutSupplementCode ( _bstr_t pRetVal ) {
+    HRESULT _hr = put_SupplementCode(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IEANUPCProperties::GetSupplementSeparation ( ) {
+    double _result;
+    HRESULT _hr = get_SupplementSeparation(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IEANUPCProperties::PutSupplementSeparation ( double pRetVal ) {
+    HRESULT _hr = put_SupplementSeparation(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IEANUPCProperties::GetSupplementTopMargin ( ) {
+    double _result;
+    HRESULT _hr = get_SupplementTopMargin(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IEANUPCProperties::PutSupplementTopMargin ( double pRetVal ) {
+    HRESULT _hr = put_SupplementTopMargin(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum SupplementTypeEnum IEANUPCProperties::GetSupplementType ( ) {
+    enum SupplementTypeEnum _result;
+    HRESULT _hr = get_SupplementType(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IEANUPCProperties::PutSupplementType ( enum SupplementTypeEnum pRetVal ) {
+    HRESULT _hr = put_SupplementType(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum UPCENumberSystemEnum IEANUPCProperties::GetUPCESystem ( ) {
+    enum UPCENumberSystemEnum _result;
+    HRESULT _hr = get_UPCESystem(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IEANUPCProperties::PutUPCESystem ( enum UPCENumberSystemEnum pRetVal ) {
+    HRESULT _hr = put_UPCESystem(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline VARIANT_BOOL IEANUPCProperties::GetDisplayGuardBar ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_DisplayGuardBar(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IEANUPCProperties::PutDisplayGuardBar ( VARIANT_BOOL pRetVal ) {
+    HRESULT _hr = put_DisplayGuardBar(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IEANUPCProperties::GetGuardBarHeight ( ) {
+    double _result;
+    HRESULT _hr = get_GuardBarHeight(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IEANUPCProperties::PutGuardBarHeight ( double pRetVal ) {
+    HRESULT _hr = put_GuardBarHeight(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface ICodabarProperties wrapper method implementations
+//
+
+inline enum StartStopCharacterEnum ICodabarProperties::GetStartCharacter ( ) {
+    enum StartStopCharacterEnum _result;
+    HRESULT _hr = get_StartCharacter(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void ICodabarProperties::PutStartCharacter ( enum StartStopCharacterEnum pRetVal ) {
+    HRESULT _hr = put_StartCharacter(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum StartStopCharacterEnum ICodabarProperties::GetStopCharacter ( ) {
+    enum StartStopCharacterEnum _result;
+    HRESULT _hr = get_StopCharacter(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void ICodabarProperties::PutStopCharacter ( enum StartStopCharacterEnum pRetVal ) {
+    HRESULT _hr = put_StopCharacter(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IDataMatrixProperties wrapper method implementations
+//
+
+inline enum EncodingTypeEnum IDataMatrixProperties::GetEncodingType ( ) {
+    enum EncodingTypeEnum _result;
+    HRESULT _hr = get_EncodingType(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IDataMatrixProperties::PutEncodingType ( enum EncodingTypeEnum pRetVal ) {
+    HRESULT _hr = put_EncodingType(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum FormatTypeEnum IDataMatrixProperties::GetFormatType ( ) {
+    enum FormatTypeEnum _result;
+    HRESULT _hr = get_FormatType(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IDataMatrixProperties::PutFormatType ( enum FormatTypeEnum pRetVal ) {
+    HRESULT _hr = put_FormatType(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IDataMatrixProperties::GetModuleSize ( ) {
+    double _result;
+    HRESULT _hr = get_ModuleSize(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IDataMatrixProperties::PutModuleSize ( double pRetVal ) {
+    HRESULT _hr = put_ModuleSize(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline VARIANT_BOOL IDataMatrixProperties::GetProcessTilde ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_ProcessTilde(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IDataMatrixProperties::PutProcessTilde ( VARIANT_BOOL pRetVal ) {
+    HRESULT _hr = put_ProcessTilde(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IPharmacodeProperties wrapper method implementations
+//
+
+inline double IPharmacodeProperties::GetBarSpacing ( ) {
+    double _result;
+    HRESULT _hr = get_BarSpacing(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPharmacodeProperties::PutBarSpacing ( double pRetVal ) {
+    HRESULT _hr = put_BarSpacing(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IPharmacodeProperties::GetThickBarWidth ( ) {
+    double _result;
+    HRESULT _hr = get_ThickBarWidth(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPharmacodeProperties::PutThickBarWidth ( double pRetVal ) {
+    HRESULT _hr = put_ThickBarWidth(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IPharmacodeProperties::GetThinBarWidth ( ) {
+    double _result;
+    HRESULT _hr = get_ThinBarWidth(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPharmacodeProperties::PutThinBarWidth ( double pRetVal ) {
+    HRESULT _hr = put_ThinBarWidth(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IPlanetProperties wrapper method implementations
+//
+
+inline double IPlanetProperties::GetShortBarHeight ( ) {
+    double _result;
+    HRESULT _hr = get_ShortBarHeight(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPlanetProperties::PutShortBarHeight ( double pRetVal ) {
+    HRESULT _hr = put_ShortBarHeight(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IPlanetProperties::GetTallBarHeight ( ) {
+    double _result;
+    HRESULT _hr = get_TallBarHeight(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPlanetProperties::PutTallBarHeight ( double pRetVal ) {
+    HRESULT _hr = put_TallBarHeight(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IPostalStateProperties wrapper method implementations
+//
+
+inline VARIANT_BOOL IPostalStateProperties::GetAddStartStopCharacters ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_AddStartStopCharacters(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPostalStateProperties::PutAddStartStopCharacters ( VARIANT_BOOL pRetVal ) {
+    HRESULT _hr = put_AddStartStopCharacters(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IPostalStateProperties::GetBarSpacing ( ) {
+    double _result;
+    HRESULT _hr = get_BarSpacing(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPostalStateProperties::PutBarSpacing ( double pRetVal ) {
+    HRESULT _hr = put_BarSpacing(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IPostalStateProperties::GetTrackerBarHeight ( ) {
+    double _result;
+    HRESULT _hr = get_TrackerBarHeight(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPostalStateProperties::PutTrackerBarHeight ( double pRetVal ) {
+    HRESULT _hr = put_TrackerBarHeight(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IPostalStateProperties::GetTrackerBarWidth ( ) {
+    double _result;
+    HRESULT _hr = get_TrackerBarWidth(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPostalStateProperties::PutTrackerBarWidth ( double pRetVal ) {
+    HRESULT _hr = put_TrackerBarWidth(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IPostnetProperties wrapper method implementations
+//
+
+inline double IPostnetProperties::GetShortBarHeight ( ) {
+    double _result;
+    HRESULT _hr = get_ShortBarHeight(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPostnetProperties::PutShortBarHeight ( double pRetVal ) {
+    HRESULT _hr = put_ShortBarHeight(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IPostnetProperties::GetTallBarHeight ( ) {
+    double _result;
+    HRESULT _hr = get_TallBarHeight(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IPostnetProperties::PutTallBarHeight ( double pRetVal ) {
+    HRESULT _hr = put_TallBarHeight(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IQRCodeProperties wrapper method implementations
+//
+
+inline enum CodeVersionTypeEnum IQRCodeProperties::GetCodeVersion ( ) {
+    enum CodeVersionTypeEnum _result;
+    HRESULT _hr = get_CodeVersion(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IQRCodeProperties::PutCodeVersion ( enum CodeVersionTypeEnum pRetVal ) {
+    HRESULT _hr = put_CodeVersion(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum QREncodingTypeEnum IQRCodeProperties::GetEncodingType ( ) {
+    enum QREncodingTypeEnum _result;
+    HRESULT _hr = get_EncodingType(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IQRCodeProperties::PutEncodingType ( enum QREncodingTypeEnum pRetVal ) {
+    HRESULT _hr = put_EncodingType(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline enum ErrorCorrectionLevelEnum_2 IQRCodeProperties::GetErrorCorrectionLevel ( ) {
+    enum ErrorCorrectionLevelEnum_2 _result;
+    HRESULT _hr = get_ErrorCorrectionLevel(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IQRCodeProperties::PutErrorCorrectionLevel ( enum ErrorCorrectionLevelEnum_2 pRetVal ) {
+    HRESULT _hr = put_ErrorCorrectionLevel(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IQRCodeProperties::GetModuleSize ( ) {
+    double _result;
+    HRESULT _hr = get_ModuleSize(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IQRCodeProperties::PutModuleSize ( double pRetVal ) {
+    HRESULT _hr = put_ModuleSize(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline _bstr_t IQRCodeProperties::GetEncodingName ( ) {
+    BSTR _result;
+    HRESULT _hr = get_EncodingName(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline void IQRCodeProperties::PutEncodingName ( _bstr_t pRetVal ) {
+    HRESULT _hr = put_EncodingName(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IUSPSProperties wrapper method implementations
+//
+
+inline enum FIMTypeEnum IUSPSProperties::GetFIMPattern ( ) {
+    enum FIMTypeEnum _result;
+    HRESULT _hr = get_FIMPattern(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IUSPSProperties::PutFIMPattern ( enum FIMTypeEnum pRetVal ) {
+    HRESULT _hr = put_FIMPattern(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline long IUSPSProperties::GetHorizontalBarsCount ( ) {
+    long _result;
+    HRESULT _hr = get_HorizontalBarsCount(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IUSPSProperties::PutHorizontalBarsCount ( long pRetVal ) {
+    HRESULT _hr = put_HorizontalBarsCount(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface ITelepenProperties wrapper method implementations
+//
+
+inline enum EncodingTypeEnum_2 ITelepenProperties::GetEncodingType ( ) {
+    enum EncodingTypeEnum_2 _result;
+    HRESULT _hr = get_EncodingType(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void ITelepenProperties::PutEncodingType ( enum EncodingTypeEnum_2 pRetVal ) {
+    HRESULT _hr = put_EncodingType(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IBarcodeMargin wrapper method implementations
+//
+
+inline HRESULT IBarcodeMargin::SetMargins ( double left, double top, double right, double bottom ) {
+    HRESULT _hr = raw_SetMargins(left, top, right, bottom);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}
+
+inline void IBarcodeMargin::PutSetAll ( double _arg1 ) {
+    HRESULT _hr = put_SetAll(_arg1);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IBarcodeMargin::Getbottom ( ) {
+    double _result;
+    HRESULT _hr = get_bottom(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcodeMargin::Putbottom ( double pRetVal ) {
+    HRESULT _hr = put_bottom(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IBarcodeMargin::Getleft ( ) {
+    double _result;
+    HRESULT _hr = get_left(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcodeMargin::Putleft ( double pRetVal ) {
+    HRESULT _hr = put_left(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IBarcodeMargin::Getright ( ) {
+    double _result;
+    HRESULT _hr = get_right(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcodeMargin::Putright ( double pRetVal ) {
+    HRESULT _hr = put_right(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IBarcodeMargin::Gettop ( ) {
+    double _result;
+    HRESULT _hr = get_top(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBarcodeMargin::Puttop ( double pRetVal ) {
+    HRESULT _hr = put_top(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface ICode128Properties wrapper method implementations
+//
+
+inline enum CharacterSetEnum ICode128Properties::GetCharacterSet ( ) {
+    enum CharacterSetEnum _result;
+    HRESULT _hr = get_CharacterSet(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void ICode128Properties::PutCharacterSet ( enum CharacterSetEnum pRetVal ) {
+    HRESULT _hr = put_CharacterSet(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface ICode16kProperties wrapper method implementations
+//
+
+inline enum ModeEnum ICode16kProperties::GetMode ( ) {
+    enum ModeEnum _result;
+    HRESULT _hr = get_Mode(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void ICode16kProperties::PutMode ( enum ModeEnum pRetVal ) {
+    HRESULT _hr = put_Mode(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface ICode39And93Properties wrapper method implementations
+//
+
+inline VARIANT_BOOL ICode39And93Properties::GetExtended ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_Extended(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void ICode39And93Properties::PutExtended ( VARIANT_BOOL pRetVal ) {
+    HRESULT _hr = put_Extended(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IIsbt128Properties wrapper method implementations
+//
+
+inline enum DataStructureEnum IIsbt128Properties::GetDataStructure ( ) {
+    enum DataStructureEnum _result;
+    HRESULT _hr = get_DataStructure(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IIsbt128Properties::PutDataStructure ( enum DataStructureEnum pRetVal ) {
+    HRESULT _hr = put_DataStructure(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IMaxiCodeProperties wrapper method implementations
+//
+
+inline enum ModeEnum_2 IMaxiCodeProperties::GetMode ( ) {
+    enum ModeEnum_2 _result;
+    HRESULT _hr = get_Mode(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IMaxiCodeProperties::PutMode ( enum ModeEnum_2 pRetVal ) {
+    HRESULT _hr = put_Mode(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline VARIANT_BOOL IMaxiCodeProperties::GetProcessTilde ( ) {
+    VARIANT_BOOL _result;
+    HRESULT _hr = get_ProcessTilde(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IMaxiCodeProperties::PutProcessTilde ( VARIANT_BOOL pRetVal ) {
+    HRESULT _hr = put_ProcessTilde(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline long IMaxiCodeProperties::GetSymbolCount ( ) {
+    long _result;
+    HRESULT _hr = get_SymbolCount(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IMaxiCodeProperties::PutSymbolCount ( long pRetVal ) {
+    HRESULT _hr = put_SymbolCount(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline long IMaxiCodeProperties::GetSymbolIndex ( ) {
+    long _result;
+    HRESULT _hr = get_SymbolIndex(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IMaxiCodeProperties::PutSymbolIndex ( long pRetVal ) {
+    HRESULT _hr = put_SymbolIndex(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IMicroQRProperties wrapper method implementations
+//
+
+inline enum CodeVersionEnum IMicroQRProperties::GetCodeVersion ( ) {
+    enum CodeVersionEnum _result;
+    HRESULT _hr = get_CodeVersion(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IMicroQRProperties::PutCodeVersion ( enum CodeVersionEnum pRetVal ) {
+    HRESULT _hr = put_CodeVersion(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IMSIProperties wrapper method implementations
+//
+
+inline enum ChecksumEnum IMSIProperties::GetChecksum ( ) {
+    enum ChecksumEnum _result;
+    HRESULT _hr = get_Checksum(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IMSIProperties::PutChecksum ( enum ChecksumEnum pRetVal ) {
+    HRESULT _hr = put_Checksum(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IGS1DataBarAndRSSExpandedStackedProperties wrapper method implementations
+//
+
+inline long IGS1DataBarAndRSSExpandedStackedProperties::GetSegmentsPerRow ( ) {
+    long _result;
+    HRESULT _hr = get_SegmentsPerRow(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IGS1DataBarAndRSSExpandedStackedProperties::PutSegmentsPerRow ( long pRetVal ) {
+    HRESULT _hr = put_SegmentsPerRow(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+//
+// interface IBearerBarProperties wrapper method implementations
+//
+
+inline enum StyleEnum IBearerBarProperties::GetStyle ( ) {
+    enum StyleEnum _result;
+    HRESULT _hr = get_Style(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBearerBarProperties::PutStyle ( enum StyleEnum pRetVal ) {
+    HRESULT _hr = put_Style(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline double IBearerBarProperties::Getwidth ( ) {
+    double _result;
+    HRESULT _hr = get_width(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline void IBearerBarProperties::Putwidth ( double pRetVal ) {
+    HRESULT _hr = put_width(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}

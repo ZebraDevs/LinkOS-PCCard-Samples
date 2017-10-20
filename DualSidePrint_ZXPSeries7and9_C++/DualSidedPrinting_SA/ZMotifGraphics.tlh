@@ -1,0 +1,2888 @@
+// Created by Microsoft (R) C/C++ Compiler Version 12.00.9782.0 (d95abb14).
+//
+// ZMotifGraphics.tlh
+//
+// C++ source equivalent of Win32 type library ZMotifGraphics.tlb
+// compiler-generated file created 01/27/10 at 13:44:12 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("093ff85e-f428-30f0-84d2-c4a963ae677e"))
+/* dual interface */ IZMotifGraphics;
+struct __declspec(uuid("dc9ecc87-80a3-335d-a6c7-dcfab18d79d0"))
+/* dual interface */ IAztecCodeProperties;
+struct /* coclass */ ZMotifGraphics;
+struct __declspec(uuid("6fa522c5-fc72-346a-80aa-46e9d3eadb83"))
+/* dual interface */ IBarcode;
+struct /* coclass */ Barcode;
+struct __declspec(uuid("dbe67bd9-173b-3be6-9ffe-2b30104599b4"))
+/* dual interface */ IPdf417Properties;
+struct /* coclass */ Pdf417Props;
+struct __declspec(uuid("9ba28ca8-cf8d-3e61-a27c-e26fa215cb1c"))
+/* dual interface */ IEANUPCProperties;
+struct /* coclass */ EANUPCProps;
+struct /* coclass */ AztecCodeProps;
+struct __declspec(uuid("da52bba0-5997-3962-8c45-e1c5e983f787"))
+/* dual interface */ ICodabarProperties;
+struct /* coclass */ CodabarProps;
+struct __declspec(uuid("6f45277f-67a4-3a70-859f-f9cb4fd8b86a"))
+/* dual interface */ IDataMatrixProperties;
+struct /* coclass */ DataMatrixProps;
+struct __declspec(uuid("8c3c0b06-1c3a-3c98-bc3d-d4afb3986008"))
+/* dual interface */ IPharmacodeProperties;
+struct /* coclass */ PharmacodeProps;
+struct __declspec(uuid("7bcd1d78-c040-3910-b0da-51efe43d3153"))
+/* dual interface */ IPlanetProperties;
+struct /* coclass */ PlanetProps;
+struct __declspec(uuid("61a44772-77d1-3ad5-8369-948e494ee64d"))
+/* dual interface */ IPostalStateProperties;
+struct /* coclass */ PostalStateProps;
+struct __declspec(uuid("5a1ba74d-96b5-37b3-95ac-97ad48c53530"))
+/* dual interface */ IPostnetProperties;
+struct /* coclass */ PostnetProps;
+struct __declspec(uuid("366320c7-1361-3465-848a-da3d6d055002"))
+/* dual interface */ IQRCodeProperties;
+struct /* coclass */ QRCodeProps;
+struct __declspec(uuid("9d586654-e8df-34b3-b226-bec9f58bcb0f"))
+/* dual interface */ IUSPSProperties;
+struct /* coclass */ USPSProps;
+struct __declspec(uuid("4615a238-c053-3572-8261-87429a3f31f9"))
+/* dual interface */ ITelepenProperties;
+struct /* coclass */ TelepenProps;
+struct __declspec(uuid("544ad347-eebb-333e-a78a-fecea1ad30a3"))
+/* dual interface */ IBarcodeMargin;
+struct /* coclass */ BarcodeMarginProps;
+struct __declspec(uuid("f66d4ea0-0b73-30dc-b785-60e965079170"))
+/* dual interface */ ICode128Properties;
+struct /* coclass */ Code128Props;
+struct __declspec(uuid("724d94b0-3fa6-3e26-8662-07548160cb50"))
+/* dual interface */ ICode16kProperties;
+struct /* coclass */ Code16kProps;
+struct __declspec(uuid("a9630681-fe07-35fe-b070-cfe5d377bf2e"))
+/* dual interface */ ICode39And93Properties;
+struct /* coclass */ Code39And93Props;
+struct __declspec(uuid("edc1fadf-85eb-331c-8b5d-d1b52fb7f340"))
+/* dual interface */ IIsbt128Properties;
+struct /* coclass */ Isbt128Props;
+struct __declspec(uuid("dde781f7-7f2b-3ac0-8678-33e969599a33"))
+/* dual interface */ IMaxiCodeProperties;
+struct /* coclass */ MaxiCodeProps;
+struct __declspec(uuid("4fe418da-6c59-3296-a072-5831f5e947c7"))
+/* dual interface */ IMicroQRProperties;
+struct /* coclass */ MicroQRProps;
+struct __declspec(uuid("9a78a53a-8b09-3137-b723-4d8a00f528c1"))
+/* dual interface */ IMSIProperties;
+struct /* coclass */ MSIProps;
+struct __declspec(uuid("92493c6c-e138-326e-a144-2920afc82376"))
+/* dual interface */ IGS1DataBarAndRSSExpandedStackedProperties;
+struct /* coclass */ GS1DataBarAndRSSExpandedStackedProps;
+struct __declspec(uuid("e14f106b-518b-3882-8891-10d072f5f440"))
+/* dual interface */ IBearerBarProperties;
+struct /* coclass */ BearerBarProps;
+struct __declspec(uuid("2306d853-fcee-370e-add9-042705121270"))
+/* dual interface */ _Barcode;
+struct __declspec(uuid("b5445089-a637-3166-998d-590f4323c9dd"))
+/* dual interface */ _Pdf417Props;
+struct __declspec(uuid("03db9bdd-e16c-3bd1-894b-f9715a5a3c09"))
+/* dual interface */ _EANUPCProps;
+struct __declspec(uuid("6c4631f1-5827-3881-abea-1407c621f81a"))
+/* dual interface */ _AztecCodeProps;
+struct __declspec(uuid("3811b19b-fa5a-30b9-972f-e99aa598cf96"))
+/* dual interface */ _CodabarProps;
+struct __declspec(uuid("814c4b7a-2887-3126-b971-9ebab199f289"))
+/* dual interface */ _DataMatrixProps;
+struct __declspec(uuid("c1e9a5a3-dbe3-3094-9b4e-333c9b35a151"))
+/* dual interface */ _PharmacodeProps;
+struct __declspec(uuid("0d93d242-323a-3c04-a55c-eca064e56778"))
+/* dual interface */ _PlanetProps;
+struct __declspec(uuid("792daf53-afa9-3d36-8b94-384cbdc8c210"))
+/* dual interface */ _PostalStateProps;
+struct __declspec(uuid("2bd46852-a2d9-3033-8d86-9bdddbfbe862"))
+/* dual interface */ _PostnetProps;
+struct __declspec(uuid("bec9fed3-8dd2-38f8-aed9-5f9252e8d2fc"))
+/* dual interface */ _QRCodeProps;
+struct __declspec(uuid("5211ea45-8408-3422-a5ee-26b935e9a880"))
+/* dual interface */ _USPSProps;
+struct __declspec(uuid("724a17d7-21d2-3be1-b1a9-4630a1d4f4b2"))
+/* dual interface */ _TelepenProps;
+struct __declspec(uuid("2e969809-899b-3456-adf3-a5805368d1b3"))
+/* dual interface */ _BarcodeMarginProps;
+struct __declspec(uuid("36f521bf-9e25-3784-8a48-652a8407363e"))
+/* dual interface */ _Code128Props;
+struct __declspec(uuid("d14271da-d5ad-3cdc-ad25-7d488abb50a8"))
+/* dual interface */ _Code16kProps;
+struct __declspec(uuid("5139ddd0-f302-38c9-8042-bf3ad68a8747"))
+/* dual interface */ _Code39And93Props;
+struct __declspec(uuid("3aba1928-0df9-3eda-8566-dcbc08b216a0"))
+/* dual interface */ _Isbt128Props;
+struct __declspec(uuid("5ac3c971-968e-30b0-8e70-3921507e9e86"))
+/* dual interface */ _MaxiCodeProps;
+struct __declspec(uuid("5fba1ac8-15a5-33d8-be74-ef1ab6baa6e7"))
+/* dual interface */ _MicroQRProps;
+struct __declspec(uuid("f84e32f3-d881-388b-841c-c7395e0d6e9f"))
+/* dual interface */ _MSIProps;
+struct __declspec(uuid("7c57d135-439e-38a1-ac93-74aaefe3e0f2"))
+/* dual interface */ _GS1DataBarAndRSSExpandedStackedProps;
+struct __declspec(uuid("886c6dc3-2b6a-3059-9bc8-21c2668b72cf"))
+/* dual interface */ _BearerBarProps;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(IZMotifGraphics, __uuidof(IZMotifGraphics));
+_COM_SMARTPTR_TYPEDEF(IAztecCodeProperties, __uuidof(IAztecCodeProperties));
+_COM_SMARTPTR_TYPEDEF(IBarcode, __uuidof(IBarcode));
+_COM_SMARTPTR_TYPEDEF(IPdf417Properties, __uuidof(IPdf417Properties));
+_COM_SMARTPTR_TYPEDEF(IEANUPCProperties, __uuidof(IEANUPCProperties));
+_COM_SMARTPTR_TYPEDEF(ICodabarProperties, __uuidof(ICodabarProperties));
+_COM_SMARTPTR_TYPEDEF(IDataMatrixProperties, __uuidof(IDataMatrixProperties));
+_COM_SMARTPTR_TYPEDEF(IPharmacodeProperties, __uuidof(IPharmacodeProperties));
+_COM_SMARTPTR_TYPEDEF(IPlanetProperties, __uuidof(IPlanetProperties));
+_COM_SMARTPTR_TYPEDEF(IPostalStateProperties, __uuidof(IPostalStateProperties));
+_COM_SMARTPTR_TYPEDEF(IPostnetProperties, __uuidof(IPostnetProperties));
+_COM_SMARTPTR_TYPEDEF(IQRCodeProperties, __uuidof(IQRCodeProperties));
+_COM_SMARTPTR_TYPEDEF(IUSPSProperties, __uuidof(IUSPSProperties));
+_COM_SMARTPTR_TYPEDEF(ITelepenProperties, __uuidof(ITelepenProperties));
+_COM_SMARTPTR_TYPEDEF(IBarcodeMargin, __uuidof(IBarcodeMargin));
+_COM_SMARTPTR_TYPEDEF(ICode128Properties, __uuidof(ICode128Properties));
+_COM_SMARTPTR_TYPEDEF(ICode16kProperties, __uuidof(ICode16kProperties));
+_COM_SMARTPTR_TYPEDEF(ICode39And93Properties, __uuidof(ICode39And93Properties));
+_COM_SMARTPTR_TYPEDEF(IIsbt128Properties, __uuidof(IIsbt128Properties));
+_COM_SMARTPTR_TYPEDEF(IMaxiCodeProperties, __uuidof(IMaxiCodeProperties));
+_COM_SMARTPTR_TYPEDEF(IMicroQRProperties, __uuidof(IMicroQRProperties));
+_COM_SMARTPTR_TYPEDEF(IMSIProperties, __uuidof(IMSIProperties));
+_COM_SMARTPTR_TYPEDEF(IGS1DataBarAndRSSExpandedStackedProperties, __uuidof(IGS1DataBarAndRSSExpandedStackedProperties));
+_COM_SMARTPTR_TYPEDEF(IBearerBarProperties, __uuidof(IBearerBarProperties));
+_COM_SMARTPTR_TYPEDEF(_Barcode, __uuidof(_Barcode));
+_COM_SMARTPTR_TYPEDEF(_Pdf417Props, __uuidof(_Pdf417Props));
+_COM_SMARTPTR_TYPEDEF(_EANUPCProps, __uuidof(_EANUPCProps));
+_COM_SMARTPTR_TYPEDEF(_AztecCodeProps, __uuidof(_AztecCodeProps));
+_COM_SMARTPTR_TYPEDEF(_CodabarProps, __uuidof(_CodabarProps));
+_COM_SMARTPTR_TYPEDEF(_DataMatrixProps, __uuidof(_DataMatrixProps));
+_COM_SMARTPTR_TYPEDEF(_PharmacodeProps, __uuidof(_PharmacodeProps));
+_COM_SMARTPTR_TYPEDEF(_PlanetProps, __uuidof(_PlanetProps));
+_COM_SMARTPTR_TYPEDEF(_PostalStateProps, __uuidof(_PostalStateProps));
+_COM_SMARTPTR_TYPEDEF(_PostnetProps, __uuidof(_PostnetProps));
+_COM_SMARTPTR_TYPEDEF(_QRCodeProps, __uuidof(_QRCodeProps));
+_COM_SMARTPTR_TYPEDEF(_USPSProps, __uuidof(_USPSProps));
+_COM_SMARTPTR_TYPEDEF(_TelepenProps, __uuidof(_TelepenProps));
+_COM_SMARTPTR_TYPEDEF(_BarcodeMarginProps, __uuidof(_BarcodeMarginProps));
+_COM_SMARTPTR_TYPEDEF(_Code128Props, __uuidof(_Code128Props));
+_COM_SMARTPTR_TYPEDEF(_Code16kProps, __uuidof(_Code16kProps));
+_COM_SMARTPTR_TYPEDEF(_Code39And93Props, __uuidof(_Code39And93Props));
+_COM_SMARTPTR_TYPEDEF(_Isbt128Props, __uuidof(_Isbt128Props));
+_COM_SMARTPTR_TYPEDEF(_MaxiCodeProps, __uuidof(_MaxiCodeProps));
+_COM_SMARTPTR_TYPEDEF(_MicroQRProps, __uuidof(_MicroQRProps));
+_COM_SMARTPTR_TYPEDEF(_MSIProps, __uuidof(_MSIProps));
+_COM_SMARTPTR_TYPEDEF(_GS1DataBarAndRSSExpandedStackedProps, __uuidof(_GS1DataBarAndRSSExpandedStackedProps));
+_COM_SMARTPTR_TYPEDEF(_BearerBarProps, __uuidof(_BearerBarProps));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("093ff85e-f428-30f0-84d2-c4a963ae677e"))
+IZMotifGraphics : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetBarcode))
+    IBarcodePtr Barcode;
+    __declspec(property(get=GetImageRotation,put=PutImageRotation))
+    enum RotationTypeEnum ImageRotation;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    HRESULT GetSDKVersion (
+        unsigned char * major,
+        unsigned char * minor,
+        unsigned char * build,
+        unsigned char * revision );
+    HRESULT GetSDKProductVersion (
+        BSTR * productVersion );
+    HRESULT InitGraphics (
+        long maxWidth,
+        long maxHeight,
+        enum ImageOrientationEnum imgOrientation,
+        enum RibbonTypeEnum ribType,
+        long fillColor );
+    HRESULT InitGraphics_2 (
+        long maxWidth,
+        long maxHeight,
+        enum ImageOrientationEnum imgOrientation,
+        enum RibbonTypeEnum ribType );
+    HRESULT ClearGraphics ( );
+    HRESULT CloseGraphics ( );
+    SAFEARRAY * CreateBitmap (
+        long * dataLen );
+    HRESULT SharpenImage (
+        SAFEARRAY * * imageData,
+        long level );
+    HRESULT AdjustBrightness (
+        long brightnessLevel );
+    HRESULT AdjustContrast (
+        long contrastLevel );
+    HRESULT AdjustColorScale (
+        long redLevel,
+        long greenLevel,
+        long blueLevel );
+    HRESULT AdjustSaturation (
+        long saturationLevel );
+    HRESULT RotateHue (
+        float rotation );
+    HRESULT SetBlackExtractionLevels (
+        long red,
+        long green,
+        long blue );
+    HRESULT ExtractBlackData (
+        SAFEARRAY * * imageData,
+        SAFEARRAY * * colorImg,
+        SAFEARRAY * * blackImg );
+    HRESULT AdjustGamma (
+        long level );
+    HRESULT ConvertToGrayScale (
+        float scaleFactor );
+    HRESULT SaveImageProfile (
+        _bstr_t profilePath );
+    HRESULT LoadImageProfile (
+        _bstr_t profilePath );
+    SAFEARRAY * ImageFileToByteArray (
+        _bstr_t filename );
+    _variant_t ImageFromByteArray (
+        SAFEARRAY * * imageData );
+    _variant_t IPictureFromByteArray (
+        SAFEARRAY * * imageData );
+    long IntegerFromColor (
+        OLE_COLOR color );
+    long IntegerFromColorName (
+        _bstr_t colorName );
+    HRESULT DrawEllipse (
+        float x,
+        float y,
+        float width,
+        float height,
+        float thickness,
+        long color );
+    HRESULT DrawFillEllipse (
+        float x,
+        float y,
+        float width,
+        float height,
+        long fillColor );
+    enum RotationTypeEnum GetImageRotation ( );
+    void PutImageRotation (
+        enum RotationTypeEnum pRetVal );
+    HRESULT DrawImage (
+        SAFEARRAY * * imageData,
+        float x,
+        float y,
+        long imgWidth,
+        long imgHeight,
+        float opacity );
+    HRESULT DrawImage_2 (
+        SAFEARRAY * * imageData,
+        float x,
+        float y,
+        long imgWidth,
+        long imgHeight,
+        float opacity,
+        long transparencyColorLow,
+        long transparencyColorHigh );
+    HRESULT DrawImage_3 (
+        SAFEARRAY * * imageData,
+        enum ImagePositionEnum position,
+        long imgWidth,
+        long imgHeight,
+        float opacity );
+    HRESULT DrawLine (
+        float x1,
+        float y1,
+        float x2,
+        float y2,
+        long color,
+        float thickness );
+    HRESULT DrawRectangle (
+        float x,
+        float y,
+        float width,
+        float height,
+        float thickness,
+        long color );
+    HRESULT DrawFillRectangle (
+        float x,
+        float y,
+        float width,
+        float height,
+        long fillColor );
+    HRESULT DrawTextString (
+        float x,
+        float y,
+        float angle,
+        enum TextAlignmentEnum alignment,
+        _bstr_t text,
+        _bstr_t font,
+        float fontSize,
+        enum FontTypeEnum fontStyle,
+        long color );
+    HRESULT DrawTextString_2 (
+        float x,
+        float y,
+        _bstr_t text,
+        _bstr_t font,
+        float fontSize,
+        enum FontTypeEnum fontStyle,
+        long color );
+    HRESULT DrawTextRect (
+        float x,
+        float y,
+        float rectWidth,
+        float rectHeight,
+        enum TextAlignmentEnum alignment,
+        _bstr_t text,
+        _bstr_t font,
+        float fontSize,
+        enum FontTypeEnum fontStyle,
+        long color );
+    HRESULT DrawTextRect_2 (
+        float x,
+        float y,
+        float rectWidth,
+        float rectHeight,
+        float angle,
+        enum TextAlignmentEnum alignment,
+        _bstr_t text,
+        _bstr_t font,
+        float fontSize,
+        enum FontTypeEnum fontStyle,
+        long color );
+    IBarcodePtr GetBarcode ( );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall raw_GetSDKVersion (
+        unsigned char * major,
+        unsigned char * minor,
+        unsigned char * build,
+        unsigned char * revision ) = 0;
+    virtual HRESULT __stdcall raw_GetSDKProductVersion (
+        BSTR * productVersion ) = 0;
+    virtual HRESULT __stdcall raw_InitGraphics (
+        long maxWidth,
+        long maxHeight,
+        enum ImageOrientationEnum imgOrientation,
+        enum RibbonTypeEnum ribType,
+        long fillColor ) = 0;
+    virtual HRESULT __stdcall raw_InitGraphics_2 (
+        long maxWidth,
+        long maxHeight,
+        enum ImageOrientationEnum imgOrientation,
+        enum RibbonTypeEnum ribType ) = 0;
+    virtual HRESULT __stdcall raw_ClearGraphics ( ) = 0;
+    virtual HRESULT __stdcall raw_CloseGraphics ( ) = 0;
+    virtual HRESULT __stdcall raw_CreateBitmap (
+        long * dataLen,
+        SAFEARRAY * * pRetVal ) = 0;
+    virtual HRESULT __stdcall raw_SharpenImage (
+        SAFEARRAY * * imageData,
+        long level ) = 0;
+    virtual HRESULT __stdcall raw_AdjustBrightness (
+        long brightnessLevel ) = 0;
+    virtual HRESULT __stdcall raw_AdjustContrast (
+        long contrastLevel ) = 0;
+    virtual HRESULT __stdcall raw_AdjustColorScale (
+        long redLevel,
+        long greenLevel,
+        long blueLevel ) = 0;
+    virtual HRESULT __stdcall raw_AdjustSaturation (
+        long saturationLevel ) = 0;
+    virtual HRESULT __stdcall raw_RotateHue (
+        float rotation ) = 0;
+    virtual HRESULT __stdcall raw_SetBlackExtractionLevels (
+        long red,
+        long green,
+        long blue ) = 0;
+    virtual HRESULT __stdcall raw_ExtractBlackData (
+        SAFEARRAY * * imageData,
+        SAFEARRAY * * colorImg,
+        SAFEARRAY * * blackImg ) = 0;
+    virtual HRESULT __stdcall raw_AdjustGamma (
+        long level ) = 0;
+    virtual HRESULT __stdcall raw_ConvertToGrayScale (
+        float scaleFactor ) = 0;
+    virtual HRESULT __stdcall raw_SaveImageProfile (
+        BSTR profilePath ) = 0;
+    virtual HRESULT __stdcall raw_LoadImageProfile (
+        BSTR profilePath ) = 0;
+    virtual HRESULT __stdcall raw_ImageFileToByteArray (
+        BSTR filename,
+        SAFEARRAY * * pRetVal ) = 0;
+    virtual HRESULT __stdcall raw_ImageFromByteArray (
+        SAFEARRAY * * imageData,
+        VARIANT * pRetVal ) = 0;
+    virtual HRESULT __stdcall raw_IPictureFromByteArray (
+        SAFEARRAY * * imageData,
+        VARIANT * pRetVal ) = 0;
+    virtual HRESULT __stdcall raw_IntegerFromColor (
+        OLE_COLOR color,
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall raw_IntegerFromColorName (
+        BSTR colorName,
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall raw_DrawEllipse (
+        float x,
+        float y,
+        float width,
+        float height,
+        float thickness,
+        long color ) = 0;
+    virtual HRESULT __stdcall raw_DrawFillEllipse (
+        float x,
+        float y,
+        float width,
+        float height,
+        long fillColor ) = 0;
+    virtual HRESULT __stdcall get_ImageRotation (
+        enum RotationTypeEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_ImageRotation (
+        enum RotationTypeEnum pRetVal ) = 0;
+    virtual HRESULT __stdcall raw_DrawImage (
+        SAFEARRAY * * imageData,
+        float x,
+        float y,
+        long imgWidth,
+        long imgHeight,
+        float opacity ) = 0;
+    virtual HRESULT __stdcall raw_DrawImage_2 (
+        SAFEARRAY * * imageData,
+        float x,
+        float y,
+        long imgWidth,
+        long imgHeight,
+        float opacity,
+        long transparencyColorLow,
+        long transparencyColorHigh ) = 0;
+    virtual HRESULT __stdcall raw_DrawImage_3 (
+        SAFEARRAY * * imageData,
+        enum ImagePositionEnum position,
+        long imgWidth,
+        long imgHeight,
+        float opacity ) = 0;
+    virtual HRESULT __stdcall raw_DrawLine (
+        float x1,
+        float y1,
+        float x2,
+        float y2,
+        long color,
+        float thickness ) = 0;
+    virtual HRESULT __stdcall raw_DrawRectangle (
+        float x,
+        float y,
+        float width,
+        float height,
+        float thickness,
+        long color ) = 0;
+    virtual HRESULT __stdcall raw_DrawFillRectangle (
+        float x,
+        float y,
+        float width,
+        float height,
+        long fillColor ) = 0;
+    virtual HRESULT __stdcall raw_DrawTextString (
+        float x,
+        float y,
+        float angle,
+        enum TextAlignmentEnum alignment,
+        BSTR text,
+        BSTR font,
+        float fontSize,
+        enum FontTypeEnum fontStyle,
+        long color ) = 0;
+    virtual HRESULT __stdcall raw_DrawTextString_2 (
+        float x,
+        float y,
+        BSTR text,
+        BSTR font,
+        float fontSize,
+        enum FontTypeEnum fontStyle,
+        long color ) = 0;
+    virtual HRESULT __stdcall raw_DrawTextRect (
+        float x,
+        float y,
+        float rectWidth,
+        float rectHeight,
+        enum TextAlignmentEnum alignment,
+        BSTR text,
+        BSTR font,
+        float fontSize,
+        enum FontTypeEnum fontStyle,
+        long color ) = 0;
+    virtual HRESULT __stdcall raw_DrawTextRect_2 (
+        float x,
+        float y,
+        float rectWidth,
+        float rectHeight,
+        float angle,
+        enum TextAlignmentEnum alignment,
+        BSTR text,
+        BSTR font,
+        float fontSize,
+        enum FontTypeEnum fontStyle,
+        long color ) = 0;
+    virtual HRESULT __stdcall get_Barcode (
+        struct IBarcode * * pRetVal ) = 0;
+};
+
+struct __declspec(uuid("dc9ecc87-80a3-335d-a6c7-dcfab18d79d0"))
+IAztecCodeProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetCodeFormat,put=PutCodeFormat))
+    enum CodeFormatEnum CodeFormat;
+    __declspec(property(get=GetCodeModuleSize,put=PutCodeModuleSize))
+    double CodeModuleSize;
+    __declspec(property(get=GetCodeRune,put=PutCodeRune))
+    long CodeRune;
+    __declspec(property(get=GetErrorCorrection,put=PutErrorCorrection))
+    long ErrorCorrection;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    enum CodeFormatEnum GetCodeFormat ( );
+    void PutCodeFormat (
+        enum CodeFormatEnum pRetVal );
+    double GetCodeModuleSize ( );
+    void PutCodeModuleSize (
+        double pRetVal );
+    long GetCodeRune ( );
+    void PutCodeRune (
+        long pRetVal );
+    long GetErrorCorrection ( );
+    void PutErrorCorrection (
+        long pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_CodeFormat (
+        enum CodeFormatEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_CodeFormat (
+        enum CodeFormatEnum pRetVal ) = 0;
+    virtual HRESULT __stdcall get_CodeModuleSize (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_CodeModuleSize (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_CodeRune (
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_CodeRune (
+        long pRetVal ) = 0;
+    virtual HRESULT __stdcall get_ErrorCorrection (
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_ErrorCorrection (
+        long pRetVal ) = 0;
+};
+
+struct __declspec(uuid("4480eefb-f8b2-3183-b346-6892c88aad71"))
+ZMotifGraphics;
+    // interface _Object
+    // [ default ] interface IZMotifGraphics
+
+enum RibbonTypeEnum
+{
+    RibbonTypeEnum_Color = 0,
+    RibbonTypeEnum_MonoUV = 1,
+    RibbonTypeEnum_MonoK = 2,
+    RibbonTypeEnum_Overlay = 3,
+    RibbonTypeEnum_GrayUV = 4,
+    RibbonTypeEnum_GrayDye = 5,
+    RibbonTypeEnum_Monok_NoPanels = 6,
+    RibbonTypeEnum_Inhibit = 7
+};
+
+enum ImageOrientationEnum
+{
+    ImageOrientationEnum_Portrait = 0,
+    ImageOrientationEnum_Landscape = 1
+};
+
+enum ImagePositionEnum
+{
+    ImagePositionEnum_UpperLeft = 0,
+    ImagePositionEnum_LowerLeft = 1,
+    ImagePositionEnum_UpperRight = 2,
+    ImagePositionEnum_LowerRight = 3,
+    ImagePositionEnum_Centered = 4
+};
+
+enum FontTypeEnum
+{
+    FontTypeEnum_Regular = 0,
+    FontTypeEnum_Bold = 1,
+    FontTypeEnum_Italic = 2,
+    FontTypeEnum_Underline = 4,
+    FontTypeEnum_Strikeout = 8
+};
+
+enum TextAlignmentEnum
+{
+    TextAlignmentEnum_Near = 0,
+    TextAlignmentEnum_Center = 1,
+    TextAlignmentEnum_Far = 2
+};
+
+enum RotationTypeEnum
+{
+    RotationTypeEnum_Rotate180FlipXY = 0,
+    RotationTypeEnum_RotateNoneFlipNone = 0,
+    RotationTypeEnum_Rotate270FlipXY = 1,
+    RotationTypeEnum_Rotate90FlipNone = 1,
+    RotationTypeEnum_Rotate180FlipNone = 2,
+    RotationTypeEnum_RotateNoneFlipXY = 2,
+    RotationTypeEnum_Rotate270FlipNone = 3,
+    RotationTypeEnum_Rotate90FlipXY = 3,
+    RotationTypeEnum_Rotate180FlipY = 4,
+    RotationTypeEnum_RotateNoneFlipX = 4,
+    RotationTypeEnum_Rotate90FlipX = 5,
+    RotationTypeEnum_Rotate270FlipY = 5,
+    RotationTypeEnum_RotateNoneFlipY = 6,
+    RotationTypeEnum_Rotate180FlipX = 6,
+    RotationTypeEnum_Rotate90FlipY = 7,
+    RotationTypeEnum_Rotate270FlipX = 7
+};
+
+struct __declspec(uuid("6fa522c5-fc72-346a-80aa-46e9d3eadb83"))
+IBarcode : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetAddChecksum,put=PutAddChecksum))
+    VARIANT_BOOL AddChecksum;
+    __declspec(property(get=GetTextForeColor,put=PutTextForeColor))
+    long TextForeColor;
+    __declspec(property(get=GetAntiAlias,put=PutAntiAlias))
+    VARIANT_BOOL AntiAlias;
+    __declspec(property(get=GetTextAlignment,put=PutTextAlignment))
+    enum TextAlignmentEnum_2 TextAlignment;
+    __declspec(property(get=GetAutoSize,put=PutAutoSize))
+    VARIANT_BOOL AutoSize;
+    __declspec(property(get=GetBarcodeHeight,put=PutBarcodeHeight))
+    double BarcodeHeight;
+    __declspec(property(get=GetBarcodeWidth,put=PutBarcodeWidth))
+    double BarcodeWidth;
+    __declspec(property(get=GetBarcodeTopMargin,put=PutBarcodeTopMargin))
+    double BarcodeTopMargin;
+    __declspec(property(get=GetBarcodeBottomMargin,put=PutBarcodeBottomMargin))
+    double BarcodeBottomMargin;
+    __declspec(property(get=GetAztecCodeProperties))
+    IAztecCodePropertiesPtr AztecCodeProperties;
+    __declspec(property(get=GetBarcodeMarginProperties))
+    IBarcodeMarginPtr BarcodeMarginProperties;
+    __declspec(property(get=GetCode128Properties))
+    ICode128PropertiesPtr Code128Properties;
+    __declspec(property(get=GetCode16kProperties))
+    ICode16kPropertiesPtr Code16kProperties;
+    __declspec(property(get=GetCode39And93Properties))
+    ICode39And93PropertiesPtr Code39And93Properties;
+    __declspec(property(get=GetIsbt128Properties))
+    IIsbt128PropertiesPtr Isbt128Properties;
+    __declspec(property(get=GetMaxiCodeProperties))
+    IMaxiCodePropertiesPtr MaxiCodeProperties;
+    __declspec(property(get=GetMicroQRProperties))
+    IMicroQRPropertiesPtr MicroQRProperties;
+    __declspec(property(get=GetMSIProperties))
+    IMSIPropertiesPtr MSIProperties;
+    __declspec(property(get=GetGS1DatBarAndRSSExpandedStackedProperties))
+    IGS1DataBarAndRSSExpandedStackedPropertiesPtr GS1DatBarAndRSSExpandedStackedProperties;
+    __declspec(property(get=GetBearerBarProperties))
+    IBearerBarPropertiesPtr BearerBarProperties;
+    __declspec(property(get=GetDisplayHumanReadableText,put=PutDisplayHumanReadableText))
+    _bstr_t DisplayHumanReadableText;
+    __declspec(property(get=GetHIBCFormattedHumanReadableText,put=PutHIBCFormattedHumanReadableText))
+    VARIANT_BOOL HIBCFormattedHumanReadableText;
+    __declspec(property(get=GetBackColor,put=PutBackColor))
+    long BackColor;
+    __declspec(property(get=Getfont,put=PutReffont))
+    _variant_t font;
+    __declspec(property(get=GetForeColor,put=PutForeColor))
+    long ForeColor;
+    __declspec(property(get=GetBarcodeType,put=PutBarcodeType))
+    enum BarcodeTypeEnum BarcodeType;
+    __declspec(property(get=GetBarColor,put=PutBarColor))
+    long BarColor;
+    __declspec(property(get=GetBarHeight,put=PutBarHeight))
+    double BarHeight;
+    __declspec(property(get=GetBarRatio,put=PutBarRatio))
+    double BarRatio;
+    __declspec(property(get=GetBarWidth,put=PutBarWidth))
+    double BarWidth;
+    __declspec(property(get=GetBorderColor,put=PutBorderColor))
+    long BorderColor;
+    __declspec(property(get=GetBorderWidth,put=PutBorderWidth))
+    double BorderWidth;
+    __declspec(property(get=GetCodabarProperties))
+    ICodabarPropertiesPtr CodabarProperties;
+    __declspec(property(get=GetDataMatrixProperties))
+    IDataMatrixPropertiesPtr DataMatrixProperties;
+    __declspec(property(get=GetDisplayStopStartChars,put=PutDisplayStopStartChars))
+    VARIANT_BOOL DisplayStopStartChars;
+    __declspec(property(get=GetDisplayCode,put=PutDisplayCode))
+    VARIANT_BOOL DisplayCode;
+    __declspec(property(get=Getrotation,put=Putrotation))
+    enum RotationTypeEnum_2 rotation;
+    __declspec(property(get=GetEanUpcProperties))
+    IEANUPCPropertiesPtr EanUpcProperties;
+    __declspec(property(get=GetPdf417Properties))
+    IPdf417PropertiesPtr Pdf417Properties;
+    __declspec(property(get=GetPharmacodeProperties))
+    IPharmacodePropertiesPtr PharmacodeProperties;
+    __declspec(property(get=GetPlanetProperties))
+    IPlanetPropertiesPtr PlanetProperties;
+    __declspec(property(get=GetPostalStateProperties))
+    IPostalStatePropertiesPtr PostalStateProperties;
+    __declspec(property(get=GetQRCodeProperties))
+    IQRCodePropertiesPtr QRCodeProperties;
+    __declspec(property(get=GetQuietZoneWidth,put=PutQuietZoneWidth))
+    double QuietZoneWidth;
+    __declspec(property(get=GetTelepenProperties))
+    ITelepenPropertiesPtr TelepenProperties;
+    __declspec(property(get=GetCodeAlignment,put=PutCodeAlignment))
+    enum TextAlignmentEnum_2 CodeAlignment;
+    __declspec(property(get=GetUseQuietZoneForText,put=PutUseQuietZoneForText))
+    VARIANT_BOOL UseQuietZoneForText;
+    __declspec(property(get=GetUSPSProperties))
+    IUSPSPropertiesPtr USPSProperties;
+    __declspec(property(get=GetPostnetProperties))
+    IPostnetPropertiesPtr PostnetProperties;
+    __declspec(property(get=GetValueToEncode,put=PutValueToEncode))
+    _bstr_t ValueToEncode;
+    __declspec(property(get=GetDisplayText,put=PutDisplayText))
+    _bstr_t DisplayText;
+    __declspec(property(get=GetTextFont,put=PutRefTextFont))
+    _variant_t TextFont;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    VARIANT_BOOL GetAddChecksum ( );
+    void PutAddChecksum (
+        VARIANT_BOOL pRetVal );
+    VARIANT_BOOL GetAntiAlias ( );
+    void PutAntiAlias (
+        VARIANT_BOOL pRetVal );
+    VARIANT_BOOL GetAutoSize ( );
+    void PutAutoSize (
+        VARIANT_BOOL pRetVal );
+    double GetBarcodeHeight ( );
+    void PutBarcodeHeight (
+        double pRetVal );
+    double GetBarcodeWidth ( );
+    void PutBarcodeWidth (
+        double pRetVal );
+    double GetBarcodeTopMargin ( );
+    void PutBarcodeTopMargin (
+        double pRetVal );
+    double GetBarcodeBottomMargin ( );
+    void PutBarcodeBottomMargin (
+        double pRetVal );
+    IAztecCodePropertiesPtr GetAztecCodeProperties ( );
+    IBarcodeMarginPtr GetBarcodeMarginProperties ( );
+    ICode128PropertiesPtr GetCode128Properties ( );
+    ICode16kPropertiesPtr GetCode16kProperties ( );
+    ICode39And93PropertiesPtr GetCode39And93Properties ( );
+    IIsbt128PropertiesPtr GetIsbt128Properties ( );
+    IMaxiCodePropertiesPtr GetMaxiCodeProperties ( );
+    IMicroQRPropertiesPtr GetMicroQRProperties ( );
+    IMSIPropertiesPtr GetMSIProperties ( );
+    IGS1DataBarAndRSSExpandedStackedPropertiesPtr GetGS1DatBarAndRSSExpandedStackedProperties ( );
+    IBearerBarPropertiesPtr GetBearerBarProperties ( );
+    _bstr_t GetDisplayHumanReadableText ( );
+    void PutDisplayHumanReadableText (
+        _bstr_t pRetVal );
+    VARIANT_BOOL GetHIBCFormattedHumanReadableText ( );
+    void PutHIBCFormattedHumanReadableText (
+        VARIANT_BOOL pRetVal );
+    long GetBackColor ( );
+    void PutBackColor (
+        long pRetVal );
+    _variant_t Getfont ( );
+    void PutReffont (
+        const _variant_t & pRetVal );
+    long GetForeColor ( );
+    void PutForeColor (
+        long pRetVal );
+    enum BarcodeTypeEnum GetBarcodeType ( );
+    void PutBarcodeType (
+        enum BarcodeTypeEnum pRetVal );
+    long GetBarColor ( );
+    void PutBarColor (
+        long pRetVal );
+    double GetBarHeight ( );
+    void PutBarHeight (
+        double pRetVal );
+    double GetBarRatio ( );
+    void PutBarRatio (
+        double pRetVal );
+    double GetBarWidth ( );
+    void PutBarWidth (
+        double pRetVal );
+    long GetBorderColor ( );
+    void PutBorderColor (
+        long pRetVal );
+    double GetBorderWidth ( );
+    void PutBorderWidth (
+        double pRetVal );
+    HRESULT ClearBarcode ( );
+    ICodabarPropertiesPtr GetCodabarProperties ( );
+    IDataMatrixPropertiesPtr GetDataMatrixProperties ( );
+    VARIANT_BOOL GetDisplayStopStartChars ( );
+    void PutDisplayStopStartChars (
+        VARIANT_BOOL pRetVal );
+    VARIANT_BOOL GetDisplayCode ( );
+    void PutDisplayCode (
+        VARIANT_BOOL pRetVal );
+    enum RotationTypeEnum_2 Getrotation ( );
+    void Putrotation (
+        enum RotationTypeEnum_2 pRetVal );
+    HRESULT DrawBarcode (
+        float x,
+        float y,
+        float width,
+        float height,
+        float scale );
+    HRESULT DrawBarcode_2 (
+        float x,
+        float y,
+        float width,
+        float height,
+        enum RotationTypeEnum_2 rotation,
+        _bstr_t font,
+        long fontSize,
+        enum FontTypeEnum fontStyle,
+        float scale );
+    HRESULT DrawBarcode_3 ( );
+    IEANUPCPropertiesPtr GetEanUpcProperties ( );
+    IPdf417PropertiesPtr GetPdf417Properties ( );
+    IPharmacodePropertiesPtr GetPharmacodeProperties ( );
+    IPlanetPropertiesPtr GetPlanetProperties ( );
+    IPostalStatePropertiesPtr GetPostalStateProperties ( );
+    IQRCodePropertiesPtr GetQRCodeProperties ( );
+    double GetQuietZoneWidth ( );
+    void PutQuietZoneWidth (
+        double pRetVal );
+    ITelepenPropertiesPtr GetTelepenProperties ( );
+    enum TextAlignmentEnum_2 GetCodeAlignment ( );
+    void PutCodeAlignment (
+        enum TextAlignmentEnum_2 pRetVal );
+    VARIANT_BOOL GetUseQuietZoneForText ( );
+    void PutUseQuietZoneForText (
+        VARIANT_BOOL pRetVal );
+    IUSPSPropertiesPtr GetUSPSProperties ( );
+    IPostnetPropertiesPtr GetPostnetProperties ( );
+    _bstr_t GetValueToEncode ( );
+    void PutValueToEncode (
+        _bstr_t pRetVal );
+    _bstr_t GetDisplayText ( );
+    void PutDisplayText (
+        _bstr_t pRetVal );
+    _variant_t GetTextFont ( );
+    void PutRefTextFont (
+        const _variant_t & pRetVal );
+    long GetTextForeColor ( );
+    void PutTextForeColor (
+        long pRetVal );
+    enum TextAlignmentEnum_2 GetTextAlignment ( );
+    void PutTextAlignment (
+        enum TextAlignmentEnum_2 pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_AddChecksum (
+        VARIANT_BOOL * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_AddChecksum (
+        VARIANT_BOOL pRetVal ) = 0;
+    virtual HRESULT __stdcall get_AntiAlias (
+        VARIANT_BOOL * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_AntiAlias (
+        VARIANT_BOOL pRetVal ) = 0;
+    virtual HRESULT __stdcall get_AutoSize (
+        VARIANT_BOOL * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_AutoSize (
+        VARIANT_BOOL pRetVal ) = 0;
+    virtual HRESULT __stdcall get_BarcodeHeight (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_BarcodeHeight (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_BarcodeWidth (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_BarcodeWidth (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_BarcodeTopMargin (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_BarcodeTopMargin (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_BarcodeBottomMargin (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_BarcodeBottomMargin (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_AztecCodeProperties (
+        struct IAztecCodeProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_BarcodeMarginProperties (
+        struct IBarcodeMargin * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_Code128Properties (
+        struct ICode128Properties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_Code16kProperties (
+        struct ICode16kProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_Code39And93Properties (
+        struct ICode39And93Properties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_Isbt128Properties (
+        struct IIsbt128Properties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_MaxiCodeProperties (
+        struct IMaxiCodeProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_MicroQRProperties (
+        struct IMicroQRProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_MSIProperties (
+        struct IMSIProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_GS1DatBarAndRSSExpandedStackedProperties (
+        struct IGS1DataBarAndRSSExpandedStackedProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_BearerBarProperties (
+        struct IBearerBarProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_DisplayHumanReadableText (
+        BSTR * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_DisplayHumanReadableText (
+        BSTR pRetVal ) = 0;
+    virtual HRESULT __stdcall get_HIBCFormattedHumanReadableText (
+        VARIANT_BOOL * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_HIBCFormattedHumanReadableText (
+        VARIANT_BOOL pRetVal ) = 0;
+    virtual HRESULT __stdcall get_BackColor (
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_BackColor (
+        long pRetVal ) = 0;
+    virtual HRESULT __stdcall get_font (
+        VARIANT * pRetVal ) = 0;
+    virtual HRESULT __stdcall putref_font (
+        VARIANT pRetVal ) = 0;
+    virtual HRESULT __stdcall get_ForeColor (
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_ForeColor (
+        long pRetVal ) = 0;
+    virtual HRESULT __stdcall get_BarcodeType (
+        enum BarcodeTypeEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_BarcodeType (
+        enum BarcodeTypeEnum pRetVal ) = 0;
+    virtual HRESULT __stdcall get_BarColor (
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_BarColor (
+        long pRetVal ) = 0;
+    virtual HRESULT __stdcall get_BarHeight (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_BarHeight (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_BarRatio (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_BarRatio (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_BarWidth (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_BarWidth (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_BorderColor (
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_BorderColor (
+        long pRetVal ) = 0;
+    virtual HRESULT __stdcall get_BorderWidth (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_BorderWidth (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall raw_ClearBarcode ( ) = 0;
+    virtual HRESULT __stdcall get_CodabarProperties (
+        struct ICodabarProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_DataMatrixProperties (
+        struct IDataMatrixProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_DisplayStopStartChars (
+        VARIANT_BOOL * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_DisplayStopStartChars (
+        VARIANT_BOOL pRetVal ) = 0;
+    virtual HRESULT __stdcall get_DisplayCode (
+        VARIANT_BOOL * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_DisplayCode (
+        VARIANT_BOOL pRetVal ) = 0;
+    virtual HRESULT __stdcall get_rotation (
+        enum RotationTypeEnum_2 * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_rotation (
+        enum RotationTypeEnum_2 pRetVal ) = 0;
+    virtual HRESULT __stdcall raw_DrawBarcode (
+        float x,
+        float y,
+        float width,
+        float height,
+        float scale ) = 0;
+    virtual HRESULT __stdcall raw_DrawBarcode_2 (
+        float x,
+        float y,
+        float width,
+        float height,
+        enum RotationTypeEnum_2 rotation,
+        BSTR font,
+        long fontSize,
+        enum FontTypeEnum fontStyle,
+        float scale ) = 0;
+    virtual HRESULT __stdcall raw_DrawBarcode_3 ( ) = 0;
+    virtual HRESULT __stdcall get_EanUpcProperties (
+        struct IEANUPCProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_Pdf417Properties (
+        struct IPdf417Properties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_PharmacodeProperties (
+        struct IPharmacodeProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_PlanetProperties (
+        struct IPlanetProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_PostalStateProperties (
+        struct IPostalStateProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_QRCodeProperties (
+        struct IQRCodeProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_QuietZoneWidth (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_QuietZoneWidth (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_TelepenProperties (
+        struct ITelepenProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_CodeAlignment (
+        enum TextAlignmentEnum_2 * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_CodeAlignment (
+        enum TextAlignmentEnum_2 pRetVal ) = 0;
+    virtual HRESULT __stdcall get_UseQuietZoneForText (
+        VARIANT_BOOL * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_UseQuietZoneForText (
+        VARIANT_BOOL pRetVal ) = 0;
+    virtual HRESULT __stdcall get_USPSProperties (
+        struct IUSPSProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_PostnetProperties (
+        struct IPostnetProperties * * pRetVal ) = 0;
+    virtual HRESULT __stdcall get_ValueToEncode (
+        BSTR * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_ValueToEncode (
+        BSTR pRetVal ) = 0;
+    virtual HRESULT __stdcall get_DisplayText (
+        BSTR * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_DisplayText (
+        BSTR pRetVal ) = 0;
+    virtual HRESULT __stdcall get_TextFont (
+        VARIANT * pRetVal ) = 0;
+    virtual HRESULT __stdcall putref_TextFont (
+        VARIANT pRetVal ) = 0;
+    virtual HRESULT __stdcall get_TextForeColor (
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_TextForeColor (
+        long pRetVal ) = 0;
+    virtual HRESULT __stdcall get_TextAlignment (
+        enum TextAlignmentEnum_2 * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_TextAlignment (
+        enum TextAlignmentEnum_2 pRetVal ) = 0;
+};
+
+struct __declspec(uuid("51c21351-3fe0-3ced-bc7f-2a4ae8c21382"))
+Barcode;
+    // [ default ] interface _Barcode
+    // interface _Object
+    // interface IBarcode
+
+enum BarcodeTypeEnum
+{
+    BarcodeTypeEnum_Codabar = 0,
+    BarcodeTypeEnum_Code11 = 1,
+    BarcodeTypeEnum_Code16k = 2,
+    BarcodeTypeEnum_Code39 = 3,
+    BarcodeTypeEnum_Code93 = 4,
+    BarcodeTypeEnum_Code128 = 5,
+    BarcodeTypeEnum_DataMatrix = 6,
+    BarcodeTypeEnum_Ean8 = 7,
+    BarcodeTypeEnum_Ean13 = 8,
+    BarcodeTypeEnum_Industrial2of5 = 9,
+    BarcodeTypeEnum_Interleaved2of5 = 10,
+    BarcodeTypeEnum_Isbn = 11,
+    BarcodeTypeEnum_Msi = 12,
+    BarcodeTypeEnum_Pdf417 = 13,
+    BarcodeTypeEnum_Planet = 14,
+    BarcodeTypeEnum_Postnet = 15,
+    BarcodeTypeEnum_UccEan128 = 16,
+    BarcodeTypeEnum_UpcA = 17,
+    BarcodeTypeEnum_UpcE = 18,
+    BarcodeTypeEnum_UspsOneCode4CB = 19,
+    BarcodeTypeEnum_RoyalMail = 20,
+    BarcodeTypeEnum_AustraliaPost = 21,
+    BarcodeTypeEnum_RoyalTpgPostKix = 22,
+    BarcodeTypeEnum_Sscc18 = 23,
+    BarcodeTypeEnum_Pzn = 24,
+    BarcodeTypeEnum_DeutschePostLeitcode = 25,
+    BarcodeTypeEnum_DeutschePostIdentcode = 26,
+    BarcodeTypeEnum_UspsTrayLabel = 27,
+    BarcodeTypeEnum_UspsSackLabel = 28,
+    BarcodeTypeEnum_EanVelocity = 29,
+    BarcodeTypeEnum_SingaporePost = 30,
+    BarcodeTypeEnum_Jan8 = 31,
+    BarcodeTypeEnum_Jan13 = 32,
+    BarcodeTypeEnum_SwissPostParcel = 33,
+    BarcodeTypeEnum_Opc = 34,
+    BarcodeTypeEnum_Ean99 = 35,
+    BarcodeTypeEnum_Itf14 = 36,
+    BarcodeTypeEnum_Scc14 = 37,
+    BarcodeTypeEnum_Issn = 38,
+    BarcodeTypeEnum_Ismn = 39,
+    BarcodeTypeEnum_NumlyNumber = 40,
+    BarcodeTypeEnum_QRCode = 41,
+    BarcodeTypeEnum_UspsFim = 42,
+    BarcodeTypeEnum_UspsHorizontalBars = 43,
+    BarcodeTypeEnum_Telepen = 44,
+    BarcodeTypeEnum_Pharmacode = 45,
+    BarcodeTypeEnum_Semacode = 46,
+    BarcodeTypeEnum_Code32 = 47,
+    BarcodeTypeEnum_UspsPicUccEan128 = 48,
+    BarcodeTypeEnum_FedExGround96 = 49,
+    BarcodeTypeEnum_AztecCode = 50,
+    BarcodeTypeEnum_CompactPdf417 = 51,
+    BarcodeTypeEnum_MacroPdf417 = 52,
+    BarcodeTypeEnum_MicroPdf417 = 53,
+    BarcodeTypeEnum_VicsBol = 54,
+    BarcodeTypeEnum_VicsScacPro = 55,
+    BarcodeTypeEnum_ItalianPost25 = 56,
+    BarcodeTypeEnum_Isbt128 = 57,
+    BarcodeTypeEnum_HibcLic39 = 58,
+    BarcodeTypeEnum_HibcLic128 = 59,
+    BarcodeTypeEnum_HibcPas39 = 60,
+    BarcodeTypeEnum_HibcPas128 = 61,
+    BarcodeTypeEnum_UspsIntelligentMail = 62,
+    BarcodeTypeEnum_EanUpcAddOn2 = 63,
+    BarcodeTypeEnum_EanUpcAddOn5 = 64,
+    BarcodeTypeEnum_UspsPicCode128 = 65,
+    BarcodeTypeEnum_GS1DataBarOmnidirectional = 66,
+    BarcodeTypeEnum_GS1DataBar14 = 67,
+    BarcodeTypeEnum_Rss14 = 68,
+    BarcodeTypeEnum_GS1DataBarTruncated = 69,
+    BarcodeTypeEnum_GS1DataBar14Truncated = 70,
+    BarcodeTypeEnum_Rss14Truncated = 71,
+    BarcodeTypeEnum_GS1DataBarStacked = 72,
+    BarcodeTypeEnum_GS1DataBar14Stacked = 73,
+    BarcodeTypeEnum_Rss14Stacked = 74,
+    BarcodeTypeEnum_GS1DataBarStackedOmnidirectional = 75,
+    BarcodeTypeEnum_GS1DataBar14StackedOmnidirectional = 76,
+    BarcodeTypeEnum_Rss14StackedOmnidirectional = 77,
+    BarcodeTypeEnum_GS1DataBarLimited = 78,
+    BarcodeTypeEnum_RssLimited = 80,
+    BarcodeTypeEnum_GS1DataBarExpanded = 81,
+    BarcodeTypeEnum_RssExpanded = 82,
+    BarcodeTypeEnum_GS1DataBarExpandedStacked = 83,
+    BarcodeTypeEnum_RssExpandedStacked = 84,
+    BarcodeTypeEnum_GS1128 = 85,
+    BarcodeTypeEnum_MaxiCode = 86,
+    BarcodeTypeEnum_MicroQRCode = 87,
+    BarcodeTypeEnum_Matrix2of5 = 88,
+    BarcodeTypeEnum_DanishPostal39 = 89,
+    BarcodeTypeEnum_FrenchPostal39AR = 90
+};
+
+enum BarcodeUnitEnum
+{
+    BarcodeUnitEnum_Inch = 0,
+    BarcodeUnitEnum_Millimeter = 1,
+    BarcodeUnitEnum_Centimeter = 2,
+    BarcodeUnitEnum_Mils = 3
+};
+
+struct __declspec(uuid("dbe67bd9-173b-3be6-9ffe-2b30104599b4"))
+IPdf417Properties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetAspectRatio,put=PutAspectRatio))
+    double AspectRatio;
+    __declspec(property(get=GetColumns,put=PutColumns))
+    long Columns;
+    __declspec(property(get=GetCompactionType,put=PutCompactionType))
+    enum CompactionTypeEnum CompactionType;
+    __declspec(property(get=GetErrorCorrectionLevel,put=PutErrorCorrectionLevel))
+    enum ErrorCorrectionLevelEnum ErrorCorrectionLevel;
+    __declspec(property(get=GetFileID,put=PutFileID))
+    _bstr_t FileID;
+    __declspec(property(get=GetMicroPDF417Version,put=PutMicroPDF417Version))
+    enum MicroPDF417VersionEnum MicroPDF417Version;
+    __declspec(property(get=GetRows,put=PutRows))
+    long Rows;
+    __declspec(property(get=GetSegmentCount,put=PutSegmentCount))
+    long SegmentCount;
+    __declspec(property(get=GetSegmentIndex,put=PutSegmentIndex))
+    long SegmentIndex;
+    __declspec(property(get=GetTruncated,put=PutTruncated))
+    VARIANT_BOOL Truncated;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    double GetAspectRatio ( );
+    void PutAspectRatio (
+        double pRetVal );
+    long GetColumns ( );
+    void PutColumns (
+        long pRetVal );
+    enum CompactionTypeEnum GetCompactionType ( );
+    void PutCompactionType (
+        enum CompactionTypeEnum pRetVal );
+    enum ErrorCorrectionLevelEnum GetErrorCorrectionLevel ( );
+    void PutErrorCorrectionLevel (
+        enum ErrorCorrectionLevelEnum pRetVal );
+    _bstr_t GetFileID ( );
+    void PutFileID (
+        _bstr_t pRetVal );
+    enum MicroPDF417VersionEnum GetMicroPDF417Version ( );
+    void PutMicroPDF417Version (
+        enum MicroPDF417VersionEnum pRetVal );
+    long GetRows ( );
+    void PutRows (
+        long pRetVal );
+    long GetSegmentCount ( );
+    void PutSegmentCount (
+        long pRetVal );
+    long GetSegmentIndex ( );
+    void PutSegmentIndex (
+        long pRetVal );
+    VARIANT_BOOL GetTruncated ( );
+    void PutTruncated (
+        VARIANT_BOOL pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_AspectRatio (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_AspectRatio (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_Columns (
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_Columns (
+        long pRetVal ) = 0;
+    virtual HRESULT __stdcall get_CompactionType (
+        enum CompactionTypeEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_CompactionType (
+        enum CompactionTypeEnum pRetVal ) = 0;
+    virtual HRESULT __stdcall get_ErrorCorrectionLevel (
+        enum ErrorCorrectionLevelEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_ErrorCorrectionLevel (
+        enum ErrorCorrectionLevelEnum pRetVal ) = 0;
+    virtual HRESULT __stdcall get_FileID (
+        BSTR * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_FileID (
+        BSTR pRetVal ) = 0;
+    virtual HRESULT __stdcall get_MicroPDF417Version (
+        enum MicroPDF417VersionEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_MicroPDF417Version (
+        enum MicroPDF417VersionEnum pRetVal ) = 0;
+    virtual HRESULT __stdcall get_Rows (
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_Rows (
+        long pRetVal ) = 0;
+    virtual HRESULT __stdcall get_SegmentCount (
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_SegmentCount (
+        long pRetVal ) = 0;
+    virtual HRESULT __stdcall get_SegmentIndex (
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_SegmentIndex (
+        long pRetVal ) = 0;
+    virtual HRESULT __stdcall get_Truncated (
+        VARIANT_BOOL * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_Truncated (
+        VARIANT_BOOL pRetVal ) = 0;
+};
+
+struct __declspec(uuid("d404f012-cfb7-323c-bc43-f035d9af26ca"))
+Pdf417Props;
+    // [ default ] interface _Pdf417Props
+    // interface _Object
+    // interface IPdf417Properties
+
+enum CompactionTypeEnum
+{
+    CompactionTypeEnum_Auto = 0,
+    CompactionTypeEnum_Binary = 1,
+    CompactionTypeEnum_Text = 2,
+    CompactionTypeEnum_Numeric = 3
+};
+
+enum ErrorCorrectionLevelEnum
+{
+    ErrorCorrectionLevelEnum_Level0 = 0,
+    ErrorCorrectionLevelEnum_Level1 = 1,
+    ErrorCorrectionLevelEnum_Level2 = 2,
+    ErrorCorrectionLevelEnum_Level3 = 3,
+    ErrorCorrectionLevelEnum_Level4 = 4,
+    ErrorCorrectionLevelEnum_Level5 = 5,
+    ErrorCorrectionLevelEnum_Level6 = 6,
+    ErrorCorrectionLevelEnum_Level7 = 7,
+    ErrorCorrectionLevelEnum_Level8 = 8
+};
+
+enum MicroPDF417VersionEnum
+{
+    MicroPDF417VersionEnum_Auto = 0,
+    MicroPDF417VersionEnum_V1X11 = 1,
+    MicroPDF417VersionEnum_V1X14 = 2,
+    MicroPDF417VersionEnum_V1X17 = 3,
+    MicroPDF417VersionEnum_V1X20 = 4,
+    MicroPDF417VersionEnum_V1X24 = 5,
+    MicroPDF417VersionEnum_V1X28 = 6,
+    MicroPDF417VersionEnum_V2X8 = 7,
+    MicroPDF417VersionEnum_V2X11 = 8,
+    MicroPDF417VersionEnum_V2X14 = 9,
+    MicroPDF417VersionEnum_V2X17 = 10,
+    MicroPDF417VersionEnum_V2X20 = 11,
+    MicroPDF417VersionEnum_V2X23 = 12,
+    MicroPDF417VersionEnum_V2X26 = 13,
+    MicroPDF417VersionEnum_V3X6 = 14,
+    MicroPDF417VersionEnum_V3X8 = 15,
+    MicroPDF417VersionEnum_V3X10 = 16,
+    MicroPDF417VersionEnum_V3X12 = 17,
+    MicroPDF417VersionEnum_V3X15 = 18,
+    MicroPDF417VersionEnum_V3X20 = 19,
+    MicroPDF417VersionEnum_V3X26 = 20,
+    MicroPDF417VersionEnum_V3X32 = 21,
+    MicroPDF417VersionEnum_V3X38 = 22,
+    MicroPDF417VersionEnum_V3X44 = 23,
+    MicroPDF417VersionEnum_V4X4 = 24,
+    MicroPDF417VersionEnum_V4X6 = 25,
+    MicroPDF417VersionEnum_V4X8 = 26,
+    MicroPDF417VersionEnum_V4X10 = 27,
+    MicroPDF417VersionEnum_V4X12 = 28,
+    MicroPDF417VersionEnum_V4X15 = 29,
+    MicroPDF417VersionEnum_V4X20 = 30,
+    MicroPDF417VersionEnum_V4X26 = 31,
+    MicroPDF417VersionEnum_V4X32 = 32,
+    MicroPDF417VersionEnum_V4X38 = 33,
+    MicroPDF417VersionEnum_V4X44 = 34
+};
+
+struct __declspec(uuid("9ba28ca8-cf8d-3e61-a27c-e26fa215cb1c"))
+IEANUPCProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetDisplayLightMarginIndicator,put=PutDisplayLightMarginIndicator))
+    VARIANT_BOOL DisplayLightMarginIndicator;
+    __declspec(property(get=GetSupplementCode,put=PutSupplementCode))
+    _bstr_t SupplementCode;
+    __declspec(property(get=GetSupplementSeparation,put=PutSupplementSeparation))
+    double SupplementSeparation;
+    __declspec(property(get=GetSupplementTopMargin,put=PutSupplementTopMargin))
+    double SupplementTopMargin;
+    __declspec(property(get=GetSupplementType,put=PutSupplementType))
+    enum SupplementTypeEnum SupplementType;
+    __declspec(property(get=GetUPCESystem,put=PutUPCESystem))
+    enum UPCENumberSystemEnum UPCESystem;
+    __declspec(property(get=GetDisplayGuardBar,put=PutDisplayGuardBar))
+    VARIANT_BOOL DisplayGuardBar;
+    __declspec(property(get=GetGuardBarHeight,put=PutGuardBarHeight))
+    double GuardBarHeight;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    VARIANT_BOOL GetDisplayLightMarginIndicator ( );
+    void PutDisplayLightMarginIndicator (
+        VARIANT_BOOL pRetVal );
+    _bstr_t GetSupplementCode ( );
+    void PutSupplementCode (
+        _bstr_t pRetVal );
+    double GetSupplementSeparation ( );
+    void PutSupplementSeparation (
+        double pRetVal );
+    double GetSupplementTopMargin ( );
+    void PutSupplementTopMargin (
+        double pRetVal );
+    enum SupplementTypeEnum GetSupplementType ( );
+    void PutSupplementType (
+        enum SupplementTypeEnum pRetVal );
+    enum UPCENumberSystemEnum GetUPCESystem ( );
+    void PutUPCESystem (
+        enum UPCENumberSystemEnum pRetVal );
+    VARIANT_BOOL GetDisplayGuardBar ( );
+    void PutDisplayGuardBar (
+        VARIANT_BOOL pRetVal );
+    double GetGuardBarHeight ( );
+    void PutGuardBarHeight (
+        double pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_DisplayLightMarginIndicator (
+        VARIANT_BOOL * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_DisplayLightMarginIndicator (
+        VARIANT_BOOL pRetVal ) = 0;
+    virtual HRESULT __stdcall get_SupplementCode (
+        BSTR * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_SupplementCode (
+        BSTR pRetVal ) = 0;
+    virtual HRESULT __stdcall get_SupplementSeparation (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_SupplementSeparation (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_SupplementTopMargin (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_SupplementTopMargin (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_SupplementType (
+        enum SupplementTypeEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_SupplementType (
+        enum SupplementTypeEnum pRetVal ) = 0;
+    virtual HRESULT __stdcall get_UPCESystem (
+        enum UPCENumberSystemEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_UPCESystem (
+        enum UPCENumberSystemEnum pRetVal ) = 0;
+    virtual HRESULT __stdcall get_DisplayGuardBar (
+        VARIANT_BOOL * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_DisplayGuardBar (
+        VARIANT_BOOL pRetVal ) = 0;
+    virtual HRESULT __stdcall get_GuardBarHeight (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_GuardBarHeight (
+        double pRetVal ) = 0;
+};
+
+struct __declspec(uuid("72df7598-c6b3-3f9d-a54a-ecae2d251ea8"))
+EANUPCProps;
+    // [ default ] interface _EANUPCProps
+    // interface _Object
+    // interface IEANUPCProperties
+
+enum SupplementTypeEnum
+{
+    SupplementTypeEnum_None = 0,
+    SupplementTypeEnum_Digits2 = 1,
+    SupplementTypeEnum_Digits5 = 2
+};
+
+enum UPCENumberSystemEnum
+{
+    UPCENumberSystemEnum_System0 = 0,
+    UPCENumberSystemEnum_System1 = 1
+};
+
+struct __declspec(uuid("4a3deb6e-b461-3b8b-8aab-1769d0c58bd8"))
+AztecCodeProps;
+    // [ default ] interface _AztecCodeProps
+    // interface _Object
+    // interface IAztecCodeProperties
+
+enum CodeFormatEnum
+{
+    CodeFormatEnum_Auto = 0,
+    CodeFormatEnum_C15X15Compact = 1,
+    CodeFormatEnum_C19X19 = 2,
+    CodeFormatEnum_C19X19Compact = 3,
+    CodeFormatEnum_C23X23 = 4,
+    CodeFormatEnum_C23X23Compact = 5,
+    CodeFormatEnum_C27X27 = 6,
+    CodeFormatEnum_C27X27Compact = 7,
+    CodeFormatEnum_C31X31 = 8,
+    CodeFormatEnum_C37X37 = 9,
+    CodeFormatEnum_C41X41 = 10,
+    CodeFormatEnum_C45X45 = 11,
+    CodeFormatEnum_C49X49 = 12,
+    CodeFormatEnum_C53X53 = 13,
+    CodeFormatEnum_C57X57 = 14,
+    CodeFormatEnum_C61X61 = 15,
+    CodeFormatEnum_C67X67 = 16,
+    CodeFormatEnum_C71X71 = 17,
+    CodeFormatEnum_C75X75 = 18,
+    CodeFormatEnum_C79X79 = 19,
+    CodeFormatEnum_C83X83 = 20,
+    CodeFormatEnum_C87X87 = 21,
+    CodeFormatEnum_C91X91 = 22,
+    CodeFormatEnum_C95X95 = 23,
+    CodeFormatEnum_C101X101 = 24,
+    CodeFormatEnum_C105X105 = 25,
+    CodeFormatEnum_C109X109 = 26,
+    CodeFormatEnum_C113X113 = 27,
+    CodeFormatEnum_C117X117 = 28,
+    CodeFormatEnum_C121X121 = 29,
+    CodeFormatEnum_C125X125 = 30,
+    CodeFormatEnum_C131X131 = 31,
+    CodeFormatEnum_C135X135 = 32,
+    CodeFormatEnum_C139X139 = 33,
+    CodeFormatEnum_C143X143 = 34,
+    CodeFormatEnum_C147X147 = 35,
+    CodeFormatEnum_C151X151 = 36
+};
+
+struct __declspec(uuid("da52bba0-5997-3962-8c45-e1c5e983f787"))
+ICodabarProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetStartCharacter,put=PutStartCharacter))
+    enum StartStopCharacterEnum StartCharacter;
+    __declspec(property(get=GetStopCharacter,put=PutStopCharacter))
+    enum StartStopCharacterEnum StopCharacter;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    enum StartStopCharacterEnum GetStartCharacter ( );
+    void PutStartCharacter (
+        enum StartStopCharacterEnum pRetVal );
+    enum StartStopCharacterEnum GetStopCharacter ( );
+    void PutStopCharacter (
+        enum StartStopCharacterEnum pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_StartCharacter (
+        enum StartStopCharacterEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_StartCharacter (
+        enum StartStopCharacterEnum pRetVal ) = 0;
+    virtual HRESULT __stdcall get_StopCharacter (
+        enum StartStopCharacterEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_StopCharacter (
+        enum StartStopCharacterEnum pRetVal ) = 0;
+};
+
+struct __declspec(uuid("37a3ca82-0579-30c6-a32b-de3a329c9ac7"))
+CodabarProps;
+    // [ default ] interface _CodabarProps
+    // interface _Object
+    // interface ICodabarProperties
+
+enum StartStopCharacterEnum
+{
+    StartStopCharacterEnum_A = 0,
+    StartStopCharacterEnum_B = 1,
+    StartStopCharacterEnum_C = 2,
+    StartStopCharacterEnum_D = 3
+};
+
+struct __declspec(uuid("6f45277f-67a4-3a70-859f-f9cb4fd8b86a"))
+IDataMatrixProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetEncodingType,put=PutEncodingType))
+    enum EncodingTypeEnum EncodingType;
+    __declspec(property(get=GetFormatType,put=PutFormatType))
+    enum FormatTypeEnum FormatType;
+    __declspec(property(get=GetModuleSize,put=PutModuleSize))
+    double ModuleSize;
+    __declspec(property(get=GetProcessTilde,put=PutProcessTilde))
+    VARIANT_BOOL ProcessTilde;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    enum EncodingTypeEnum GetEncodingType ( );
+    void PutEncodingType (
+        enum EncodingTypeEnum pRetVal );
+    enum FormatTypeEnum GetFormatType ( );
+    void PutFormatType (
+        enum FormatTypeEnum pRetVal );
+    double GetModuleSize ( );
+    void PutModuleSize (
+        double pRetVal );
+    VARIANT_BOOL GetProcessTilde ( );
+    void PutProcessTilde (
+        VARIANT_BOOL pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_EncodingType (
+        enum EncodingTypeEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_EncodingType (
+        enum EncodingTypeEnum pRetVal ) = 0;
+    virtual HRESULT __stdcall get_FormatType (
+        enum FormatTypeEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_FormatType (
+        enum FormatTypeEnum pRetVal ) = 0;
+    virtual HRESULT __stdcall get_ModuleSize (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_ModuleSize (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_ProcessTilde (
+        VARIANT_BOOL * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_ProcessTilde (
+        VARIANT_BOOL pRetVal ) = 0;
+};
+
+struct __declspec(uuid("002cc0d7-0911-30ff-9d5c-63065fb568bd"))
+DataMatrixProps;
+    // [ default ] interface _DataMatrixProps
+    // interface _Object
+    // interface IDataMatrixProperties
+
+enum EncodingTypeEnum
+{
+    EncodingTypeEnum_Auto = 0,
+    EncodingTypeEnum_Ascii = 1,
+    EncodingTypeEnum_C40 = 2,
+    EncodingTypeEnum_Text = 3,
+    EncodingTypeEnum_Base256 = 4
+};
+
+enum FormatTypeEnum
+{
+    FormatTypeEnum_Auto = 0,
+    FormatTypeEnum_C10X10 = 1,
+    FormatTypeEnum_C12X12 = 2,
+    FormatTypeEnum_C14X14 = 3,
+    FormatTypeEnum_C16X16 = 4,
+    FormatTypeEnum_C18X18 = 5,
+    FormatTypeEnum_C20X20 = 6,
+    FormatTypeEnum_C22X22 = 7,
+    FormatTypeEnum_C24X24 = 8,
+    FormatTypeEnum_C26X26 = 9,
+    FormatTypeEnum_C32X32 = 10,
+    FormatTypeEnum_C36X36 = 11,
+    FormatTypeEnum_C40X40 = 12,
+    FormatTypeEnum_C44X44 = 13,
+    FormatTypeEnum_C48X48 = 14,
+    FormatTypeEnum_C52X52 = 15,
+    FormatTypeEnum_C64X64 = 16,
+    FormatTypeEnum_C72X72 = 17,
+    FormatTypeEnum_C80X80 = 18,
+    FormatTypeEnum_C88X88 = 19,
+    FormatTypeEnum_C96X96 = 20,
+    FormatTypeEnum_C104X104 = 21,
+    FormatTypeEnum_C120X120 = 22,
+    FormatTypeEnum_C132X132 = 23,
+    FormatTypeEnum_C144X144 = 24,
+    FormatTypeEnum_C8X18 = 25,
+    FormatTypeEnum_C8X32 = 26,
+    FormatTypeEnum_C12X26 = 27,
+    FormatTypeEnum_C12X36 = 28,
+    FormatTypeEnum_C16X36 = 29,
+    FormatTypeEnum_C16X48 = 30
+};
+
+struct __declspec(uuid("8c3c0b06-1c3a-3c98-bc3d-d4afb3986008"))
+IPharmacodeProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetBarSpacing,put=PutBarSpacing))
+    double BarSpacing;
+    __declspec(property(get=GetThickBarWidth,put=PutThickBarWidth))
+    double ThickBarWidth;
+    __declspec(property(get=GetThinBarWidth,put=PutThinBarWidth))
+    double ThinBarWidth;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    double GetBarSpacing ( );
+    void PutBarSpacing (
+        double pRetVal );
+    double GetThickBarWidth ( );
+    void PutThickBarWidth (
+        double pRetVal );
+    double GetThinBarWidth ( );
+    void PutThinBarWidth (
+        double pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_BarSpacing (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_BarSpacing (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_ThickBarWidth (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_ThickBarWidth (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_ThinBarWidth (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_ThinBarWidth (
+        double pRetVal ) = 0;
+};
+
+struct __declspec(uuid("53011b2f-cc2a-35b9-a849-0a391b462462"))
+PharmacodeProps;
+    // [ default ] interface _PharmacodeProps
+    // interface _Object
+    // interface IPharmacodeProperties
+
+struct __declspec(uuid("7bcd1d78-c040-3910-b0da-51efe43d3153"))
+IPlanetProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetShortBarHeight,put=PutShortBarHeight))
+    double ShortBarHeight;
+    __declspec(property(get=GetTallBarHeight,put=PutTallBarHeight))
+    double TallBarHeight;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    double GetShortBarHeight ( );
+    void PutShortBarHeight (
+        double pRetVal );
+    double GetTallBarHeight ( );
+    void PutTallBarHeight (
+        double pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_ShortBarHeight (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_ShortBarHeight (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_TallBarHeight (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_TallBarHeight (
+        double pRetVal ) = 0;
+};
+
+struct __declspec(uuid("ac5afd29-c6f9-3aa4-8e47-a85ecb53b4c8"))
+PlanetProps;
+    // [ default ] interface _PlanetProps
+    // interface _Object
+    // interface IPlanetProperties
+
+struct __declspec(uuid("61a44772-77d1-3ad5-8369-948e494ee64d"))
+IPostalStateProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetAddStartStopCharacters,put=PutAddStartStopCharacters))
+    VARIANT_BOOL AddStartStopCharacters;
+    __declspec(property(get=GetBarSpacing,put=PutBarSpacing))
+    double BarSpacing;
+    __declspec(property(get=GetTrackerBarHeight,put=PutTrackerBarHeight))
+    double TrackerBarHeight;
+    __declspec(property(get=GetTrackerBarWidth,put=PutTrackerBarWidth))
+    double TrackerBarWidth;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    VARIANT_BOOL GetAddStartStopCharacters ( );
+    void PutAddStartStopCharacters (
+        VARIANT_BOOL pRetVal );
+    double GetBarSpacing ( );
+    void PutBarSpacing (
+        double pRetVal );
+    double GetTrackerBarHeight ( );
+    void PutTrackerBarHeight (
+        double pRetVal );
+    double GetTrackerBarWidth ( );
+    void PutTrackerBarWidth (
+        double pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_AddStartStopCharacters (
+        VARIANT_BOOL * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_AddStartStopCharacters (
+        VARIANT_BOOL pRetVal ) = 0;
+    virtual HRESULT __stdcall get_BarSpacing (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_BarSpacing (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_TrackerBarHeight (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_TrackerBarHeight (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_TrackerBarWidth (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_TrackerBarWidth (
+        double pRetVal ) = 0;
+};
+
+struct __declspec(uuid("d65ada66-2640-3822-98cc-eff4dae0a3f0"))
+PostalStateProps;
+    // [ default ] interface _PostalStateProps
+    // interface _Object
+    // interface IPostalStateProperties
+
+struct __declspec(uuid("5a1ba74d-96b5-37b3-95ac-97ad48c53530"))
+IPostnetProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetShortBarHeight,put=PutShortBarHeight))
+    double ShortBarHeight;
+    __declspec(property(get=GetTallBarHeight,put=PutTallBarHeight))
+    double TallBarHeight;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    double GetShortBarHeight ( );
+    void PutShortBarHeight (
+        double pRetVal );
+    double GetTallBarHeight ( );
+    void PutTallBarHeight (
+        double pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_ShortBarHeight (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_ShortBarHeight (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_TallBarHeight (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_TallBarHeight (
+        double pRetVal ) = 0;
+};
+
+struct __declspec(uuid("9ada8370-09d4-326f-92c1-a1ef864827e4"))
+PostnetProps;
+    // [ default ] interface _PostnetProps
+    // interface _Object
+    // interface IPostnetProperties
+
+struct __declspec(uuid("366320c7-1361-3465-848a-da3d6d055002"))
+IQRCodeProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetCodeVersion,put=PutCodeVersion))
+    enum CodeVersionTypeEnum CodeVersion;
+    __declspec(property(get=GetEncodingType,put=PutEncodingType))
+    enum QREncodingTypeEnum EncodingType;
+    __declspec(property(get=GetErrorCorrectionLevel,put=PutErrorCorrectionLevel))
+    enum ErrorCorrectionLevelEnum_2 ErrorCorrectionLevel;
+    __declspec(property(get=GetModuleSize,put=PutModuleSize))
+    double ModuleSize;
+    __declspec(property(get=GetEncodingName,put=PutEncodingName))
+    _bstr_t EncodingName;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    enum CodeVersionTypeEnum GetCodeVersion ( );
+    void PutCodeVersion (
+        enum CodeVersionTypeEnum pRetVal );
+    enum QREncodingTypeEnum GetEncodingType ( );
+    void PutEncodingType (
+        enum QREncodingTypeEnum pRetVal );
+    enum ErrorCorrectionLevelEnum_2 GetErrorCorrectionLevel ( );
+    void PutErrorCorrectionLevel (
+        enum ErrorCorrectionLevelEnum_2 pRetVal );
+    double GetModuleSize ( );
+    void PutModuleSize (
+        double pRetVal );
+    _bstr_t GetEncodingName ( );
+    void PutEncodingName (
+        _bstr_t pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_CodeVersion (
+        enum CodeVersionTypeEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_CodeVersion (
+        enum CodeVersionTypeEnum pRetVal ) = 0;
+    virtual HRESULT __stdcall get_EncodingType (
+        enum QREncodingTypeEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_EncodingType (
+        enum QREncodingTypeEnum pRetVal ) = 0;
+    virtual HRESULT __stdcall get_ErrorCorrectionLevel (
+        enum ErrorCorrectionLevelEnum_2 * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_ErrorCorrectionLevel (
+        enum ErrorCorrectionLevelEnum_2 pRetVal ) = 0;
+    virtual HRESULT __stdcall get_ModuleSize (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_ModuleSize (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_EncodingName (
+        BSTR * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_EncodingName (
+        BSTR pRetVal ) = 0;
+};
+
+struct __declspec(uuid("26882acf-76f2-3571-b447-66cafeae5f52"))
+QRCodeProps;
+    // [ default ] interface _QRCodeProps
+    // interface _Object
+    // interface IQRCodeProperties
+
+enum QREncodingTypeEnum
+{
+    QREncodingTypeEnum_Auto = 0,
+    QREncodingTypeEnum_Numeric = 1,
+    QREncodingTypeEnum_AlphaNumeric = 2,
+    QREncodingTypeEnum_Kanji = 3,
+    QREncodingTypeEnum_Byte = 4
+};
+
+enum CodeVersionTypeEnum
+{
+    CodeVersionTypeEnum_Auto = 0,
+    CodeVersionTypeEnum_V01 = 1,
+    CodeVersionTypeEnum_V02 = 2,
+    CodeVersionTypeEnum_V03 = 3,
+    CodeVersionTypeEnum_V04 = 4,
+    CodeVersionTypeEnum_V05 = 5,
+    CodeVersionTypeEnum_V06 = 6,
+    CodeVersionTypeEnum_V07 = 7,
+    CodeVersionTypeEnum_V08 = 8,
+    CodeVersionTypeEnum_V09 = 9,
+    CodeVersionTypeEnum_V10 = 10,
+    CodeVersionTypeEnum_V11 = 11,
+    CodeVersionTypeEnum_V12 = 12,
+    CodeVersionTypeEnum_V13 = 13,
+    CodeVersionTypeEnum_V14 = 14,
+    CodeVersionTypeEnum_V15 = 15,
+    CodeVersionTypeEnum_V16 = 16,
+    CodeVersionTypeEnum_V17 = 17,
+    CodeVersionTypeEnum_V18 = 18,
+    CodeVersionTypeEnum_V19 = 19,
+    CodeVersionTypeEnum_V20 = 20,
+    CodeVersionTypeEnum_V21 = 21,
+    CodeVersionTypeEnum_V22 = 22,
+    CodeVersionTypeEnum_V23 = 23,
+    CodeVersionTypeEnum_V24 = 24,
+    CodeVersionTypeEnum_V25 = 25,
+    CodeVersionTypeEnum_V26 = 26,
+    CodeVersionTypeEnum_V27 = 27,
+    CodeVersionTypeEnum_V28 = 28,
+    CodeVersionTypeEnum_V29 = 29,
+    CodeVersionTypeEnum_V30 = 30,
+    CodeVersionTypeEnum_V31 = 31,
+    CodeVersionTypeEnum_V32 = 32,
+    CodeVersionTypeEnum_V33 = 33,
+    CodeVersionTypeEnum_V34 = 34,
+    CodeVersionTypeEnum_V35 = 35,
+    CodeVersionTypeEnum_V36 = 36,
+    CodeVersionTypeEnum_V37 = 37,
+    CodeVersionTypeEnum_V38 = 38,
+    CodeVersionTypeEnum_V39 = 39,
+    CodeVersionTypeEnum_V40 = 40
+};
+
+struct __declspec(uuid("9d586654-e8df-34b3-b226-bec9f58bcb0f"))
+IUSPSProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetFIMPattern,put=PutFIMPattern))
+    enum FIMTypeEnum FIMPattern;
+    __declspec(property(get=GetHorizontalBarsCount,put=PutHorizontalBarsCount))
+    long HorizontalBarsCount;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    enum FIMTypeEnum GetFIMPattern ( );
+    void PutFIMPattern (
+        enum FIMTypeEnum pRetVal );
+    long GetHorizontalBarsCount ( );
+    void PutHorizontalBarsCount (
+        long pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_FIMPattern (
+        enum FIMTypeEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_FIMPattern (
+        enum FIMTypeEnum pRetVal ) = 0;
+    virtual HRESULT __stdcall get_HorizontalBarsCount (
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_HorizontalBarsCount (
+        long pRetVal ) = 0;
+};
+
+struct __declspec(uuid("b8aa8109-f0e3-3257-bf38-3f81fb9c62f6"))
+USPSProps;
+    // [ default ] interface _USPSProps
+    // interface _Object
+    // interface IUSPSProperties
+
+enum FIMTypeEnum
+{
+    FIMTypeEnum_A = 0,
+    FIMTypeEnum_B = 1,
+    FIMTypeEnum_C = 2,
+    FIMTypeEnum_D = 3
+};
+
+struct __declspec(uuid("4615a238-c053-3572-8261-87429a3f31f9"))
+ITelepenProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetEncodingType,put=PutEncodingType))
+    enum EncodingTypeEnum_2 EncodingType;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    enum EncodingTypeEnum_2 GetEncodingType ( );
+    void PutEncodingType (
+        enum EncodingTypeEnum_2 pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_EncodingType (
+        enum EncodingTypeEnum_2 * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_EncodingType (
+        enum EncodingTypeEnum_2 pRetVal ) = 0;
+};
+
+struct __declspec(uuid("c2763586-4aa4-36fd-820d-2016aa78e0af"))
+TelepenProps;
+    // [ default ] interface _TelepenProps
+    // interface _Object
+    // interface ITelepenProperties
+
+struct __declspec(uuid("544ad347-eebb-333e-a78a-fecea1ad30a3"))
+IBarcodeMargin : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(put=PutSetAll))
+    double SetAll;
+    __declspec(property(get=Getbottom,put=Putbottom))
+    double bottom;
+    __declspec(property(get=Getleft,put=Putleft))
+    double left;
+    __declspec(property(get=Getright,put=Putright))
+    double right;
+    __declspec(property(get=Gettop,put=Puttop))
+    double top;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    HRESULT SetMargins (
+        double left,
+        double top,
+        double right,
+        double bottom );
+    void PutSetAll (
+        double _arg1 );
+    double Getbottom ( );
+    void Putbottom (
+        double pRetVal );
+    double Getleft ( );
+    void Putleft (
+        double pRetVal );
+    double Getright ( );
+    void Putright (
+        double pRetVal );
+    double Gettop ( );
+    void Puttop (
+        double pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall raw_SetMargins (
+        double left,
+        double top,
+        double right,
+        double bottom ) = 0;
+    virtual HRESULT __stdcall put_SetAll (
+        double _arg1 ) = 0;
+    virtual HRESULT __stdcall get_bottom (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_bottom (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_left (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_left (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_right (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_right (
+        double pRetVal ) = 0;
+    virtual HRESULT __stdcall get_top (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_top (
+        double pRetVal ) = 0;
+};
+
+struct __declspec(uuid("5b512631-155e-3a38-a853-25082b8ed8e0"))
+BarcodeMarginProps;
+    // [ default ] interface _BarcodeMarginProps
+    // interface _Object
+    // interface IBarcodeMargin
+
+struct __declspec(uuid("f66d4ea0-0b73-30dc-b785-60e965079170"))
+ICode128Properties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetCharacterSet,put=PutCharacterSet))
+    enum CharacterSetEnum CharacterSet;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    enum CharacterSetEnum GetCharacterSet ( );
+    void PutCharacterSet (
+        enum CharacterSetEnum pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_CharacterSet (
+        enum CharacterSetEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_CharacterSet (
+        enum CharacterSetEnum pRetVal ) = 0;
+};
+
+struct __declspec(uuid("e867421f-ea36-34a9-9e1c-fbbeaa58b6aa"))
+Code128Props;
+    // [ default ] interface _Code128Props
+    // interface _Object
+    // interface ICode128Properties
+
+enum CharacterSetEnum
+{
+    CharacterSetEnum_Auto = 0,
+    CharacterSetEnum_A = 1,
+    CharacterSetEnum_B = 2,
+    CharacterSetEnum_C = 3
+};
+
+struct __declspec(uuid("724d94b0-3fa6-3e26-8662-07548160cb50"))
+ICode16kProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetMode,put=PutMode))
+    enum ModeEnum Mode;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    enum ModeEnum GetMode ( );
+    void PutMode (
+        enum ModeEnum pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_Mode (
+        enum ModeEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_Mode (
+        enum ModeEnum pRetVal ) = 0;
+};
+
+struct __declspec(uuid("92738727-dc45-3eec-aa5c-617b6bd9450a"))
+Code16kProps;
+    // [ default ] interface _Code16kProps
+    // interface _Object
+    // interface ICode16kProperties
+
+enum ModeEnum
+{
+    ModeEnum_Mode0 = 0,
+    ModeEnum_Mode1 = 1,
+    ModeEnum_Mode2 = 2
+};
+
+struct __declspec(uuid("a9630681-fe07-35fe-b070-cfe5d377bf2e"))
+ICode39And93Properties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetExtended,put=PutExtended))
+    VARIANT_BOOL Extended;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    VARIANT_BOOL GetExtended ( );
+    void PutExtended (
+        VARIANT_BOOL pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_Extended (
+        VARIANT_BOOL * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_Extended (
+        VARIANT_BOOL pRetVal ) = 0;
+};
+
+struct __declspec(uuid("46de991c-6a00-33ac-972d-08716c1d942c"))
+Code39And93Props;
+    // [ default ] interface _Code39And93Props
+    // interface _Object
+    // interface ICode39And93Properties
+
+struct __declspec(uuid("edc1fadf-85eb-331c-8b5d-d1b52fb7f340"))
+IIsbt128Properties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetDataStructure,put=PutDataStructure))
+    enum DataStructureEnum DataStructure;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    enum DataStructureEnum GetDataStructure ( );
+    void PutDataStructure (
+        enum DataStructureEnum pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_DataStructure (
+        enum DataStructureEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_DataStructure (
+        enum DataStructureEnum pRetVal ) = 0;
+};
+
+struct __declspec(uuid("e9182437-8c78-3781-8a8f-a21c0dffde14"))
+Isbt128Props;
+    // [ default ] interface _Isbt128Props
+    // interface _Object
+    // interface IIsbt128Properties
+
+enum DataStructureEnum
+{
+    DataStructureEnum_DS001 = 0,
+    DataStructureEnum_DS002 = 1,
+    DataStructureEnum_DS003 = 2,
+    DataStructureEnum_DS004 = 3,
+    DataStructureEnum_DS005 = 4,
+    DataStructureEnum_DS006 = 5,
+    DataStructureEnum_DS007 = 6,
+    DataStructureEnum_DS008 = 7,
+    DataStructureEnum_DS009 = 8,
+    DataStructureEnum_DS010 = 9,
+    DataStructureEnum_DS011 = 10,
+    DataStructureEnum_DS012 = 11,
+    DataStructureEnum_DS013 = 12,
+    DataStructureEnum_DS014 = 13,
+    DataStructureEnum_DS015 = 14,
+    DataStructureEnum_DS016 = 15,
+    DataStructureEnum_DS017 = 16,
+    DataStructureEnum_DS018 = 17,
+    DataStructureEnum_DS019 = 18,
+    DataStructureEnum_DS020 = 19,
+    DataStructureEnum_DS021 = 20,
+    DataStructureEnum_DS022 = 21,
+    DataStructureEnum_DS023 = 22,
+    DataStructureEnum_DS024 = 23,
+    DataStructureEnum_DS025 = 24,
+    DataStructureEnum_DS026 = 25
+};
+
+struct __declspec(uuid("dde781f7-7f2b-3ac0-8678-33e969599a33"))
+IMaxiCodeProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetMode,put=PutMode))
+    enum ModeEnum_2 Mode;
+    __declspec(property(get=GetProcessTilde,put=PutProcessTilde))
+    VARIANT_BOOL ProcessTilde;
+    __declspec(property(get=GetSymbolCount,put=PutSymbolCount))
+    long SymbolCount;
+    __declspec(property(get=GetSymbolIndex,put=PutSymbolIndex))
+    long SymbolIndex;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    enum ModeEnum_2 GetMode ( );
+    void PutMode (
+        enum ModeEnum_2 pRetVal );
+    VARIANT_BOOL GetProcessTilde ( );
+    void PutProcessTilde (
+        VARIANT_BOOL pRetVal );
+    long GetSymbolCount ( );
+    void PutSymbolCount (
+        long pRetVal );
+    long GetSymbolIndex ( );
+    void PutSymbolIndex (
+        long pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_Mode (
+        enum ModeEnum_2 * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_Mode (
+        enum ModeEnum_2 pRetVal ) = 0;
+    virtual HRESULT __stdcall get_ProcessTilde (
+        VARIANT_BOOL * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_ProcessTilde (
+        VARIANT_BOOL pRetVal ) = 0;
+    virtual HRESULT __stdcall get_SymbolCount (
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_SymbolCount (
+        long pRetVal ) = 0;
+    virtual HRESULT __stdcall get_SymbolIndex (
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_SymbolIndex (
+        long pRetVal ) = 0;
+};
+
+struct __declspec(uuid("828960a7-2985-3c3e-810e-d5a29b7e93a4"))
+MaxiCodeProps;
+    // [ default ] interface _MaxiCodeProps
+    // interface _Object
+    // interface IMaxiCodeProperties
+
+struct __declspec(uuid("4fe418da-6c59-3296-a072-5831f5e947c7"))
+IMicroQRProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetCodeVersion,put=PutCodeVersion))
+    enum CodeVersionEnum CodeVersion;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    enum CodeVersionEnum GetCodeVersion ( );
+    void PutCodeVersion (
+        enum CodeVersionEnum pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_CodeVersion (
+        enum CodeVersionEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_CodeVersion (
+        enum CodeVersionEnum pRetVal ) = 0;
+};
+
+struct __declspec(uuid("6e55094c-9127-3339-8a7c-849ee7bedf2e"))
+MicroQRProps;
+    // [ default ] interface _MicroQRProps
+    // interface _Object
+    // interface IMicroQRProperties
+
+enum CodeVersionEnum
+{
+    CodeVersionEnum_Auto = 0,
+    CodeVersionEnum_M1 = 1,
+    CodeVersionEnum_M2 = 2,
+    CodeVersionEnum_M3 = 3,
+    CodeVersionEnum_M4 = 4
+};
+
+struct __declspec(uuid("9a78a53a-8b09-3137-b723-4d8a00f528c1"))
+IMSIProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetChecksum,put=PutChecksum))
+    enum ChecksumEnum Checksum;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    enum ChecksumEnum GetChecksum ( );
+    void PutChecksum (
+        enum ChecksumEnum pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_Checksum (
+        enum ChecksumEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_Checksum (
+        enum ChecksumEnum pRetVal ) = 0;
+};
+
+struct __declspec(uuid("389a87fd-5600-3030-8cfa-8480fbf80634"))
+MSIProps;
+    // [ default ] interface _MSIProps
+    // interface _Object
+    // interface IMSIProperties
+
+enum ChecksumEnum
+{
+    ChecksumEnum_OneMod10 = 0,
+    ChecksumEnum_TwoMod10 = 1,
+    ChecksumEnum_Mod11AndMod10 = 2
+};
+
+struct __declspec(uuid("92493c6c-e138-326e-a144-2920afc82376"))
+IGS1DataBarAndRSSExpandedStackedProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetSegmentsPerRow,put=PutSegmentsPerRow))
+    long SegmentsPerRow;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    long GetSegmentsPerRow ( );
+    void PutSegmentsPerRow (
+        long pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_SegmentsPerRow (
+        long * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_SegmentsPerRow (
+        long pRetVal ) = 0;
+};
+
+struct __declspec(uuid("2e638b1a-423a-3caa-a487-f5182439a6a8"))
+GS1DataBarAndRSSExpandedStackedProps;
+    // [ default ] interface _GS1DataBarAndRSSExpandedStackedProps
+    // interface _Object
+    // interface IGS1DataBarAndRSSExpandedStackedProperties
+
+struct __declspec(uuid("e14f106b-518b-3882-8891-10d072f5f440"))
+IBearerBarProperties : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetStyle,put=PutStyle))
+    enum StyleEnum Style;
+    __declspec(property(get=Getwidth,put=Putwidth))
+    double width;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    enum StyleEnum GetStyle ( );
+    void PutStyle (
+        enum StyleEnum pRetVal );
+    double Getwidth ( );
+    void Putwidth (
+        double pRetVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_Style (
+        enum StyleEnum * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_Style (
+        enum StyleEnum pRetVal ) = 0;
+    virtual HRESULT __stdcall get_width (
+        double * pRetVal ) = 0;
+    virtual HRESULT __stdcall put_width (
+        double pRetVal ) = 0;
+};
+
+struct __declspec(uuid("78c3061f-f230-32ca-b037-dff45152ed84"))
+BearerBarProps;
+    // [ default ] interface _BearerBarProps
+    // interface _Object
+    // interface IBearerBarProperties
+
+enum StyleEnum
+{
+    StyleEnum_None = 0,
+    StyleEnum_Frame = 1,
+    StyleEnum_HorizontalRules = 2
+};
+
+enum TextAlignmentEnum_2
+{
+    TextAlignmentEnum_2_AboveCenter = 0,
+    TextAlignmentEnum_2_AboveLeft = 1,
+    TextAlignmentEnum_2_AboveRight = 2,
+    TextAlignmentEnum_2_AboveJustify = 3,
+    TextAlignmentEnum_2_BelowCenter = 4,
+    TextAlignmentEnum_2_BelowLeft = 5,
+    TextAlignmentEnum_2_BelowRight = 6,
+    TextAlignmentEnum_2_BelowJustify = 7
+};
+
+enum RotationTypeEnum_2
+{
+    RotationTypeEnum_2_None = 0,
+    RotationTypeEnum_2_Degree90 = 1,
+    RotationTypeEnum_2_Degree180 = 2,
+    RotationTypeEnum_2_Degree270 = 3
+};
+
+enum ErrorCorrectionLevelEnum_2
+{
+    ErrorCorrectionLevelEnum_2_L = 0,
+    ErrorCorrectionLevelEnum_2_M = 1,
+    ErrorCorrectionLevelEnum_2_Q = 2,
+    ErrorCorrectionLevelEnum_2_H = 3
+};
+
+enum EncodingTypeEnum_2
+{
+    EncodingTypeEnum_2_Ascii = 0,
+    EncodingTypeEnum_2_Numeric = 1
+};
+
+enum ModeEnum_2
+{
+    ModeEnum_2_Mode2 = 2,
+    ModeEnum_2_Mode3 = 3,
+    ModeEnum_2_Mode4 = 4,
+    ModeEnum_2_Mode5 = 5,
+    ModeEnum_2_Mode6 = 6
+};
+
+struct __declspec(uuid("2306d853-fcee-370e-add9-042705121270"))
+_Barcode : IDispatch
+{};
+
+struct __declspec(uuid("b5445089-a637-3166-998d-590f4323c9dd"))
+_Pdf417Props : IDispatch
+{};
+
+struct __declspec(uuid("03db9bdd-e16c-3bd1-894b-f9715a5a3c09"))
+_EANUPCProps : IDispatch
+{};
+
+struct __declspec(uuid("6c4631f1-5827-3881-abea-1407c621f81a"))
+_AztecCodeProps : IDispatch
+{};
+
+struct __declspec(uuid("3811b19b-fa5a-30b9-972f-e99aa598cf96"))
+_CodabarProps : IDispatch
+{};
+
+struct __declspec(uuid("814c4b7a-2887-3126-b971-9ebab199f289"))
+_DataMatrixProps : IDispatch
+{};
+
+struct __declspec(uuid("c1e9a5a3-dbe3-3094-9b4e-333c9b35a151"))
+_PharmacodeProps : IDispatch
+{};
+
+struct __declspec(uuid("0d93d242-323a-3c04-a55c-eca064e56778"))
+_PlanetProps : IDispatch
+{};
+
+struct __declspec(uuid("792daf53-afa9-3d36-8b94-384cbdc8c210"))
+_PostalStateProps : IDispatch
+{};
+
+struct __declspec(uuid("2bd46852-a2d9-3033-8d86-9bdddbfbe862"))
+_PostnetProps : IDispatch
+{};
+
+struct __declspec(uuid("bec9fed3-8dd2-38f8-aed9-5f9252e8d2fc"))
+_QRCodeProps : IDispatch
+{};
+
+struct __declspec(uuid("5211ea45-8408-3422-a5ee-26b935e9a880"))
+_USPSProps : IDispatch
+{};
+
+struct __declspec(uuid("724a17d7-21d2-3be1-b1a9-4630a1d4f4b2"))
+_TelepenProps : IDispatch
+{};
+
+struct __declspec(uuid("2e969809-899b-3456-adf3-a5805368d1b3"))
+_BarcodeMarginProps : IDispatch
+{};
+
+struct __declspec(uuid("36f521bf-9e25-3784-8a48-652a8407363e"))
+_Code128Props : IDispatch
+{};
+
+struct __declspec(uuid("d14271da-d5ad-3cdc-ad25-7d488abb50a8"))
+_Code16kProps : IDispatch
+{};
+
+struct __declspec(uuid("5139ddd0-f302-38c9-8042-bf3ad68a8747"))
+_Code39And93Props : IDispatch
+{};
+
+struct __declspec(uuid("3aba1928-0df9-3eda-8566-dcbc08b216a0"))
+_Isbt128Props : IDispatch
+{};
+
+struct __declspec(uuid("5ac3c971-968e-30b0-8e70-3921507e9e86"))
+_MaxiCodeProps : IDispatch
+{};
+
+struct __declspec(uuid("5fba1ac8-15a5-33d8-be74-ef1ab6baa6e7"))
+_MicroQRProps : IDispatch
+{};
+
+struct __declspec(uuid("f84e32f3-d881-388b-841c-c7395e0d6e9f"))
+_MSIProps : IDispatch
+{};
+
+struct __declspec(uuid("7c57d135-439e-38a1-ac93-74aaefe3e0f2"))
+_GS1DataBarAndRSSExpandedStackedProps : IDispatch
+{};
+
+struct __declspec(uuid("886c6dc3-2b6a-3059-9bc8-21c2668b72cf"))
+_BearerBarProps : IDispatch
+{};
+
+//
+// Named GUID constants initializations
+//
+
+extern "C" const GUID __declspec(selectany) LIBID_ZMotifGraphics =
+    {0x61f7bb5e,0xe34e,0x49c0,{0xa4,0x4b,0x47,0xb9,0xb7,0xc1,0x58,0x79}};
+extern "C" const GUID __declspec(selectany) IID_IZMotifGraphics =
+    {0x093ff85e,0xf428,0x30f0,{0x84,0xd2,0xc4,0xa9,0x63,0xae,0x67,0x7e}};
+extern "C" const GUID __declspec(selectany) IID_IAztecCodeProperties =
+    {0xdc9ecc87,0x80a3,0x335d,{0xa6,0xc7,0xdc,0xfa,0xb1,0x8d,0x79,0xd0}};
+extern "C" const GUID __declspec(selectany) CLSID_ZMotifGraphics =
+    {0x4480eefb,0xf8b2,0x3183,{0xb3,0x46,0x68,0x92,0xc8,0x8a,0xad,0x71}};
+extern "C" const GUID __declspec(selectany) IID_IBarcode =
+    {0x6fa522c5,0xfc72,0x346a,{0x80,0xaa,0x46,0xe9,0xd3,0xea,0xdb,0x83}};
+extern "C" const GUID __declspec(selectany) CLSID_Barcode =
+    {0x51c21351,0x3fe0,0x3ced,{0xbc,0x7f,0x2a,0x4a,0xe8,0xc2,0x13,0x82}};
+extern "C" const GUID __declspec(selectany) IID_IPdf417Properties =
+    {0xdbe67bd9,0x173b,0x3be6,{0x9f,0xfe,0x2b,0x30,0x10,0x45,0x99,0xb4}};
+extern "C" const GUID __declspec(selectany) CLSID_Pdf417Props =
+    {0xd404f012,0xcfb7,0x323c,{0xbc,0x43,0xf0,0x35,0xd9,0xaf,0x26,0xca}};
+extern "C" const GUID __declspec(selectany) IID_IEANUPCProperties =
+    {0x9ba28ca8,0xcf8d,0x3e61,{0xa2,0x7c,0xe2,0x6f,0xa2,0x15,0xcb,0x1c}};
+extern "C" const GUID __declspec(selectany) CLSID_EANUPCProps =
+    {0x72df7598,0xc6b3,0x3f9d,{0xa5,0x4a,0xec,0xae,0x2d,0x25,0x1e,0xa8}};
+extern "C" const GUID __declspec(selectany) CLSID_AztecCodeProps =
+    {0x4a3deb6e,0xb461,0x3b8b,{0x8a,0xab,0x17,0x69,0xd0,0xc5,0x8b,0xd8}};
+extern "C" const GUID __declspec(selectany) IID_ICodabarProperties =
+    {0xda52bba0,0x5997,0x3962,{0x8c,0x45,0xe1,0xc5,0xe9,0x83,0xf7,0x87}};
+extern "C" const GUID __declspec(selectany) CLSID_CodabarProps =
+    {0x37a3ca82,0x0579,0x30c6,{0xa3,0x2b,0xde,0x3a,0x32,0x9c,0x9a,0xc7}};
+extern "C" const GUID __declspec(selectany) IID_IDataMatrixProperties =
+    {0x6f45277f,0x67a4,0x3a70,{0x85,0x9f,0xf9,0xcb,0x4f,0xd8,0xb8,0x6a}};
+extern "C" const GUID __declspec(selectany) CLSID_DataMatrixProps =
+    {0x002cc0d7,0x0911,0x30ff,{0x9d,0x5c,0x63,0x06,0x5f,0xb5,0x68,0xbd}};
+extern "C" const GUID __declspec(selectany) IID_IPharmacodeProperties =
+    {0x8c3c0b06,0x1c3a,0x3c98,{0xbc,0x3d,0xd4,0xaf,0xb3,0x98,0x60,0x08}};
+extern "C" const GUID __declspec(selectany) CLSID_PharmacodeProps =
+    {0x53011b2f,0xcc2a,0x35b9,{0xa8,0x49,0x0a,0x39,0x1b,0x46,0x24,0x62}};
+extern "C" const GUID __declspec(selectany) IID_IPlanetProperties =
+    {0x7bcd1d78,0xc040,0x3910,{0xb0,0xda,0x51,0xef,0xe4,0x3d,0x31,0x53}};
+extern "C" const GUID __declspec(selectany) CLSID_PlanetProps =
+    {0xac5afd29,0xc6f9,0x3aa4,{0x8e,0x47,0xa8,0x5e,0xcb,0x53,0xb4,0xc8}};
+extern "C" const GUID __declspec(selectany) IID_IPostalStateProperties =
+    {0x61a44772,0x77d1,0x3ad5,{0x83,0x69,0x94,0x8e,0x49,0x4e,0xe6,0x4d}};
+extern "C" const GUID __declspec(selectany) CLSID_PostalStateProps =
+    {0xd65ada66,0x2640,0x3822,{0x98,0xcc,0xef,0xf4,0xda,0xe0,0xa3,0xf0}};
+extern "C" const GUID __declspec(selectany) IID_IPostnetProperties =
+    {0x5a1ba74d,0x96b5,0x37b3,{0x95,0xac,0x97,0xad,0x48,0xc5,0x35,0x30}};
+extern "C" const GUID __declspec(selectany) CLSID_PostnetProps =
+    {0x9ada8370,0x09d4,0x326f,{0x92,0xc1,0xa1,0xef,0x86,0x48,0x27,0xe4}};
+extern "C" const GUID __declspec(selectany) IID_IQRCodeProperties =
+    {0x366320c7,0x1361,0x3465,{0x84,0x8a,0xda,0x3d,0x6d,0x05,0x50,0x02}};
+extern "C" const GUID __declspec(selectany) CLSID_QRCodeProps =
+    {0x26882acf,0x76f2,0x3571,{0xb4,0x47,0x66,0xca,0xfe,0xae,0x5f,0x52}};
+extern "C" const GUID __declspec(selectany) IID_IUSPSProperties =
+    {0x9d586654,0xe8df,0x34b3,{0xb2,0x26,0xbe,0xc9,0xf5,0x8b,0xcb,0x0f}};
+extern "C" const GUID __declspec(selectany) CLSID_USPSProps =
+    {0xb8aa8109,0xf0e3,0x3257,{0xbf,0x38,0x3f,0x81,0xfb,0x9c,0x62,0xf6}};
+extern "C" const GUID __declspec(selectany) IID_ITelepenProperties =
+    {0x4615a238,0xc053,0x3572,{0x82,0x61,0x87,0x42,0x9a,0x3f,0x31,0xf9}};
+extern "C" const GUID __declspec(selectany) CLSID_TelepenProps =
+    {0xc2763586,0x4aa4,0x36fd,{0x82,0x0d,0x20,0x16,0xaa,0x78,0xe0,0xaf}};
+extern "C" const GUID __declspec(selectany) IID_IBarcodeMargin =
+    {0x544ad347,0xeebb,0x333e,{0xa7,0x8a,0xfe,0xce,0xa1,0xad,0x30,0xa3}};
+extern "C" const GUID __declspec(selectany) CLSID_BarcodeMarginProps =
+    {0x5b512631,0x155e,0x3a38,{0xa8,0x53,0x25,0x08,0x2b,0x8e,0xd8,0xe0}};
+extern "C" const GUID __declspec(selectany) IID_ICode128Properties =
+    {0xf66d4ea0,0x0b73,0x30dc,{0xb7,0x85,0x60,0xe9,0x65,0x07,0x91,0x70}};
+extern "C" const GUID __declspec(selectany) CLSID_Code128Props =
+    {0xe867421f,0xea36,0x34a9,{0x9e,0x1c,0xfb,0xbe,0xaa,0x58,0xb6,0xaa}};
+extern "C" const GUID __declspec(selectany) IID_ICode16kProperties =
+    {0x724d94b0,0x3fa6,0x3e26,{0x86,0x62,0x07,0x54,0x81,0x60,0xcb,0x50}};
+extern "C" const GUID __declspec(selectany) CLSID_Code16kProps =
+    {0x92738727,0xdc45,0x3eec,{0xaa,0x5c,0x61,0x7b,0x6b,0xd9,0x45,0x0a}};
+extern "C" const GUID __declspec(selectany) IID_ICode39And93Properties =
+    {0xa9630681,0xfe07,0x35fe,{0xb0,0x70,0xcf,0xe5,0xd3,0x77,0xbf,0x2e}};
+extern "C" const GUID __declspec(selectany) CLSID_Code39And93Props =
+    {0x46de991c,0x6a00,0x33ac,{0x97,0x2d,0x08,0x71,0x6c,0x1d,0x94,0x2c}};
+extern "C" const GUID __declspec(selectany) IID_IIsbt128Properties =
+    {0xedc1fadf,0x85eb,0x331c,{0x8b,0x5d,0xd1,0xb5,0x2f,0xb7,0xf3,0x40}};
+extern "C" const GUID __declspec(selectany) CLSID_Isbt128Props =
+    {0xe9182437,0x8c78,0x3781,{0x8a,0x8f,0xa2,0x1c,0x0d,0xff,0xde,0x14}};
+extern "C" const GUID __declspec(selectany) IID_IMaxiCodeProperties =
+    {0xdde781f7,0x7f2b,0x3ac0,{0x86,0x78,0x33,0xe9,0x69,0x59,0x9a,0x33}};
+extern "C" const GUID __declspec(selectany) CLSID_MaxiCodeProps =
+    {0x828960a7,0x2985,0x3c3e,{0x81,0x0e,0xd5,0xa2,0x9b,0x7e,0x93,0xa4}};
+extern "C" const GUID __declspec(selectany) IID_IMicroQRProperties =
+    {0x4fe418da,0x6c59,0x3296,{0xa0,0x72,0x58,0x31,0xf5,0xe9,0x47,0xc7}};
+extern "C" const GUID __declspec(selectany) CLSID_MicroQRProps =
+    {0x6e55094c,0x9127,0x3339,{0x8a,0x7c,0x84,0x9e,0xe7,0xbe,0xdf,0x2e}};
+extern "C" const GUID __declspec(selectany) IID_IMSIProperties =
+    {0x9a78a53a,0x8b09,0x3137,{0xb7,0x23,0x4d,0x8a,0x00,0xf5,0x28,0xc1}};
+extern "C" const GUID __declspec(selectany) CLSID_MSIProps =
+    {0x389a87fd,0x5600,0x3030,{0x8c,0xfa,0x84,0x80,0xfb,0xf8,0x06,0x34}};
+extern "C" const GUID __declspec(selectany) IID_IGS1DataBarAndRSSExpandedStackedProperties =
+    {0x92493c6c,0xe138,0x326e,{0xa1,0x44,0x29,0x20,0xaf,0xc8,0x23,0x76}};
+extern "C" const GUID __declspec(selectany) CLSID_GS1DataBarAndRSSExpandedStackedProps =
+    {0x2e638b1a,0x423a,0x3caa,{0xa4,0x87,0xf5,0x18,0x24,0x39,0xa6,0xa8}};
+extern "C" const GUID __declspec(selectany) IID_IBearerBarProperties =
+    {0xe14f106b,0x518b,0x3882,{0x88,0x91,0x10,0xd0,0x72,0xf5,0xf4,0x40}};
+extern "C" const GUID __declspec(selectany) CLSID_BearerBarProps =
+    {0x78c3061f,0xf230,0x32ca,{0xb0,0x37,0xdf,0xf4,0x51,0x52,0xed,0x84}};
+extern "C" const GUID __declspec(selectany) IID__Barcode =
+    {0x2306d853,0xfcee,0x370e,{0xad,0xd9,0x04,0x27,0x05,0x12,0x12,0x70}};
+extern "C" const GUID __declspec(selectany) IID__Pdf417Props =
+    {0xb5445089,0xa637,0x3166,{0x99,0x8d,0x59,0x0f,0x43,0x23,0xc9,0xdd}};
+extern "C" const GUID __declspec(selectany) IID__EANUPCProps =
+    {0x03db9bdd,0xe16c,0x3bd1,{0x89,0x4b,0xf9,0x71,0x5a,0x5a,0x3c,0x09}};
+extern "C" const GUID __declspec(selectany) IID__AztecCodeProps =
+    {0x6c4631f1,0x5827,0x3881,{0xab,0xea,0x14,0x07,0xc6,0x21,0xf8,0x1a}};
+extern "C" const GUID __declspec(selectany) IID__CodabarProps =
+    {0x3811b19b,0xfa5a,0x30b9,{0x97,0x2f,0xe9,0x9a,0xa5,0x98,0xcf,0x96}};
+extern "C" const GUID __declspec(selectany) IID__DataMatrixProps =
+    {0x814c4b7a,0x2887,0x3126,{0xb9,0x71,0x9e,0xba,0xb1,0x99,0xf2,0x89}};
+extern "C" const GUID __declspec(selectany) IID__PharmacodeProps =
+    {0xc1e9a5a3,0xdbe3,0x3094,{0x9b,0x4e,0x33,0x3c,0x9b,0x35,0xa1,0x51}};
+extern "C" const GUID __declspec(selectany) IID__PlanetProps =
+    {0x0d93d242,0x323a,0x3c04,{0xa5,0x5c,0xec,0xa0,0x64,0xe5,0x67,0x78}};
+extern "C" const GUID __declspec(selectany) IID__PostalStateProps =
+    {0x792daf53,0xafa9,0x3d36,{0x8b,0x94,0x38,0x4c,0xbd,0xc8,0xc2,0x10}};
+extern "C" const GUID __declspec(selectany) IID__PostnetProps =
+    {0x2bd46852,0xa2d9,0x3033,{0x8d,0x86,0x9b,0xdd,0xdb,0xfb,0xe8,0x62}};
+extern "C" const GUID __declspec(selectany) IID__QRCodeProps =
+    {0xbec9fed3,0x8dd2,0x38f8,{0xae,0xd9,0x5f,0x92,0x52,0xe8,0xd2,0xfc}};
+extern "C" const GUID __declspec(selectany) IID__USPSProps =
+    {0x5211ea45,0x8408,0x3422,{0xa5,0xee,0x26,0xb9,0x35,0xe9,0xa8,0x80}};
+extern "C" const GUID __declspec(selectany) IID__TelepenProps =
+    {0x724a17d7,0x21d2,0x3be1,{0xb1,0xa9,0x46,0x30,0xa1,0xd4,0xf4,0xb2}};
+extern "C" const GUID __declspec(selectany) IID__BarcodeMarginProps =
+    {0x2e969809,0x899b,0x3456,{0xad,0xf3,0xa5,0x80,0x53,0x68,0xd1,0xb3}};
+extern "C" const GUID __declspec(selectany) IID__Code128Props =
+    {0x36f521bf,0x9e25,0x3784,{0x8a,0x48,0x65,0x2a,0x84,0x07,0x36,0x3e}};
+extern "C" const GUID __declspec(selectany) IID__Code16kProps =
+    {0xd14271da,0xd5ad,0x3cdc,{0xad,0x25,0x7d,0x48,0x8a,0xbb,0x50,0xa8}};
+extern "C" const GUID __declspec(selectany) IID__Code39And93Props =
+    {0x5139ddd0,0xf302,0x38c9,{0x80,0x42,0xbf,0x3a,0xd6,0x8a,0x87,0x47}};
+extern "C" const GUID __declspec(selectany) IID__Isbt128Props =
+    {0x3aba1928,0x0df9,0x3eda,{0x85,0x66,0xdc,0xbc,0x08,0xb2,0x16,0xa0}};
+extern "C" const GUID __declspec(selectany) IID__MaxiCodeProps =
+    {0x5ac3c971,0x968e,0x30b0,{0x8e,0x70,0x39,0x21,0x50,0x7e,0x9e,0x86}};
+extern "C" const GUID __declspec(selectany) IID__MicroQRProps =
+    {0x5fba1ac8,0x15a5,0x33d8,{0xbe,0x74,0xef,0x1a,0xb6,0xba,0xa6,0xe7}};
+extern "C" const GUID __declspec(selectany) IID__MSIProps =
+    {0xf84e32f3,0xd881,0x388b,{0x84,0x1c,0xc7,0x39,0x5e,0x0d,0x6e,0x9f}};
+extern "C" const GUID __declspec(selectany) IID__GS1DataBarAndRSSExpandedStackedProps =
+    {0x7c57d135,0x439e,0x38a1,{0xac,0x93,0x74,0xaa,0xef,0xe3,0xe0,0xf2}};
+extern "C" const GUID __declspec(selectany) IID__BearerBarProps =
+    {0x886c6dc3,0x2b6a,0x3059,{0x9b,0xc8,0x21,0xc2,0x66,0x8b,0x72,0xcf}};
+
+//
+// Wrapper method implementations
+//
+
+#include "ZMotifGraphics.tli"
+
+#pragma pack(pop)

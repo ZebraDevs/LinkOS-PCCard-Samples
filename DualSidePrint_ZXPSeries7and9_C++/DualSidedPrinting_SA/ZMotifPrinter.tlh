@@ -1,0 +1,1536 @@
+// Created by Microsoft (R) C/C++ Compiler Version 12.00.9782.0 (5e6983e3).
+//
+// ZMotifPrinter.tlh
+//
+// C++ source equivalent of Win32 type library ZMotifPrinter.dll
+// compiler-generated file created 01/27/10 at 09:18:36 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+//
+// Forward references and typedefs
+//
+
+struct /* coclass */ Job;
+struct __declspec(uuid("1b22fefe-194b-4eef-b2e6-ef3b046389bb"))
+/* dual interface */ IJob;
+struct __declspec(uuid("24516b18-fb5f-4bef-a59b-7f5955e2a21a"))
+/* dual interface */ IDevice;
+struct __declspec(uuid("f394f4c9-3be8-4eee-bdaf-4c9526f01c69"))
+/* dual interface */ IJobControl;
+struct __declspec(uuid("b405953d-8758-4ac4-ae26-a8664b3d50f9"))
+/* dual interface */ IUtilities;
+struct __declspec(uuid("243cf4a7-a7a7-4aee-a01b-c8a619e4bc71"))
+/* dual interface */ ILaminator;
+struct /* coclass */ Device;
+struct /* coclass */ JobControl;
+struct /* coclass */ Utilities;
+struct /* coclass */ Laminator;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(IJob, __uuidof(IJob));
+_COM_SMARTPTR_TYPEDEF(IDevice, __uuidof(IDevice));
+_COM_SMARTPTR_TYPEDEF(IJobControl, __uuidof(IJobControl));
+_COM_SMARTPTR_TYPEDEF(IUtilities, __uuidof(IUtilities));
+_COM_SMARTPTR_TYPEDEF(ILaminator, __uuidof(ILaminator));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("eedc01a4-26e6-43c7-906c-c8476d2c90a7"))
+Job;
+    // [ default ] interface IJob
+
+struct __declspec(uuid("1b22fefe-194b-4eef-b2e6-ef3b046389bb"))
+IJob : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetJobControl))
+    IJobControlPtr JobControl;
+    __declspec(property(get=GetIsOpen))
+    VARIANT_BOOL IsOpen;
+    __declspec(property(get=GetLaminator))
+    ILaminatorPtr Laminator;
+    __declspec(property(get=GetEthernetOpenTimeout,put=PutEthernetOpenTimeout))
+    float EthernetOpenTimeout;
+    __declspec(property(get=GetReadResponse,put=PutReadResponse))
+    VARIANT_BOOL ReadResponse;
+    __declspec(property(get=GetHostTCPPort,put=PutHostTCPPort))
+    short HostTCPPort;
+    __declspec(property(get=GetUtilities))
+    IUtilitiesPtr Utilities;
+    __declspec(property(get=GetDevice))
+    IDevicePtr Device;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    HRESULT GetPrinters (
+        enum ConnectionTypeEnum conType,
+        VARIANT * printerList );
+    short Open (
+        _bstr_t deviceName );
+    HRESULT Close ( );
+    short TestPrint (
+        unsigned char testImage,
+        long copies,
+        VARIANT_BOOL doubleSided,
+        long * actionID );
+    short ReserveDevice (
+        enum ReservationTypeEnum reservationType,
+        long * reservationToken );
+    short Reset (
+        enum ResetTypeEnum resetType );
+    short ClearError ( );
+    short JobReprint (
+        long copies );
+    short ReleaseDevice (
+        long reservationToken );
+    short JobAbort (
+        VARIANT_BOOL cardReject );
+    short JobResume ( );
+    short JobRetry ( );
+    IDevicePtr GetDevice ( );
+    VARIANT_BOOL IsDeviceInSession (
+        long * reservationToken );
+    short GetJobStatus (
+        long actionID,
+        BSTR * uuidJob,
+        BSTR * printingStatus,
+        BSTR * cardPosition,
+        long * errorCode,
+        long * copiesCompleted,
+        long * copiesRequested,
+        BSTR * magStatus,
+        BSTR * contactStatus,
+        BSTR * contactlessStatus );
+    short GetJobList (
+        VARIANT * jobList );
+    IJobControlPtr GetJobControl ( );
+    VARIANT_BOOL GetIsOpen ( );
+    HRESULT BuildGraphicsLayers (
+        enum SideEnum side,
+        enum PrintTypeEnum printType,
+        long xOffset,
+        long yOffset,
+        long imgOpacity,
+        long fillColor,
+        enum GraphicTypeEnum graphicType,
+        const _variant_t & graphicData );
+    HRESULT ClearGraphicsLayers ( );
+    short PrintGraphicsLayers (
+        long copies,
+        long * actionID );
+    short PrintGraphicsLayersWithMagData (
+        long copies,
+        _bstr_t track1,
+        _bstr_t track2,
+        _bstr_t track3,
+        long * actionID );
+    short MagDataOnly (
+        long copies,
+        _bstr_t track1,
+        _bstr_t track2,
+        _bstr_t track3,
+        long * actionID );
+    short SmartCardDataOnly (
+        long copies,
+        long * actionID );
+    VARIANT_BOOL GetReadResponse ( );
+    void PutReadResponse (
+        VARIANT_BOOL pVal );
+    short GetHostTCPPort ( );
+    void PutHostTCPPort (
+        short pVal );
+    short JobCancel (
+        long actionID );
+    short ReadMagData (
+        enum DataSourceEnum tracksToRead,
+        BSTR * Track1Data,
+        BSTR * Track2Data,
+        BSTR * Track3Data,
+        long * actionID );
+    HRESULT GetSDKVersion (
+        unsigned char * major,
+        unsigned char * minor,
+        unsigned char * build,
+        unsigned char * revision );
+    IUtilitiesPtr GetUtilities ( );
+    HRESULT SetBroadcastConfiguration (
+        long retries,
+        float timeout,
+        long maxDevices );
+    HRESULT GetBroadcastConfiguration (
+        long * retries,
+        float * timeout,
+        long * maxDevices );
+    HRESULT GetSDKProductVersion (
+        BSTR * productVersion );
+    short SmartCardRetry (
+        enum SmartCardTypeEnum scType );
+    short EjectCard ( );
+    _bstr_t GetDriverName (
+        _bstr_t deviceName );
+    short RejectCard ( );
+    short ReturnCardToFeeder ( );
+    short PositionCard (
+        long * actionID );
+    short GetReservationStatus (
+        long reservationToken,
+        VARIANT_BOOL * sessionGranted );
+    HRESULT LoadJobConfigFile (
+        _bstr_t configFilePath );
+    ILaminatorPtr GetLaminator ( );
+    float GetEthernetOpenTimeout ( );
+    void PutEthernetOpenTimeout (
+        float seconds );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall raw_GetPrinters (
+        enum ConnectionTypeEnum conType,
+        VARIANT * printerList ) = 0;
+    virtual HRESULT __stdcall raw_Open (
+        BSTR deviceName,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_Close ( ) = 0;
+    virtual HRESULT __stdcall raw_TestPrint (
+        unsigned char testImage,
+        long copies,
+        VARIANT_BOOL doubleSided,
+        long * actionID,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_ReserveDevice (
+        enum ReservationTypeEnum reservationType,
+        long * reservationToken,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_Reset (
+        enum ResetTypeEnum resetType,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_ClearError (
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_JobReprint (
+        long copies,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_ReleaseDevice (
+        long reservationToken,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_JobAbort (
+        VARIANT_BOOL cardReject,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_JobResume (
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_JobRetry (
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall get_Device (
+        struct IDevice * * pVal ) = 0;
+    virtual HRESULT __stdcall raw_IsDeviceInSession (
+        long * reservationToken,
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall raw_GetJobStatus (
+        long actionID,
+        BSTR * uuidJob,
+        BSTR * printingStatus,
+        BSTR * cardPosition,
+        long * errorCode,
+        long * copiesCompleted,
+        long * copiesRequested,
+        BSTR * magStatus,
+        BSTR * contactStatus,
+        BSTR * contactlessStatus,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetJobList (
+        VARIANT * jobList,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall get_JobControl (
+        struct IJobControl * * pVal ) = 0;
+    virtual HRESULT __stdcall get_IsOpen (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall raw_BuildGraphicsLayers (
+        enum SideEnum side,
+        enum PrintTypeEnum printType,
+        long xOffset,
+        long yOffset,
+        long imgOpacity,
+        long fillColor,
+        enum GraphicTypeEnum graphicType,
+        VARIANT graphicData ) = 0;
+    virtual HRESULT __stdcall raw_ClearGraphicsLayers ( ) = 0;
+    virtual HRESULT __stdcall raw_PrintGraphicsLayers (
+        long copies,
+        long * actionID,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_PrintGraphicsLayersWithMagData (
+        long copies,
+        BSTR track1,
+        BSTR track2,
+        BSTR track3,
+        long * actionID,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_MagDataOnly (
+        long copies,
+        BSTR track1,
+        BSTR track2,
+        BSTR track3,
+        long * actionID,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_SmartCardDataOnly (
+        long copies,
+        long * actionID,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall get_ReadResponse (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall put_ReadResponse (
+        VARIANT_BOOL pVal ) = 0;
+    virtual HRESULT __stdcall get_HostTCPPort (
+        short * pVal ) = 0;
+    virtual HRESULT __stdcall put_HostTCPPort (
+        short pVal ) = 0;
+    virtual HRESULT __stdcall raw_JobCancel (
+        long actionID,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_ReadMagData (
+        enum DataSourceEnum tracksToRead,
+        BSTR * Track1Data,
+        BSTR * Track2Data,
+        BSTR * Track3Data,
+        long * actionID,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetSDKVersion (
+        unsigned char * major,
+        unsigned char * minor,
+        unsigned char * build,
+        unsigned char * revision ) = 0;
+    virtual HRESULT __stdcall get_Utilities (
+        struct IUtilities * * pVal ) = 0;
+    virtual HRESULT __stdcall raw_SetBroadcastConfiguration (
+        long retries,
+        float timeout,
+        long maxDevices ) = 0;
+    virtual HRESULT __stdcall raw_GetBroadcastConfiguration (
+        long * retries,
+        float * timeout,
+        long * maxDevices ) = 0;
+    virtual HRESULT __stdcall raw_GetSDKProductVersion (
+        BSTR * productVersion ) = 0;
+    virtual HRESULT __stdcall raw_SmartCardRetry (
+        enum SmartCardTypeEnum scType,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_EjectCard (
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetDriverName (
+        BSTR deviceName,
+        BSTR * driverName ) = 0;
+    virtual HRESULT __stdcall raw_RejectCard (
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_ReturnCardToFeeder (
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_PositionCard (
+        long * actionID,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetReservationStatus (
+        long reservationToken,
+        VARIANT_BOOL * sessionGranted,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_LoadJobConfigFile (
+        BSTR configFilePath ) = 0;
+    virtual HRESULT __stdcall get_Laminator (
+        struct ILaminator * * pVal ) = 0;
+    virtual HRESULT __stdcall get_EthernetOpenTimeout (
+        float * seconds ) = 0;
+    virtual HRESULT __stdcall put_EthernetOpenTimeout (
+        float seconds ) = 0;
+};
+
+enum ConnectionTypeEnum
+{
+    USB = 0,
+    Ethernet = 1,
+    All = 2
+};
+
+enum ReservationTypeEnum
+{
+    ImmediateSession = 1,
+    PendingSession = 2
+};
+
+enum ResetTypeEnum
+{
+    Warm = 1,
+    Full = 2
+};
+
+struct __declspec(uuid("24516b18-fb5f-4bef-a59b-7f5955e2a21a"))
+IDevice : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetErrorControlLevel,put=PutErrorControlLevel))
+    enum ErrorControlLevelEnum ErrorControlLevel;
+    __declspec(property(get=GetParamChgCounter))
+    long ParamChgCounter;
+    __declspec(property(get=GetAuthenticationEnabled))
+    VARIANT_BOOL AuthenticationEnabled;
+    __declspec(property(get=GetHeadResistance,put=PutHeadResistance))
+    long HeadResistance;
+    __declspec(property(get=GetOCPLanguage,put=PutOCPLanguage))
+    enum OCPLanguageEnum OCPLanguage;
+    __declspec(property(get=GetPrinterType))
+    _bstr_t PrinterType;
+    __declspec(property(get=GetHasLaminator))
+    VARIANT_BOOL HasLaminator;
+    __declspec(property(get=GetEncryptionEnabled))
+    VARIANT_BOOL EncryptionEnabled;
+    __declspec(property(get=GetSmartCardOffset,put=PutSmartCardOffset))
+    long SmartCardOffset;
+    __declspec(property(get=GetPrintCapability))
+    enum TransferTypeEnum PrintCapability;
+    __declspec(property(get=GetImageTransferType))
+    enum TransferTypeEnum ImageTransferType;
+    __declspec(property(get=GetLCDContrast,put=PutLCDContrast))
+    unsigned char LCDContrast;
+    __declspec(property(get=GetStandbyTimeout,put=PutStandbyTimeout))
+    enum StandbyTimeoutEnum StandbyTimeout;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    long GetHeadResistance ( );
+    void PutHeadResistance (
+        long pVal );
+    short SetNetworkParams (
+        _bstr_t ipAddress,
+        _bstr_t submask,
+        _bstr_t gateway,
+        enum BoolTypeEnum dhcpEnabled );
+    short GetDeviceInfo (
+        BSTR * vendor,
+        BSTR * model,
+        BSTR * serialNumber,
+        BSTR * MAC,
+        BSTR * headSerialNumber,
+        BSTR * oemCode,
+        BSTR * fwVersion,
+        BSTR * mediaVersion,
+        BSTR * heaterVersion,
+        BSTR * zmotifVersion );
+    short GetNetworkParams (
+        BSTR * MAC,
+        BSTR * ipAddress,
+        BSTR * submask,
+        BSTR * gateway,
+        VARIANT_BOOL * dhcpEnabled );
+    short GetRibbonParams (
+        long * type,
+        BSTR * partNumber,
+        BSTR * description,
+        BSTR * oemCode,
+        long * initialSize,
+        long * panelsRemaining );
+    short GetFilmParams (
+        long * type,
+        BSTR * partNumber,
+        BSTR * description,
+        BSTR * oemCode,
+        long * initialSize,
+        long * panelsRemaining );
+    HRESULT GetSmartCardConfiguration (
+        BSTR * commChannel,
+        BSTR * scContact,
+        BSTR * scContactless );
+    HRESULT GetMagneticEncoderConfiguration (
+        BSTR * headType,
+        BSTR * stripeLocation );
+    enum TransferTypeEnum GetImageTransferType ( );
+    unsigned char GetLCDContrast ( );
+    void PutLCDContrast (
+        unsigned char pVal );
+    enum StandbyTimeoutEnum GetStandbyTimeout ( );
+    void PutStandbyTimeout (
+        enum StandbyTimeoutEnum pVal );
+    short UpgradeFirmware (
+        _bstr_t firmwareFile );
+    short SetPanelPowerLevels (
+        unsigned char yellowPanel,
+        unsigned char magentaPanel,
+        unsigned char cyanPanel,
+        unsigned char kResinFront,
+        unsigned char kResinBack,
+        unsigned char kDye,
+        unsigned char overlayPanel,
+        unsigned char uvFront,
+        unsigned char uvBack );
+    short GetPanelPowerLevels (
+        unsigned char * yellowPanel,
+        unsigned char * magentaPanel,
+        unsigned char * cyanPanel,
+        unsigned char * kResinFront,
+        unsigned char * kResinBack,
+        unsigned char * kDye,
+        unsigned char * overlayPanel,
+        unsigned char * uvFront,
+        unsigned char * uvBack );
+    short GetSensorStates (
+        VARIANT * sensorStates );
+    short GetSensorValues (
+        VARIANT * sensorValues );
+    short GetPrinterStatus (
+        BSTR * status,
+        long * error,
+        long * jobsPending,
+        long * jobsActive,
+        long * jobsComplete,
+        long * jobErrors,
+        long * jobsTotal,
+        long * nextActionID );
+    short GetTotalCardCount (
+        long * cardCount );
+    short GetAvailableMemory (
+        enum MemorySourceEnum memType,
+        long * memSize );
+    short GetLog (
+        enum LogTypeEnum logType,
+        VARIANT_BOOL clear,
+        BSTR * xmlLog );
+    short GetCustomCardConfiguration (
+        unsigned char cardNumber,
+        BSTR * xmlCardConfig );
+    short SetCustomCardConfiguration (
+        _bstr_t xmlCardConfig );
+    VARIANT_BOOL GetAuthenticationEnabled ( );
+    short GetCapabilities (
+        enum CapabilitiesReportTypeEnum reportType,
+        BSTR * xmlCapabilities );
+    short GetConfiguration (
+        BSTR * xmlConfig );
+    _bstr_t GetStatusMessageString (
+        short statusCode );
+    short CleanDevice (
+        enum CleanPathTypeEnum path );
+    short SetCleaningIntervals (
+        long FeederPath,
+        long ATMPath,
+        long TransferPath );
+    HRESULT GetCleaningIntervals (
+        long * FeederPath,
+        long * ATMPath,
+        long * TransferPath );
+    VARIANT_BOOL GetEncryptionEnabled ( );
+    short GetTransferTempOffsets (
+        long * topSnglOffset,
+        long * botSnglOffset,
+        long * topDblOffset,
+        long * botDblOffset );
+    short SetTransferTempOffsets (
+        long topSnglOffset,
+        long botSnglOffset,
+        long topDblOffset,
+        long botDblOffset );
+    short DisplayOCPMessage (
+        VARIANT_BOOL lockOCP );
+    HRESULT BuildOCPMessage (
+        unsigned char lineNumber,
+        _bstr_t message,
+        VARIANT_BOOL underline,
+        VARIANT_BOOL reverse,
+        VARIANT_BOOL toggle,
+        VARIANT_BOOL doubleSize );
+    short ClearOCPMessage (
+        VARIANT_BOOL lockOCP );
+    long GetSmartCardOffset ( );
+    void PutSmartCardOffset (
+        long pVal );
+    short ResumeFromStandby ( );
+    enum TransferTypeEnum GetPrintCapability ( );
+    short GetDisplayedOCPMessage (
+        BSTR * ocpMessage );
+    short SelectOCPButton (
+        enum OCPButtonEnum button );
+    short SetConfiguration (
+        _bstr_t xmlConfigData );
+    enum ErrorControlLevelEnum GetErrorControlLevel ( );
+    void PutErrorControlLevel (
+        enum ErrorControlLevelEnum pVal );
+    long GetParamChgCounter ( );
+    short GetPanelPowerLevelsEx (
+        unsigned char * yellowPanel,
+        unsigned char * magentaPanel,
+        unsigned char * cyanPanel,
+        unsigned char * kResinFront,
+        unsigned char * kResinBack,
+        unsigned char * kDye,
+        unsigned char * overlayPanel,
+        unsigned char * uvFront,
+        unsigned char * uvBack,
+        unsigned char * inhibitPanel,
+        unsigned char * helperPanel );
+    short SetPanelPowerLevelsEx (
+        unsigned char yellowPanel,
+        unsigned char magentaPanel,
+        unsigned char cyanPanel,
+        unsigned char kResinFront,
+        unsigned char kResinBack,
+        unsigned char kDye,
+        unsigned char overlayPanel,
+        unsigned char uvFront,
+        unsigned char uvBack,
+        unsigned char inhibitPanel,
+        unsigned char helperPanel );
+    enum OCPLanguageEnum GetOCPLanguage ( );
+    void PutOCPLanguage (
+        enum OCPLanguageEnum pVal );
+    _bstr_t GetPrinterType ( );
+    VARIANT_BOOL GetHasLaminator ( );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall get_HeadResistance (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall put_HeadResistance (
+        long pVal ) = 0;
+    virtual HRESULT __stdcall raw_SetNetworkParams (
+        BSTR ipAddress,
+        BSTR submask,
+        BSTR gateway,
+        enum BoolTypeEnum dhcpEnabled,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetDeviceInfo (
+        BSTR * vendor,
+        BSTR * model,
+        BSTR * serialNumber,
+        BSTR * MAC,
+        BSTR * headSerialNumber,
+        BSTR * oemCode,
+        BSTR * fwVersion,
+        BSTR * mediaVersion,
+        BSTR * heaterVersion,
+        BSTR * zmotifVersion,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetNetworkParams (
+        BSTR * MAC,
+        BSTR * ipAddress,
+        BSTR * submask,
+        BSTR * gateway,
+        VARIANT_BOOL * dhcpEnabled,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetRibbonParams (
+        long * type,
+        BSTR * partNumber,
+        BSTR * description,
+        BSTR * oemCode,
+        long * initialSize,
+        long * panelsRemaining,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetFilmParams (
+        long * type,
+        BSTR * partNumber,
+        BSTR * description,
+        BSTR * oemCode,
+        long * initialSize,
+        long * panelsRemaining,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetSmartCardConfiguration (
+        BSTR * commChannel,
+        BSTR * scContact,
+        BSTR * scContactless ) = 0;
+    virtual HRESULT __stdcall raw_GetMagneticEncoderConfiguration (
+        BSTR * headType,
+        BSTR * stripeLocation ) = 0;
+    virtual HRESULT __stdcall get_ImageTransferType (
+        enum TransferTypeEnum * pVal ) = 0;
+    virtual HRESULT __stdcall get_LCDContrast (
+        unsigned char * pVal ) = 0;
+    virtual HRESULT __stdcall put_LCDContrast (
+        unsigned char pVal ) = 0;
+    virtual HRESULT __stdcall get_StandbyTimeout (
+        enum StandbyTimeoutEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_StandbyTimeout (
+        enum StandbyTimeoutEnum pVal ) = 0;
+    virtual HRESULT __stdcall raw_UpgradeFirmware (
+        BSTR firmwareFile,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_SetPanelPowerLevels (
+        unsigned char yellowPanel,
+        unsigned char magentaPanel,
+        unsigned char cyanPanel,
+        unsigned char kResinFront,
+        unsigned char kResinBack,
+        unsigned char kDye,
+        unsigned char overlayPanel,
+        unsigned char uvFront,
+        unsigned char uvBack,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetPanelPowerLevels (
+        unsigned char * yellowPanel,
+        unsigned char * magentaPanel,
+        unsigned char * cyanPanel,
+        unsigned char * kResinFront,
+        unsigned char * kResinBack,
+        unsigned char * kDye,
+        unsigned char * overlayPanel,
+        unsigned char * uvFront,
+        unsigned char * uvBack,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetSensorStates (
+        VARIANT * sensorStates,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetSensorValues (
+        VARIANT * sensorValues,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetPrinterStatus (
+        BSTR * status,
+        long * error,
+        long * jobsPending,
+        long * jobsActive,
+        long * jobsComplete,
+        long * jobErrors,
+        long * jobsTotal,
+        long * nextActionID,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetTotalCardCount (
+        long * cardCount,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetAvailableMemory (
+        enum MemorySourceEnum memType,
+        long * memSize,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetLog (
+        enum LogTypeEnum logType,
+        VARIANT_BOOL clear,
+        BSTR * xmlLog,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetCustomCardConfiguration (
+        unsigned char cardNumber,
+        BSTR * xmlCardConfig,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_SetCustomCardConfiguration (
+        BSTR xmlCardConfig,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall get_AuthenticationEnabled (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall raw_GetCapabilities (
+        enum CapabilitiesReportTypeEnum reportType,
+        BSTR * xmlCapabilities,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetConfiguration (
+        BSTR * xmlConfig,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetStatusMessageString (
+        short statusCode,
+        BSTR * message ) = 0;
+    virtual HRESULT __stdcall raw_CleanDevice (
+        enum CleanPathTypeEnum path,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_SetCleaningIntervals (
+        long FeederPath,
+        long ATMPath,
+        long TransferPath,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetCleaningIntervals (
+        long * FeederPath,
+        long * ATMPath,
+        long * TransferPath ) = 0;
+    virtual HRESULT __stdcall get_EncryptionEnabled (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall raw_GetTransferTempOffsets (
+        long * topSnglOffset,
+        long * botSnglOffset,
+        long * topDblOffset,
+        long * botDblOffset,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_SetTransferTempOffsets (
+        long topSnglOffset,
+        long botSnglOffset,
+        long topDblOffset,
+        long botDblOffset,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_DisplayOCPMessage (
+        VARIANT_BOOL lockOCP,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_BuildOCPMessage (
+        unsigned char lineNumber,
+        BSTR message,
+        VARIANT_BOOL underline,
+        VARIANT_BOOL reverse,
+        VARIANT_BOOL toggle,
+        VARIANT_BOOL doubleSize ) = 0;
+    virtual HRESULT __stdcall raw_ClearOCPMessage (
+        VARIANT_BOOL lockOCP,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall get_SmartCardOffset (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall put_SmartCardOffset (
+        long pVal ) = 0;
+    virtual HRESULT __stdcall raw_ResumeFromStandby (
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall get_PrintCapability (
+        enum TransferTypeEnum * pVal ) = 0;
+    virtual HRESULT __stdcall raw_GetDisplayedOCPMessage (
+        BSTR * ocpMessage,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_SelectOCPButton (
+        enum OCPButtonEnum button,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_SetConfiguration (
+        BSTR xmlConfigData,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall get_ErrorControlLevel (
+        enum ErrorControlLevelEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_ErrorControlLevel (
+        enum ErrorControlLevelEnum pVal ) = 0;
+    virtual HRESULT __stdcall get_ParamChgCounter (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall raw_GetPanelPowerLevelsEx (
+        unsigned char * yellowPanel,
+        unsigned char * magentaPanel,
+        unsigned char * cyanPanel,
+        unsigned char * kResinFront,
+        unsigned char * kResinBack,
+        unsigned char * kDye,
+        unsigned char * overlayPanel,
+        unsigned char * uvFront,
+        unsigned char * uvBack,
+        unsigned char * inhibitPanel,
+        unsigned char * helperPanel,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_SetPanelPowerLevelsEx (
+        unsigned char yellowPanel,
+        unsigned char magentaPanel,
+        unsigned char cyanPanel,
+        unsigned char kResinFront,
+        unsigned char kResinBack,
+        unsigned char kDye,
+        unsigned char overlayPanel,
+        unsigned char uvFront,
+        unsigned char uvBack,
+        unsigned char inhibitPanel,
+        unsigned char helperPanel,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall get_OCPLanguage (
+        enum OCPLanguageEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_OCPLanguage (
+        enum OCPLanguageEnum pVal ) = 0;
+    virtual HRESULT __stdcall get_PrinterType (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_HasLaminator (
+        VARIANT_BOOL * pVal ) = 0;
+};
+
+enum BoolTypeEnum
+{
+    False = 0,
+    True = 1,
+    NoChange = 2
+};
+
+enum TransferTypeEnum
+{
+    SingleSided = 0,
+    DualSided = 1
+};
+
+enum StandbyTimeoutEnum
+{
+    Never = 0,
+    ThirtyMinutes = 30,
+    OneHour = 60,
+    TwoHours = 120,
+    FourHours = 480
+};
+
+enum MemorySourceEnum
+{
+    MemFlash = 0,
+    MemRAM = 1
+};
+
+enum LogTypeEnum
+{
+    Errors = 1,
+    CleanEvents = 4,
+    Service = 5,
+    Events = 6
+};
+
+enum CapabilitiesReportTypeEnum
+{
+    General = 0,
+    MediaType = 1
+};
+
+enum CleanPathTypeEnum
+{
+    FeederPath = 0,
+    ATMPath = 1,
+    TransferPath = 2
+};
+
+enum OCPButtonEnum
+{
+    LeftButton = 1,
+    MiddleButton = 2,
+    RightButton = 3
+};
+
+enum ErrorControlLevelEnum
+{
+    EC_High = 0,
+    EC_Medium = 1,
+    EC_None = 2
+};
+
+enum OCPLanguageEnum
+{
+    English = 0,
+    French = 1,
+    Spanish = 2,
+    German = 3,
+    Portuguese = 4,
+    Italian = 5
+};
+
+struct __declspec(uuid("f394f4c9-3be8-4eee-bdaf-4c9526f01c69"))
+IJobControl : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetMagVerification,put=PutMagVerification))
+    VARIANT_BOOL MagVerification;
+    __declspec(property(get=GetMagEncodeSide,put=PutMagEncodeSide))
+    enum SideEnum MagEncodeSide;
+    __declspec(property(get=GetSharpnessLevelFront,put=PutSharpnessLevelFront))
+    enum SharpnessLevelEnum SharpnessLevelFront;
+    __declspec(property(get=GetSharpnessLevelBack,put=PutSharpnessLevelBack))
+    enum SharpnessLevelEnum SharpnessLevelBack;
+    __declspec(property(get=GetCardType,put=PutCardType))
+    _bstr_t CardType;
+    __declspec(property(get=GetDataSource,put=PutDataSource))
+    enum DataSourceEnum DataSource;
+    __declspec(property(get=GetOrientationFront,put=PutOrientationFront))
+    enum OrientationEnum OrientationFront;
+    __declspec(property(get=GetOrientationBack,put=PutOrientationBack))
+    enum OrientationEnum OrientationBack;
+    __declspec(property(get=GetMagCoercivity,put=PutMagCoercivity))
+    enum MagCoercivityEnum MagCoercivity;
+    __declspec(property(get=GetMagEncodingType,put=PutMagEncodingType))
+    enum MagEncodingTypeEnum MagEncodingType;
+    __declspec(property(get=GetMagDataTrk1Format,put=PutMagDataTrk1Format))
+    enum MagDataFormatEnum MagDataTrk1Format;
+    __declspec(property(get=GetMagDataTrk2Format,put=PutMagDataTrk2Format))
+    enum MagDataFormatEnum MagDataTrk2Format;
+    __declspec(property(get=GetMagDataTrk3Format,put=PutMagDataTrk3Format))
+    enum MagDataFormatEnum MagDataTrk3Format;
+    __declspec(property(get=GetDeleteAfter,put=PutDeleteAfter))
+    VARIANT_BOOL DeleteAfter;
+    __declspec(property(get=GetCardThickness,put=PutCardThickness))
+    long CardThickness;
+    __declspec(property(get=GetFeederSource,put=PutFeederSource))
+    enum FeederSourceEnum FeederSource;
+    __declspec(property(get=GetRotationFront,put=PutRotationFront))
+    enum RotationEnum RotationFront;
+    __declspec(property(get=GetRotationBack,put=PutRotationBack))
+    enum RotationEnum RotationBack;
+    __declspec(property(get=GetDestination,put=PutDestination))
+    enum DestinationTypeEnum Destination;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    HRESULT SideConfiguration (
+        enum SideEnum side,
+        enum OrientationEnum imgOrientation,
+        enum RotationEnum imgRotation,
+        enum SharpnessLevelEnum imgSharpness );
+    HRESULT SmartCardConfiguration (
+        enum SideEnum side,
+        enum SmartCardTypeEnum smartCardType,
+        VARIANT_BOOL program );
+    HRESULT JobConfiguration (
+        enum FeederSourceEnum cardSrc,
+        _bstr_t card,
+        long cardSize,
+        enum DataSourceEnum dataSrc,
+        VARIANT_BOOL deleteJob );
+    _bstr_t GetCardType ( );
+    void PutCardType (
+        _bstr_t pVal );
+    HRESULT MagConfiguration (
+        enum SideEnum side,
+        enum MagCoercivityEnum coercivity,
+        enum MagEncodingTypeEnum encodingType,
+        enum MagDataFormatEnum trk1Format,
+        enum MagDataFormatEnum trk2Format,
+        enum MagDataFormatEnum trk3Format,
+        VARIANT_BOOL verify );
+    enum DataSourceEnum GetDataSource ( );
+    void PutDataSource (
+        enum DataSourceEnum pVal );
+    enum OrientationEnum GetOrientationFront ( );
+    void PutOrientationFront (
+        enum OrientationEnum pVal );
+    enum OrientationEnum GetOrientationBack ( );
+    void PutOrientationBack (
+        enum OrientationEnum pVal );
+    enum MagCoercivityEnum GetMagCoercivity ( );
+    void PutMagCoercivity (
+        enum MagCoercivityEnum pVal );
+    enum MagEncodingTypeEnum GetMagEncodingType ( );
+    void PutMagEncodingType (
+        enum MagEncodingTypeEnum pVal );
+    enum MagDataFormatEnum GetMagDataTrk1Format ( );
+    void PutMagDataTrk1Format (
+        enum MagDataFormatEnum pVal );
+    enum MagDataFormatEnum GetMagDataTrk2Format ( );
+    void PutMagDataTrk2Format (
+        enum MagDataFormatEnum pVal );
+    enum MagDataFormatEnum GetMagDataTrk3Format ( );
+    void PutMagDataTrk3Format (
+        enum MagDataFormatEnum pVal );
+    VARIANT_BOOL GetDeleteAfter ( );
+    void PutDeleteAfter (
+        VARIANT_BOOL pVal );
+    long GetCardThickness ( );
+    void PutCardThickness (
+        long pVal );
+    enum FeederSourceEnum GetFeederSource ( );
+    void PutFeederSource (
+        enum FeederSourceEnum pVal );
+    enum RotationEnum GetRotationFront ( );
+    void PutRotationFront (
+        enum RotationEnum pVal );
+    enum RotationEnum GetRotationBack ( );
+    void PutRotationBack (
+        enum RotationEnum pVal );
+    VARIANT_BOOL GetMagVerification ( );
+    void PutMagVerification (
+        VARIANT_BOOL pVal );
+    enum SideEnum GetMagEncodeSide ( );
+    void PutMagEncodeSide (
+        enum SideEnum pVal );
+    enum SharpnessLevelEnum GetSharpnessLevelFront ( );
+    void PutSharpnessLevelFront (
+        enum SharpnessLevelEnum pVal );
+    enum SharpnessLevelEnum GetSharpnessLevelBack ( );
+    void PutSharpnessLevelBack (
+        enum SharpnessLevelEnum pVal );
+    HRESULT ConfigureDataEncryption (
+        enum EncryptionTypeEnum encryptionType,
+        VARIANT_BOOL encJobControl,
+        VARIANT_BOOL encGraphics );
+    HRESULT GetDataEncryptionConfiguration (
+        enum EncryptionTypeEnum * encryptionType,
+        VARIANT_BOOL * encJobControl,
+        VARIANT_BOOL * encGraphics );
+    int IntegerFromColorName (
+        _bstr_t colorName );
+    HRESULT GetAvailableCardTypes (
+        VARIANT * cardTypes );
+    HRESULT GetCardTypeInformation (
+        _bstr_t CardType,
+        BSTR * xmlCardData );
+    enum DestinationTypeEnum GetDestination ( );
+    void PutDestination (
+        enum DestinationTypeEnum pVal );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall raw_SideConfiguration (
+        enum SideEnum side,
+        enum OrientationEnum imgOrientation,
+        enum RotationEnum imgRotation,
+        enum SharpnessLevelEnum imgSharpness ) = 0;
+    virtual HRESULT __stdcall raw_SmartCardConfiguration (
+        enum SideEnum side,
+        enum SmartCardTypeEnum smartCardType,
+        VARIANT_BOOL program ) = 0;
+    virtual HRESULT __stdcall raw_JobConfiguration (
+        enum FeederSourceEnum cardSrc,
+        BSTR card,
+        long cardSize,
+        enum DataSourceEnum dataSrc,
+        VARIANT_BOOL deleteJob ) = 0;
+    virtual HRESULT __stdcall get_CardType (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall put_CardType (
+        BSTR pVal ) = 0;
+    virtual HRESULT __stdcall raw_MagConfiguration (
+        enum SideEnum side,
+        enum MagCoercivityEnum coercivity,
+        enum MagEncodingTypeEnum encodingType,
+        enum MagDataFormatEnum trk1Format,
+        enum MagDataFormatEnum trk2Format,
+        enum MagDataFormatEnum trk3Format,
+        VARIANT_BOOL verify ) = 0;
+    virtual HRESULT __stdcall get_DataSource (
+        enum DataSourceEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_DataSource (
+        enum DataSourceEnum pVal ) = 0;
+    virtual HRESULT __stdcall get_OrientationFront (
+        enum OrientationEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_OrientationFront (
+        enum OrientationEnum pVal ) = 0;
+    virtual HRESULT __stdcall get_OrientationBack (
+        enum OrientationEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_OrientationBack (
+        enum OrientationEnum pVal ) = 0;
+    virtual HRESULT __stdcall get_MagCoercivity (
+        enum MagCoercivityEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_MagCoercivity (
+        enum MagCoercivityEnum pVal ) = 0;
+    virtual HRESULT __stdcall get_MagEncodingType (
+        enum MagEncodingTypeEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_MagEncodingType (
+        enum MagEncodingTypeEnum pVal ) = 0;
+    virtual HRESULT __stdcall get_MagDataTrk1Format (
+        enum MagDataFormatEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_MagDataTrk1Format (
+        enum MagDataFormatEnum pVal ) = 0;
+    virtual HRESULT __stdcall get_MagDataTrk2Format (
+        enum MagDataFormatEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_MagDataTrk2Format (
+        enum MagDataFormatEnum pVal ) = 0;
+    virtual HRESULT __stdcall get_MagDataTrk3Format (
+        enum MagDataFormatEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_MagDataTrk3Format (
+        enum MagDataFormatEnum pVal ) = 0;
+    virtual HRESULT __stdcall get_DeleteAfter (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall put_DeleteAfter (
+        VARIANT_BOOL pVal ) = 0;
+    virtual HRESULT __stdcall get_CardThickness (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall put_CardThickness (
+        long pVal ) = 0;
+    virtual HRESULT __stdcall get_FeederSource (
+        enum FeederSourceEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_FeederSource (
+        enum FeederSourceEnum pVal ) = 0;
+    virtual HRESULT __stdcall get_RotationFront (
+        enum RotationEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_RotationFront (
+        enum RotationEnum pVal ) = 0;
+    virtual HRESULT __stdcall get_RotationBack (
+        enum RotationEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_RotationBack (
+        enum RotationEnum pVal ) = 0;
+    virtual HRESULT __stdcall get_MagVerification (
+        VARIANT_BOOL * pVal ) = 0;
+    virtual HRESULT __stdcall put_MagVerification (
+        VARIANT_BOOL pVal ) = 0;
+    virtual HRESULT __stdcall get_MagEncodeSide (
+        enum SideEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_MagEncodeSide (
+        enum SideEnum pVal ) = 0;
+    virtual HRESULT __stdcall get_SharpnessLevelFront (
+        enum SharpnessLevelEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_SharpnessLevelFront (
+        enum SharpnessLevelEnum pVal ) = 0;
+    virtual HRESULT __stdcall get_SharpnessLevelBack (
+        enum SharpnessLevelEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_SharpnessLevelBack (
+        enum SharpnessLevelEnum pVal ) = 0;
+    virtual HRESULT __stdcall raw_ConfigureDataEncryption (
+        enum EncryptionTypeEnum encryptionType,
+        VARIANT_BOOL encJobControl,
+        VARIANT_BOOL encGraphics ) = 0;
+    virtual HRESULT __stdcall raw_GetDataEncryptionConfiguration (
+        enum EncryptionTypeEnum * encryptionType,
+        VARIANT_BOOL * encJobControl,
+        VARIANT_BOOL * encGraphics ) = 0;
+    virtual HRESULT __stdcall raw_IntegerFromColorName (
+        BSTR colorName,
+        int * intValue ) = 0;
+    virtual HRESULT __stdcall raw_GetAvailableCardTypes (
+        VARIANT * cardTypes ) = 0;
+    virtual HRESULT __stdcall raw_GetCardTypeInformation (
+        BSTR CardType,
+        BSTR * xmlCardData ) = 0;
+    virtual HRESULT __stdcall get_Destination (
+        enum DestinationTypeEnum * pVal ) = 0;
+    virtual HRESULT __stdcall put_Destination (
+        enum DestinationTypeEnum pVal ) = 0;
+};
+
+enum SideEnum
+{
+    Front = 0,
+    Back = 1
+};
+
+enum OrientationEnum
+{
+    Portrait = 0,
+    Landscape = 1
+};
+
+enum RotationEnum
+{
+    Rotate_0 = 0,
+    Rotate_180 = 1
+};
+
+enum SharpnessLevelEnum
+{
+    Off = 0,
+    Normal = 1,
+    High = 2
+};
+
+enum SmartCardTypeEnum
+{
+    None = 0,
+    Contact = 1,
+    iClass = 2,
+    MIFARE = 3,
+    Prox = 4,
+    UHF = 5,
+    Legic = 6
+};
+
+enum FeederSourceEnum
+{
+    ATMSlot = 0,
+    CardFeeder = 1,
+    Internal = 2
+};
+
+enum DataSourceEnum
+{
+    NoData = 0,
+    Track1Data = 1,
+    Track2Data = 2,
+    Track3Data = 4
+};
+
+enum MagCoercivityEnum
+{
+    HighCo = 0,
+    LowCo = 1
+};
+
+enum MagEncodingTypeEnum
+{
+    ISO = 0,
+    AAMVA = 1,
+    JIS = 2,
+    Custom = 3,
+    Binary = 4
+};
+
+enum MagDataFormatEnum
+{
+    Ascii = 0,
+    Hex = 1
+};
+
+enum EncryptionTypeEnum
+{
+    NoEncryption = 0,
+    AES = 1
+};
+
+enum DestinationTypeEnum
+{
+    Eject = 0,
+    Reject = 1,
+    Hold = 2,
+    Feeder = 3,
+    LaminatorTop = 4,
+    LaminatorBottom = 5,
+    LaminatorBoth = 6,
+    LaminatorNone = 7,
+    LaminatorAny = 8
+};
+
+enum PrintTypeEnum
+{
+    Color = 0,
+    MonoUV = 1,
+    MonoK = 2,
+    Overlay = 3,
+    GrayUV = 4,
+    GrayDye = 5,
+    Monok_NoPanels = 6,
+    Inhibit = 7
+};
+
+enum GraphicTypeEnum
+{
+    BMP = 0,
+    RedPlane = 2,
+    GreenPlane = 3,
+    BluePlane = 4,
+    GrayPlane = 5,
+    MonoPlane = 6,
+    NA = 7
+};
+
+struct __declspec(uuid("b405953d-8758-4ac4-ae26-a8664b3d50f9"))
+IUtilities : IDispatch
+{
+    //
+    // Wrapper methods for error-handling
+    //
+
+    _variant_t BytePtrToVariantArray (
+        unsigned char * byteArray,
+        long byteCount );
+    HRESULT VariantArrayToIntArray (
+        const _variant_t & varArray,
+        VARIANT * intArray );
+    HRESULT VariantArrayToLongArray (
+        const _variant_t & varArray,
+        VARIANT * longArray );
+    HRESULT IntArrayToVariantArray (
+        const _variant_t & intArray,
+        VARIANT * varArray );
+    HRESULT LongArrayToVariantArray (
+        const _variant_t & longArray,
+        VARIANT * varArray );
+    HRESULT ByteArrayToVariantArray (
+        const _variant_t & byteArray,
+        VARIANT * varArray );
+    HRESULT VariantArrayToByteArray (
+        const _variant_t & varArray,
+        VARIANT * byteArray );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall raw_BytePtrToVariantArray (
+        unsigned char * byteArray,
+        long byteCount,
+        VARIANT * varArray ) = 0;
+    virtual HRESULT __stdcall raw_VariantArrayToIntArray (
+        VARIANT varArray,
+        VARIANT * intArray ) = 0;
+    virtual HRESULT __stdcall raw_VariantArrayToLongArray (
+        VARIANT varArray,
+        VARIANT * longArray ) = 0;
+    virtual HRESULT __stdcall raw_IntArrayToVariantArray (
+        VARIANT intArray,
+        VARIANT * varArray ) = 0;
+    virtual HRESULT __stdcall raw_LongArrayToVariantArray (
+        VARIANT longArray,
+        VARIANT * varArray ) = 0;
+    virtual HRESULT __stdcall raw_ByteArrayToVariantArray (
+        VARIANT byteArray,
+        VARIANT * varArray ) = 0;
+    virtual HRESULT __stdcall raw_VariantArrayToByteArray (
+        VARIANT varArray,
+        VARIANT * byteArray ) = 0;
+};
+
+struct __declspec(uuid("243cf4a7-a7a7-4aee-a01b-c8a619e4bc71"))
+ILaminator : IDispatch
+{
+    //
+    // Wrapper methods for error-handling
+    //
+
+    short GetLaminatorInfo (
+        BSTR * serialNumber,
+        BSTR * firmwareVersion,
+        BSTR * mediaVersion );
+    short GetLaminatorCardCount (
+        long * cardsLaminated,
+        long * cardsProcessed );
+    short GetLaminateParams (
+        VARIANT_BOOL topLaminate,
+        long * type,
+        BSTR * partNumber,
+        BSTR * description,
+        BSTR * oem,
+        long * initialSize,
+        long * panelsRemaining );
+    short GetLaminatorSensorStates (
+        VARIANT * sensorStates );
+    short GetLaminatorSensorValues (
+        VARIANT * sensorValues );
+    short SetLaminationSpeedOffsets (
+        long lamination,
+        long passthru );
+    short GetLaminationSpeedOffsets (
+        long * lamination,
+        long * passthru );
+    short GetTopLaminateOffsets (
+        long * xOffset,
+        long * tempOffset );
+    short SetTopLaminateOffsets (
+        long xOffset,
+        long tempOffset );
+    short GetBottomLaminateOffsets (
+        long * xOffset,
+        long * tempOffset );
+    short SetBottomLaminateOffsets (
+        long xOffset,
+        long tempOffset );
+    short SetLaminatorOffsets (
+        long patchLen,
+        long coarseXOffset );
+    short GetLaminatorOffsets (
+        long * patchLen,
+        long * coarseXOffset );
+    short GetLaminatorStatus (
+        BSTR * status,
+        long * errorCode,
+        long * jobsPending,
+        long * jobsActive,
+        long * jobsComplete,
+        long * jobErrors,
+        long * jobsTotal,
+        long * nextActionID );
+    short RestoreDefaultConfiguration ( );
+    short CalibrateLaminate ( );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall raw_GetLaminatorInfo (
+        BSTR * serialNumber,
+        BSTR * firmwareVersion,
+        BSTR * mediaVersion,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetLaminatorCardCount (
+        long * cardsLaminated,
+        long * cardsProcessed,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetLaminateParams (
+        VARIANT_BOOL topLaminate,
+        long * type,
+        BSTR * partNumber,
+        BSTR * description,
+        BSTR * oem,
+        long * initialSize,
+        long * panelsRemaining,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetLaminatorSensorStates (
+        VARIANT * sensorStates,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetLaminatorSensorValues (
+        VARIANT * sensorValues,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_SetLaminationSpeedOffsets (
+        long lamination,
+        long passthru,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetLaminationSpeedOffsets (
+        long * lamination,
+        long * passthru,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetTopLaminateOffsets (
+        long * xOffset,
+        long * tempOffset,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_SetTopLaminateOffsets (
+        long xOffset,
+        long tempOffset,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetBottomLaminateOffsets (
+        long * xOffset,
+        long * tempOffset,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_SetBottomLaminateOffsets (
+        long xOffset,
+        long tempOffset,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_SetLaminatorOffsets (
+        long patchLen,
+        long coarseXOffset,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetLaminatorOffsets (
+        long * patchLen,
+        long * coarseXOffset,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_GetLaminatorStatus (
+        BSTR * status,
+        long * errorCode,
+        long * jobsPending,
+        long * jobsActive,
+        long * jobsComplete,
+        long * jobErrors,
+        long * jobsTotal,
+        long * nextActionID,
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_RestoreDefaultConfiguration (
+        short * alarmCode ) = 0;
+    virtual HRESULT __stdcall raw_CalibrateLaminate (
+        short * alarmCode ) = 0;
+};
+
+struct __declspec(uuid("2e209075-4d73-41b5-915e-95f8fa0f72cb"))
+Device;
+    // [ default ] interface IDevice
+
+struct __declspec(uuid("8de7e037-3b96-43b2-9d72-6a4970be52ae"))
+JobControl;
+    // [ default ] interface IJobControl
+
+struct __declspec(uuid("860043dd-5527-4e53-a94e-3e29141e621b"))
+Utilities;
+    // [ default ] interface IUtilities
+
+struct __declspec(uuid("4d35668f-8e15-457d-958c-0d1acfbb5ab3"))
+Laminator;
+    // [ default ] interface ILaminator
+
+//
+// Named GUID constants initializations
+//
+
+extern "C" const GUID __declspec(selectany) LIBID_ZMOTIFPRINTERLib =
+    {0xcadf4955,0xde23,0x4e8a,{0xb3,0xbe,0x0e,0xe0,0xb3,0x3a,0x4b,0x91}};
+extern "C" const GUID __declspec(selectany) CLSID_Job =
+    {0xeedc01a4,0x26e6,0x43c7,{0x90,0x6c,0xc8,0x47,0x6d,0x2c,0x90,0xa7}};
+extern "C" const GUID __declspec(selectany) IID_IJob =
+    {0x1b22fefe,0x194b,0x4eef,{0xb2,0xe6,0xef,0x3b,0x04,0x63,0x89,0xbb}};
+extern "C" const GUID __declspec(selectany) IID_IDevice =
+    {0x24516b18,0xfb5f,0x4bef,{0xa5,0x9b,0x7f,0x59,0x55,0xe2,0xa2,0x1a}};
+extern "C" const GUID __declspec(selectany) IID_IJobControl =
+    {0xf394f4c9,0x3be8,0x4eee,{0xbd,0xaf,0x4c,0x95,0x26,0xf0,0x1c,0x69}};
+extern "C" const GUID __declspec(selectany) IID_IUtilities =
+    {0xb405953d,0x8758,0x4ac4,{0xae,0x26,0xa8,0x66,0x4b,0x3d,0x50,0xf9}};
+extern "C" const GUID __declspec(selectany) IID_ILaminator =
+    {0x243cf4a7,0xa7a7,0x4aee,{0xa0,0x1b,0xc8,0xa6,0x19,0xe4,0xbc,0x71}};
+extern "C" const GUID __declspec(selectany) CLSID_Device =
+    {0x2e209075,0x4d73,0x41b5,{0x91,0x5e,0x95,0xf8,0xfa,0x0f,0x72,0xcb}};
+extern "C" const GUID __declspec(selectany) CLSID_JobControl =
+    {0x8de7e037,0x3b96,0x43b2,{0x9d,0x72,0x6a,0x49,0x70,0xbe,0x52,0xae}};
+extern "C" const GUID __declspec(selectany) CLSID_Utilities =
+    {0x860043dd,0x5527,0x4e53,{0xa9,0x4e,0x3e,0x29,0x14,0x1e,0x62,0x1b}};
+extern "C" const GUID __declspec(selectany) CLSID_Laminator =
+    {0x4d35668f,0x8e15,0x457d,{0x95,0x8c,0x0d,0x1a,0xcf,0xbb,0x5a,0xb3}};
+
+//
+// Wrapper method implementations
+//
+
+#include "ZMotifPrinter.tli"
+
+#pragma pack(pop)
