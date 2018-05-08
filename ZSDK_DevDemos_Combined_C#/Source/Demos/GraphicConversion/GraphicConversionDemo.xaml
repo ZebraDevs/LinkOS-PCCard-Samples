@@ -1,0 +1,151 @@
+﻿<!--
+ /***********************************************
+ * CONFIDENTIAL AND PROPRIETARY 
+ * 
+ * The source code and other information contained herein is the confidential and exclusive property of
+ * ZIH Corp. and is subject to the terms and conditions in your end user license agreement.
+ * This source code, and any other information contained herein, shall not be copied, reproduced, published, 
+ * displayed or distributed, in whole or in part, in any medium, by any means, for any purpose except as
+ * expressly permitted under such license agreement.
+ * 
+ * Copyright ZIH Corp. 2018
+ * 
+ * ALL RIGHTS RESERVED
+ ***********************************************/
+-->
+    
+<UserControl x:Class="DeveloperDemo_Card_Desktop.Demos.GraphicConversion.GraphicConversionDemo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DeveloperDemo_Card_Desktop.Demos.GraphicConversion"
+             xmlns:converters="clr-namespace:DeveloperDemo_Card_Desktop.Converters"
+             xmlns:controls="clr-namespace:DeveloperDemo_Card_Desktop.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="640">
+    <UserControl.DataContext>
+        <local:GraphicConversionDemoViewModel />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <local:GraphicsFormatToDisplayNameConverter x:Key="GraphicsFormatToDisplayNameConverter" />
+        <local:DimensionOptionToAreDimensionsEnabledConverter x:Key="DimensionOptionToAreDimensionsEnabledConverter" />
+        <local:DimensionOptionToAreOffsetsEnabledConverter x:Key="DimensionOptionToAreOffsetsEnabledConverter" />
+        <local:PrinterModelInfoToDisplayNameConverter x:Key="PrinterModelInfoToDisplayNameConverter" />
+        <local:FileNameToWithoutExtensionConverter x:Key="FileNameToWithoutExtensionConverter" />
+        <converters:StringNullOrEmptyConverter x:Key="StringNullOrEmptyConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Margin="15" Orientation="Vertical">
+            <Grid Margin="0 0 0 10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock FontWeight="Bold" Margin="0 0 0 5">Original Graphic Filename</TextBlock>
+                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 0 0 10" Text="{Binding OriginalGraphicFilename, UpdateSourceTrigger=PropertyChanged}" />
+                <Button x:Name="BrowseOriginalGraphicButton" Grid.Row="1" Grid.Column="2" Margin="10 0 0 10" Click="BrowseOriginalGraphicButton_Click">Browse...</Button>
+                <TextBlock Grid.Row="2" FontWeight="Bold" Margin="0 0 0 5">Converted Graphic Filename</TextBlock>
+                <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding ConvertedGraphicFilename, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FileNameToWithoutExtensionConverter}}" />
+                <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center">.bmp</TextBlock>
+                <Button x:Name="BrowseConvertedGraphicButton" Grid.Row="3" Grid.Column="2" Margin="10 0 0 0" Click="BrowseConvertedGraphicButton_Click">Browse...</Button>
+            </Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Margin="0 0 5 5">Graphics Format</TextBlock>
+                <ComboBox Grid.Row="1" Grid.Column="0" Margin="0 0 5 10" ItemsSource="{Binding GraphicsFormats}" SelectedItem="{Binding SelectedGraphicsFormat}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource GraphicsFormatToDisplayNameConverter}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Grid.Row="0" Grid.Column="1" FontWeight="Bold" Margin="5 0 0 5">Printer Model</TextBlock>
+                <ComboBox Grid.Row="1" Grid.Column="1" Margin="5 0 0 10" ItemsSource="{Binding PrinterModels}" SelectedItem="{Binding SelectedPrinterModelInfo}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource PrinterModelInfoToDisplayNameConverter}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Grid.Row="2" Grid.ColumnSpan="2" FontWeight="Bold" Margin="0 0 0 5">Dimension Option</TextBlock>
+                <ComboBox Grid.Row="3" Grid.ColumnSpan="2" Margin="0 0 0 10" ItemsSource="{Binding DimensionOptions}" SelectedItem="{Binding SelectedDimensionOption}" />
+                <Grid Grid.Row="4" Grid.Column="0" Margin="0 0 5 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0 0 5 5" FontWeight="Bold">Width</TextBlock>
+                    <TextBox x:Name="WidthInput" Grid.Row="1" Grid.Column="0" Margin="0 0 5 0" Text="{Binding Width}" IsEnabled="{Binding SelectedDimensionOption, Converter={StaticResource DimensionOptionToAreDimensionsEnabledConverter}}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="5 0 0 5" FontWeight="Bold">Height</TextBlock>
+                    <TextBox x:Name="HeightInput" Grid.Row="1" Grid.Column="1" Margin="5 0 0 0" Text="{Binding Height}" IsEnabled="{Binding SelectedDimensionOption, Converter={StaticResource DimensionOptionToAreDimensionsEnabledConverter}}" />
+                </Grid>
+                <Grid Grid.Row="4" Grid.Column="1" Margin="5 0 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0 0 5 5" FontWeight="Bold">X-Offset</TextBlock>
+                    <TextBox x:Name="XOffsetInput" Grid.Row="1" Grid.Column="0" Margin="0 0 5 0" Text="{Binding XOffset}" IsEnabled="{Binding SelectedDimensionOption, Converter={StaticResource DimensionOptionToAreOffsetsEnabledConverter}}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="5 0 0 5" FontWeight="Bold">Y-Offset</TextBlock>
+                    <TextBox x:Name="YOffsetInput" Grid.Row="1" Grid.Column="1" Margin="5 0 0 0" Text="{Binding YOffset}" IsEnabled="{Binding SelectedDimensionOption, Converter={StaticResource DimensionOptionToAreOffsetsEnabledConverter}}" />
+                </Grid>
+            </Grid>
+            <StackPanel Grid.Row="1" Margin="0 15 0 0" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="ConvertButton" Click="ConvertButton_Click">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding OriginalGraphicFilename, Converter={StaticResource StringNullOrEmptyConverter}}" Value="False"/>
+                                        <Condition Binding="{Binding ConvertedGraphicFilename, Converter={StaticResource StringNullOrEmptyConverter}}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=WidthInput}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=HeightInput}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=XOffsetInput}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=YOffsetInput}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    Convert
+                </Button>
+            </StackPanel>
+        </StackPanel>
+        <Border Grid.Row="2" BorderThickness="0 1 0 0" BorderBrush="LightGray" SnapsToDevicePixels="True">
+            <controls:JobStatusControl x:Name="JobStatusControl" Margin="15" />
+        </Border>
+    </Grid>
+</UserControl>

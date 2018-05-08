@@ -1,0 +1,86 @@
+﻿<!--
+ /***********************************************
+ * CONFIDENTIAL AND PROPRIETARY 
+ * 
+ * The source code and other information contained herein is the confidential and exclusive property of
+ * ZIH Corp. and is subject to the terms and conditions in your end user license agreement.
+ * This source code, and any other information contained herein, shall not be copied, reproduced, published, 
+ * displayed or distributed, in whole or in part, in any medium, by any means, for any purpose except as
+ * expressly permitted under such license agreement.
+ * 
+ * Copyright ZIH Corp. 2018
+ * 
+ * ALL RIGHTS RESERVED
+ ***********************************************/
+-->
+
+<Window x:Class="DeveloperDemo_Card_Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DeveloperDemo_Card_Desktop"
+        xmlns:converters="clr-namespace:DeveloperDemo_Card_Desktop.Converters"
+        xmlns:usercontrols="clr-namespace:DeveloperDemo_Card_Desktop.UserControls"
+        mc:Ignorable="d"
+        Title="Zebra Developer Demo Card"
+        MinHeight="768"
+        Height="768"
+        MinWidth="1024"
+        Width="1024">
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <converters:ObjectNotNullConverter x:Key="ObjectNotNullConverter" />
+        <converters:DiscoveredPrinterToDisplayNameConverter x:Key="DiscoveredPrinterToDisplayNameConverter" />
+        <BitmapImage x:Key="ZebraLogo" UriSource="./Resources/Zebra_Logo_W.png" />
+    </Window.Resources>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" Background="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid Margin="15 5 15 15">
+                <Image Source="{StaticResource ZebraLogo}" Height="36" HorizontalAlignment="Left" />
+                <TextBlock VerticalAlignment="Center" Margin="34 38 0 0" Foreground="White" FontSize="10" FontWeight="Bold">Developer Demo Card</TextBlock>
+            </Grid>
+            <StackPanel Orientation="Vertical" Grid.Column="1" Margin="15" VerticalAlignment="Center">
+                <TextBlock Foreground="White" FontWeight="Bold">Selected Printer</TextBlock>
+                <TextBlock Text="{Binding SelectedPrinter, Converter={StaticResource DiscoveredPrinterToDisplayNameConverter}}" MaxWidth="240" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Foreground="White" FontSize="20">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="{Binding SelectedPrinter, Converter={StaticResource DiscoveredPrinterToDisplayNameConverter}}" />
+                    </ToolTipService.ToolTip>
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Column="2" Margin="15" VerticalAlignment="Center">
+                <Button Click="DiscoverButton_Click">Discover</Button>
+                <Button Margin="0 5 0 0" Click="ManualConnectButton_Click">Manual Connect</Button>
+            </StackPanel>
+        </Grid>
+        <Border BorderThickness="0 0 1 0" BorderBrush="LightGray" SnapsToDevicePixels="True">
+            <Grid Margin="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Margin="0 0 0 5" FontWeight="Bold">Select a Demo</TextBlock>
+                <ListBox Width="240" Grid.Row="1">
+                    <ListBoxItem x:Name="GraphicConversionDemoButton" PreviewMouseDown="GraphicConversionDemoButton_PreviewMouseDown">Graphic Conversion Demo</ListBoxItem>
+                    <ListBoxItem x:Name="MagEncodeDemoButton" IsEnabled="{Binding SelectedPrinter, Converter={StaticResource ObjectNotNullConverter}}" PreviewMouseDown="MagEncodeDemoButton_PreviewMouseDown">Mag Encode Demo</ListBoxItem>
+                    <ListBoxItem x:Name="MultiJobDemoButton" IsEnabled="{Binding SelectedPrinter, Converter={StaticResource ObjectNotNullConverter}}" PreviewMouseDown="MultiJobDemoButton_PreviewMouseDown">MultiJob Demo</ListBoxItem>
+                    <ListBoxItem x:Name="PrintDemoButton" IsEnabled="{Binding SelectedPrinter, Converter={StaticResource ObjectNotNullConverter}}" PreviewMouseDown="PrintDemoButton_PreviewMouseDown">Print Demo</ListBoxItem>
+                    <ListBoxItem x:Name="PrinterStatusDemoButton" IsEnabled="{Binding SelectedPrinter, Converter={StaticResource ObjectNotNullConverter}}" PreviewMouseDown="PrinterStatusDemoButton_PreviewMouseDown">Printer Status Demo</ListBoxItem>
+                    <ListBoxItem x:Name="SettingsDemoButton" IsEnabled="{Binding SelectedPrinter, Converter={StaticResource ObjectNotNullConverter}}" PreviewMouseDown="SettingsDemoButton_PreviewMouseDown">Settings Demo</ListBoxItem>
+                    <ListBoxItem x:Name="SmartCardDemoButton" IsEnabled="{Binding SelectedPrinter, Converter={StaticResource ObjectNotNullConverter}}" PreviewMouseDown="SmartCardDemoButton_PreviewMouseDown">Smart Card Demo</ListBoxItem>
+                    <ListBoxItem x:Name="TemplateDemoButton" IsEnabled="{Binding SelectedPrinter, Converter={StaticResource ObjectNotNullConverter}}" PreviewMouseDown="TemplateDemoButton_PreviewMouseDown">Template Demo</ListBoxItem>
+                </ListBox>
+            </Grid>
+        </Border>
+        <ContentControl x:Name="DemoContentControl">
+            <usercontrols:NoDemoSelectedControl />
+        </ContentControl>
+    </DockPanel>
+</Window>
