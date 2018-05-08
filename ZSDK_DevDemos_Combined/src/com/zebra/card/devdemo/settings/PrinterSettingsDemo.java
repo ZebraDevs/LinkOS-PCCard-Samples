@@ -20,16 +20,14 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -37,75 +35,74 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
-import com.zebra.card.devdemo.DiscoveredPrinterForDevDemo;
-import com.zebra.card.devdemo.PrinterDemo;
 import com.zebra.card.devdemo.PrinterDemoBase;
 import com.zebra.card.devdemo.settings.PrinterSettingsModel.SettingsGroup;
 
-public class PrinterSettingsDemo extends PrinterDemoBase implements PrinterDemo {
+public class PrinterSettingsDemo extends PrinterDemoBase<PrinterSettingsModel> {
 
 	private final Map<SettingsGroup, JTable> settingsTables = new HashMap<SettingsGroup, JTable>();
-	private JFrame owner = null;
 
 	public PrinterSettingsDemo() {
+		super(new PrinterSettingsModel());
 	}
 
 	@Override
-	public void createDemoDialog(JFrame owner) {
-		this.owner = owner;
-		demoDialog = new JDialog(owner, "Zebra Multi Platform SDK - Developer Demo", true);
-
-		Container mainPane = demoDialog.getContentPane();
-		mainPane.add(createPanelHeader("Printer Settings"), BorderLayout.PAGE_START);
-		mainPane.add(createSelectPrinterPanel());
-
-		JPanel lowerPart = createLowerPanel();
-		mainPane.add(lowerPart, BorderLayout.PAGE_END);
-
-		demoDialog.pack();
-		demoDialog.setResizable(false);
-		demoDialog.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (mainPane.getWidth() / 2), 0);
-		demoDialog.setVisible(true);
-		demoDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	public void addDemoDialogContent(Container container) {
+		container.add(createPanelHeader("Printer Settings"), BorderLayout.PAGE_START);
+		container.add(createSelectPrinterPanel(true));
+		container.add(createLowerPanel(), BorderLayout.PAGE_END);
 	}
 
 	@Override
-	protected void additionalPostDiscoveryAction() {
-		boolean printerListNotEmpty = addressDropdown.getItemCount() > 0;
-		enableActionButton(printerListNotEmpty);
+	protected void onConnectionEstablished() {
+		setActionButtonEnabled(getPrinterModel().getConnection() != null);
+		refreshPrinterSettings();
+	}
+
+	public void refreshPrinterSettings() {
+		Map<SettingsGroup, String[][]> printerSettingsDataMap = getPrinterModel().getPrinterSettings();
+		for (SettingsGroup group : SettingsGroup.values()) {
+			updateTableModel(printerSettingsDataMap.get(group), group);
+		}
+	}
+
+	public void resetTable(SettingsGroup settingsGroup) {
+		JTable table = settingsTables.get(settingsGroup);
+		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+		tableModel.setRowCount(0);
+		table.invalidate();
+	}
+
+	public void resetDemo() {
+		((DefaultComboBoxModel) addressDropdown.getModel()).removeAllElements();
+		manualIpAddress.setText("");
+		actionButton.setEnabled(false);
+		resetTable(SettingsGroup.device);
+		resetTable(SettingsGroup.print);
 	}
 
 	private JPanel createLowerPanel() {
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.setPreferredSize(new Dimension(600, 500));
-
-		JComponent deviceSettingsTab = createSettingPanel(SettingsGroup.device);
-		tabbedPane.addTab("Device", deviceSettingsTab);
-
-		JComponent printSettingsTab = createSettingPanel(SettingsGroup.print);
-		tabbedPane.addTab("Print", printSettingsTab);
+		tabbedPane.addTab("Device", createSettingPanel(SettingsGroup.device));
+		tabbedPane.addTab("Print", createSettingPanel(SettingsGroup.print));
 
 		actionButton = new JButton("Refresh");
-		enableActionButton(false);
+		setActionButtonEnabled(false);
 		actionButton.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new Thread(new Runnable() {
-
 					@Override
 					public void run() {
-						enableActionButton(false);
+						setActionButtonEnabled(false);
 						demoDialog.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 
-						DiscoveredPrinterForDevDemo printer = (DiscoveredPrinterForDevDemo) addressDropdown.getSelectedItem();
-						Map<SettingsGroup, Object[][]> printerSettingssDataMap = new PrinterSettingsModel().getPrinterSettings(printer);
-						updatePrinterSettings(printerSettingssDataMap);
+						refreshPrinterSettings();
 
 						demoDialog.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-						enableActionButton(true);
+						setActionButtonEnabled(true);
 					}
 				}).start();
 			}
@@ -122,81 +119,58 @@ public class PrinterSettingsDemo extends PrinterDemoBase implements PrinterDemo 
 	}
 
 	private JComponent createSettingPanel(SettingsGroup group) {
-		JTable table = new JTable();
-		settingsTables.put(group, table);
+		String[] headerLabels = group == SettingsGroup.device ? new String[] { "Setting", "Value", "Action" } : new String[] { "Setting", "Value" };
 
-		JScrollPane settingListScroller = new JScrollPane();
-		settingListScroller.getViewport().add(settingsTables.get(group));
+		final JTable table = new JTable();
+		table.addMouseListener(new java.awt.event.MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				int row = table.rowAtPoint(evt.getPoint());
+				int col = table.columnAtPoint(evt.getPoint());
+				if (row >= 0 && col == 2) {
+					String settingName = table.getModel().getValueAt(row, 0).toString();
 
-		initializeTableModel(getHeaderLabels(group), table);
-		return settingListScroller;
-	}
-
-	private void updatePrinterSettings(Map<SettingsGroup, Object[][]> statusDataMap) {
-		for (SettingsGroup group : SettingsGroup.values()) {
-			updateSettingsGroup(group, statusDataMap.get(group));
-		}
-	}
-
-	private void updateTableModel(Object[][] settingsData, String[] headerLabels, JTable table) {
-		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-		tableModel.setRowCount(0);
-		for (int ix = 0; ix < settingsData.length; ix++) {
-			tableModel.addRow(settingsData[ix]);
-		}
-		table.invalidate();
-	}
-
-	private void initializeTableModel(String[] headerLabels, JTable table) {
-		String[][] settingsData = new String[0][headerLabels.length];
-
-		DefaultTableModel tableModel = new DefaultTableModel(settingsData, headerLabels) {
+					// Only device settings can be set in this demo
+					new ChangeSettingDialog(demoDialog, PrinterSettingsDemo.this, SettingsGroup.device, settingName, getPrinterModel()).setVisible(true);
+				}
+			}
+		});
+		table.setModel(new DefaultTableModel(new String[0][headerLabels.length], headerLabels) {
 			private static final long serialVersionUID = 4646379300019834951L;
 
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return column == 2;
 			}
-		};
-
+		});
 		table.removeAll();
-		table.setModel(tableModel);
 		table.invalidate();
+		settingsTables.put(group, table);
+
+		JScrollPane settingListScroller = new JScrollPane();
+		settingListScroller.getViewport().add(table);
+		return settingListScroller;
 	}
 
-	private void updateSettingsGroup(final SettingsGroup group, Object[][] settingsData) {
-		boolean settable = group == SettingsGroup.device;
-		final JTable table = settingsTables.get(group);
-		String[] headerLabels = getHeaderLabels(group);
-
-		updateTableModel(settingsData, headerLabels, table);
+	private void updateTableModel(String[][] settingsData, SettingsGroup group) {
+		JTable table = settingsTables.get(group);
+		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+		tableModel.setRowCount(0);
+		for (int i = 0; i < settingsData.length; i++) {
+			tableModel.addRow(settingsData[i]);
+		}
+		table.invalidate();
 
 		table.getColumnModel().getColumn(0).setPreferredWidth(110);
 		table.getColumnModel().getColumn(1).setPreferredWidth(110);
-
-		if (settable) {
+		if (table.getColumnModel().getColumnCount() > 2) {
 			table.getColumnModel().getColumn(2).setPreferredWidth(45);
 			table.getColumnModel().getColumn(2).setMaxWidth(45);
-			table.getColumnModel().getColumn(2).setCellRenderer(new ColoredBackgroundRendered());
-			final TableModel tableModel = table.getModel();
-
-			table.addMouseListener(new java.awt.event.MouseAdapter() {
-
-				@Override
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					int row = table.rowAtPoint(evt.getPoint());
-					int col = table.columnAtPoint(evt.getPoint());
-					if (row >= 0 && col == 2) {
-						String settingName = tableModel.getValueAt(row, 0).toString();
-						DiscoveredPrinterForDevDemo printer = (DiscoveredPrinterForDevDemo) addressDropdown.getSelectedItem();
-						new ChangeSettingDialog(owner, printer, group, settingName).setVisible(true);
-					}
-				}
-			});
+			table.getColumnModel().getColumn(2).setCellRenderer(new ColoredBackgroundRenderer());
 		}
 	}
 
-	class ColoredBackgroundRendered extends DefaultTableCellRenderer {
+	class ColoredBackgroundRenderer extends DefaultTableCellRenderer {
 		private static final long serialVersionUID = -7516038561585633605L;
 
 		@Override
@@ -205,18 +179,5 @@ public class PrinterSettingsDemo extends PrinterDemoBase implements PrinterDemo 
 			cell.setBackground(new Color(240, 240, 240));
 			return cell;
 		}
-	}
-
-	private String[] getHeaderLabels(SettingsGroup group) {
-		boolean settable = group == SettingsGroup.device;
-		String[] headerLabels;
-
-		if (settable) {
-			headerLabels = new String[] { "Setting", "Value", "Action" };
-		} else {
-			headerLabels = new String[] { "Setting", "Value" };
-		}
-
-		return headerLabels;
 	}
 }

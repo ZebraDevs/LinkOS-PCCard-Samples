@@ -22,14 +22,17 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 import org.apache.commons.io.FileUtils;
 
-import com.zebra.card.devdemo.DiscoveredPrinterForDevDemo;
+import com.zebra.card.devdemo.JobInfo;
+import com.zebra.card.devdemo.PollJobStatusWorker;
 import com.zebra.card.devdemo.PrinterModel;
 import com.zebra.sdk.comm.ConnectionException;
 import com.zebra.sdk.common.card.containers.GraphicsInfo;
 import com.zebra.sdk.common.card.enumerations.CardSide;
+import com.zebra.sdk.common.card.enumerations.CardSource;
 import com.zebra.sdk.common.card.enumerations.GraphicType;
 import com.zebra.sdk.common.card.enumerations.OrientationType;
 import com.zebra.sdk.common.card.enumerations.PrintType;
@@ -37,23 +40,23 @@ import com.zebra.sdk.common.card.exceptions.ZebraCardException;
 import com.zebra.sdk.common.card.graphics.ZebraCardGraphics;
 import com.zebra.sdk.common.card.graphics.ZebraCardImageI;
 import com.zebra.sdk.common.card.graphics.enumerations.RotationType;
-import com.zebra.sdk.common.card.printer.ZebraCardPrinter;
-import com.zebra.sdk.common.card.printer.ZebraCardPrinterFactory;
 import com.zebra.sdk.settings.SettingsException;
 
 public class PrintModel extends PrinterModel {
 
-	public void print(DiscoveredPrinterForDevDemo printer, PrintJobOptions printJobOptions, JTextArea jobStatusArea) throws IOException, SettingsException, ZebraCardException, ConnectionException {
-
+	public void print(PrintJobOptions printJobOptions, final JTextArea jobStatusArea) throws IOException, SettingsException, ZebraCardException, ConnectionException {
 		ZebraCardGraphics graphics = null;
-		ZebraCardPrinter zebraCardPrinter = null;
+
+		jobStatusArea.setText("");
 
 		try {
-			connection = printer.getConnection();
-			connection.open();
+			if (getConnection() == null) {
+				throw new ConnectionException("No printer selected");
+			}
 
-			zebraCardPrinter = ZebraCardPrinterFactory.getInstance(connection);
-			graphics = new ZebraCardGraphics(zebraCardPrinter); // Initialize graphics for ZXP Series printers
+			getConnection().open();
+
+			graphics = new ZebraCardGraphics(getZebraCardPrinter()); // Initialize graphics for ZXP Series printers
 
 			byte[] frontSideImageData = null;
 			byte[] backSideImageData = null;
@@ -107,12 +110,24 @@ public class PrintModel extends PrinterModel {
 				graphics.clear();
 			}
 
-			int jobId = zebraCardPrinter.print(printJobOptions.copies, graphicsData);
-			pollJobStatus(zebraCardPrinter, jobId, jobStatusArea);
+			int jobId = getZebraCardPrinter().print(printJobOptions.copies, graphicsData);
+			new PollJobStatusWorker(getZebraCardPrinter(), new JobInfo(jobId, CardSource.Feeder)) {
+				@Override
+				protected void process(final List<StatusUpdateInfo> updateList) {
+					SwingUtilities.invokeLater(new Runnable() {
+
+						@Override
+						public void run() {
+							StatusUpdateInfo update = updateList.get(updateList.size() - 1);
+							jobStatusArea.append(update.getMessage());
+						}
+					});
+				};
+			}.execute();
 		} catch (ConnectionException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		} finally {
-			cleanUpQuietly(zebraCardPrinter, connection);
+			cleanUpQuietly();
 		}
 	}
 

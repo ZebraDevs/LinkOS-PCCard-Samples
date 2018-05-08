@@ -21,36 +21,36 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 import org.apache.commons.io.FileUtils;
 
-import com.zebra.card.devdemo.DiscoveredPrinterForDevDemo;
+import com.zebra.card.devdemo.JobInfo;
+import com.zebra.card.devdemo.PollJobStatusWorker;
 import com.zebra.card.devdemo.PrinterModel;
-import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
 import com.zebra.sdk.common.card.containers.GraphicsInfo;
 import com.zebra.sdk.common.card.containers.TemplateJob;
 import com.zebra.sdk.common.card.enumerations.CardDestination;
 import com.zebra.sdk.common.card.exceptions.ZebraCardException;
-import com.zebra.sdk.common.card.jobSettings.ZebraCardJobSettingNames;
-import com.zebra.sdk.common.card.printer.ZebraCardPrinter;
-import com.zebra.sdk.common.card.printer.ZebraCardPrinterFactory;
 import com.zebra.sdk.common.card.template.ZebraCardTemplate;
 import com.zebra.sdk.settings.SettingsException;
 
 public class TemplateModel extends PrinterModel {
 
-	private final String templateFilePath;
-	private final String imageDirectory;
-	private final String templateName;
+	private String templateFilePath;
+	private String imageDirectory;
+	private String templateName;
 
-	private final JTextArea statusTextArea;
+	private JTextArea statusTextArea;
 
-	private final ZebraCardTemplate zebraCardTemplate;
+	private ZebraCardTemplate zebraCardTemplate;
 
-	public TemplateModel(String templateFilePath, String imageDirectory, JTextArea statusTextArea) throws IOException, IllegalArgumentException, ZebraCardException {
+	public TemplateModel() {
 		super();
+	}
 
+	protected void setTemplateData(String templateFilePath, String imageDirectory, JTextArea statusTextArea) throws IllegalArgumentException, IOException, ZebraCardException {
 		this.templateFilePath = templateFilePath;
 		this.imageDirectory = imageDirectory;
 		this.statusTextArea = statusTextArea;
@@ -133,36 +133,43 @@ public class TemplateModel extends PrinterModel {
 		return templateJob.graphicsData;
 	}
 
-	public void print(DiscoveredPrinterForDevDemo discoveredPrinter, Map<String, String> variableData, JTextArea jobStatusArea)
-			throws IllegalArgumentException, IOException, ConnectionException, SettingsException, ZebraCardException {
-		ZebraCardPrinter zebraCardPrinter = null;
-		Connection connection = null;
+	public void print(Map<String, String> variableData, final JTextArea jobStatusArea) throws IllegalArgumentException, IOException, ConnectionException, SettingsException, ZebraCardException {
+		jobStatusArea.setText("");
 
 		try {
 			String templateData = zebraCardTemplate.getTemplate(templateName);
 			TemplateJob templateJob = generateTemplateJob(templateName, zebraCardTemplate, templateData, variableData);
 
-			connection = discoveredPrinter.getConnection();
-			connection.open();
+			getConnection().open();
 
-			zebraCardPrinter = ZebraCardPrinterFactory.getInstance(connection);
-
-			boolean isDestinationValid = zebraCardPrinter.isJobSettingValid(ZebraCardJobSettingNames.CARD_DESTINATION, CardDestination.Eject.name());
-			if (!isDestinationValid) {
-				zebraCardPrinter.setJobSetting(ZebraCardJobSettingNames.CARD_DESTINATION, CardDestination.LaminatorAny.name());
+			if (templateJob.jobInfo.cardDestination != null) {
+				if (templateJob.jobInfo.cardDestination == CardDestination.Eject && getZebraCardPrinter().hasLaminator()) {
+					templateJob.jobInfo.cardDestination = CardDestination.LaminatorAny;
+				}
 			}
 
-			int jobId = zebraCardPrinter.printTemplate(1, templateJob);
+			int jobId = getZebraCardPrinter().printTemplate(1, templateJob);
 			verboseFormatPrint("Received job id value of %d%n", jobId);
 
-			pollJobStatus(zebraCardPrinter, jobId, jobStatusArea);
+			new PollJobStatusWorker(getZebraCardPrinter(), new JobInfo(jobId, templateJob.jobInfo.cardSource)) {
+				@Override
+				protected void process(final List<StatusUpdateInfo> updateList) {
+					SwingUtilities.invokeLater(new Runnable() {
+
+						@Override
+						public void run() {
+							StatusUpdateInfo update = updateList.get(updateList.size() - 1);
+							jobStatusArea.append(update.getMessage());
+						}
+					});
+				};
+			}.execute();
 		} finally {
-			cleanUpQuietly(zebraCardPrinter, connection);
+			cleanUpQuietly();
 		}
 	}
 
-	private TemplateJob generateTemplateJob(String templateFileName, ZebraCardTemplate zebraCardTemplate, String templateData, Map<String, String> fieldDataMap)
-			throws ConnectionException, SettingsException, ZebraCardException, IOException {
+	private TemplateJob generateTemplateJob(String templateFileName, ZebraCardTemplate zebraCardTemplate, String templateData, Map<String, String> fieldDataMap) throws ConnectionException, SettingsException, ZebraCardException, IOException {
 		if (templateFileName != null) {
 			verboseFormatPrint("Generating print job from template %s%n", templateFileName);
 			return zebraCardTemplate.generateTemplateJob(templateFileName, fieldDataMap);

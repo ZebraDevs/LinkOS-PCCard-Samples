@@ -21,7 +21,6 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -33,9 +32,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -46,17 +43,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
 
-import com.zebra.card.devdemo.PrinterDemo;
+import org.apache.commons.io.FilenameUtils;
+
 import com.zebra.card.devdemo.PrinterDemoBase;
 import com.zebra.card.devdemo.graphicconversion.GraphicConverter.DimensionOption;
 
-public class GraphicConversionDemo extends PrinterDemoBase implements PrinterDemo {
-
-	public static final String ZXP1 = "zxp1";
-	public static final String ZXP3 = "zxp3";
-	public static final String ZXP7 = "zxp7";
-	public static final String ZXP8 = "zxp8";
-	public static final String ZXP9 = "zxp9";
+public class GraphicConversionDemo extends PrinterDemoBase<GraphicConversionModel> {
 
 	protected JTextField fileNameTextField;
 	protected JTextField convertedFileNameTextField;
@@ -76,20 +68,19 @@ public class GraphicConversionDemo extends PrinterDemoBase implements PrinterDem
 	private JRadioButton cropButton;
 
 	public GraphicConversionDemo() {
+		super(new GraphicConversionModel());
 	}
 
 	@Override
-	public void createDemoDialog(JFrame owner) {
-		demoDialog = new JDialog(owner, "Zebra Multi Platform SDK - Developer Demo", true);
+	public void addDemoDialogContent(Container container) {
+		container.add(createPanelHeader("Graphic Conversion"), BorderLayout.PAGE_START);
+		container.add(createLowerPanel(), BorderLayout.PAGE_END);
+	}
 
-		Container mainPane = demoDialog.getContentPane();
-
-		mainPane.add(createPanelHeader("Graphic Conversion"), BorderLayout.PAGE_START);
-
+	private JPanel createLowerPanel() {
 		JPanel lowerPanel = new JPanel();
 		lowerPanel.setLayout(new BoxLayout(lowerPanel, BoxLayout.PAGE_AXIS));
-
-		mainPane.add(lowerPanel, BorderLayout.PAGE_END);
+		lowerPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
 		lowerPanel.add(createFilenamePanel());
 		lowerPanel.add(createOptionsPanel());
@@ -125,24 +116,17 @@ public class GraphicConversionDemo extends PrinterDemoBase implements PrinterDem
 
 		JPanel buttonHolder = new JPanel(new BorderLayout());
 		buttonHolder.add(convertButton, BorderLayout.LINE_END);
-
 		lowerPanel.add(buttonHolder);
-		lowerPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-
-		demoDialog.setResizable(false);
-		demoDialog.pack();
-		demoDialog.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (mainPane.getWidth() / 2), 0);
-		demoDialog.setVisible(true);
-		demoDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		return lowerPanel;
 	}
 
 	private GraphicsContainer buildGraphicsContainer() {
 		GraphicsContainer graphicsContainer = new GraphicsContainer();
 
 		graphicsContainer.format = (String) graphicsFormatComboBox.getSelectedItem();
-		graphicsContainer.outputFilePath = convertedFileNameTextField.getText();
+		graphicsContainer.outputFilePath = convertedFileNameTextField.getText() + ".bmp";
 		graphicsContainer.inputFilePath = fileNameTextField.getText();
-		graphicsContainer.printerModelString = (String) printerModelComboBox.getSelectedItem();
+		graphicsContainer.printerModelInfo = (PrinterModelInfo) printerModelComboBox.getSelectedItem();
 		graphicsContainer.widthString = widthTextField.getText();
 		graphicsContainer.heightString = heightTextField.getText();
 		graphicsContainer.xoffsetString = xOffsetTextField.getText();
@@ -171,9 +155,14 @@ public class GraphicConversionDemo extends PrinterDemoBase implements PrinterDem
 		JLabel fileNameLabel = new JLabel("Filename of Converted Graphic");
 		fileNameArea.add(fileNameLabel);
 
+		JPanel convertedFileNameArea = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+
 		convertedFileNameTextField = new JTextField();
 		convertedFileNameTextField.setPreferredSize(new Dimension(350, 25));
-		fileNameArea.add(convertedFileNameTextField);
+		convertedFileNameArea.add(convertedFileNameTextField);
+		convertedFileNameArea.add(new JLabel(".bmp"));
+
+		fileNameArea.add(convertedFileNameArea);
 
 		JButton browseButton = new JButton("Browse");
 		fileNameArea.add(browseButton);
@@ -197,7 +186,7 @@ public class GraphicConversionDemo extends PrinterDemoBase implements PrinterDem
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (fileChooser.showOpenDialog(demoDialog) == JFileChooser.APPROVE_OPTION) {
-					convertedFileNameTextField.setText(fileChooser.getSelectedFile().getAbsolutePath());
+					convertedFileNameTextField.setText(FilenameUtils.removeExtension(fileChooser.getSelectedFile().getAbsolutePath()));
 				}
 			}
 		});
@@ -387,18 +376,23 @@ public class GraphicConversionDemo extends PrinterDemoBase implements PrinterDem
 		JLabel grsphicsFormatLabel = new JLabel("Graphics Format");
 		optionsArea.add(grsphicsFormatLabel);
 
-		graphicsFormatComboBox = new JComboBox(
-				new String[] { GraphicConverter.GRAPHICS_FORMAT_COLOR, GraphicConverter.GRAPHICS_FORMAT_MONO_DIFFUSION, GraphicConverter.GRAPHICS_FORMAT_MONO_HALFTONE_6X6,
-						GraphicConverter.GRAPHICS_FORMAT_MONO_HALFTONE_8X8, GraphicConverter.GRAPHICS_FORMAT_GRAY_DIFFUSION, GraphicConverter.GRAY_HALFTONE_6X6, GraphicConverter.GRAY_HALFTONE_8X8 });
+		graphicsFormatComboBox = new JComboBox(new String[] { GraphicConverter.GRAPHICS_FORMAT_COLOR, GraphicConverter.GRAPHICS_FORMAT_MONO_DIFFUSION, GraphicConverter.GRAPHICS_FORMAT_MONO_HALFTONE_6X6, GraphicConverter.GRAPHICS_FORMAT_MONO_HALFTONE_8X8,
+				GraphicConverter.GRAPHICS_FORMAT_GRAY_DIFFUSION, GraphicConverter.GRAY_HALFTONE_6X6, GraphicConverter.GRAY_HALFTONE_8X8 });
 		optionsArea.add(graphicsFormatComboBox);
 
 		JLabel printerModelLabelLabel = new JLabel("Printer Model");
 		optionsArea.add(printerModelLabelLabel);
 
-		printerModelComboBox = new JComboBox(new String[] { ZXP1, ZXP3, ZXP7, ZXP8, ZXP9 });
+		printerModelComboBox = new JComboBox(
+				new PrinterModelInfo[] { PrinterModelInfo.ZXP1, PrinterModelInfo.ZXP3, PrinterModelInfo.ZXP7, PrinterModelInfo.ZXP8, PrinterModelInfo.ZXP9, PrinterModelInfo.ZC100, PrinterModelInfo.ZC150, PrinterModelInfo.ZC300, PrinterModelInfo.ZC350 });
 		optionsArea.add(printerModelComboBox);
 
 		optionsAreaWrapper.add(optionsArea, BorderLayout.WEST);
 		return optionsAreaWrapper;
+	}
+
+	@Override
+	protected void onConnectionEstablished() {
+		// Do nothing
 	}
 }

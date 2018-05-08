@@ -20,14 +20,11 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
-import com.zebra.card.devdemo.DiscoveredPrinterForDevDemo;
 import com.zebra.card.devdemo.PrinterModel;
 import com.zebra.sdk.comm.ConnectionException;
 import com.zebra.sdk.common.card.containers.MediaInfo;
 import com.zebra.sdk.common.card.containers.PrinterInfo;
 import com.zebra.sdk.common.card.containers.PrinterStatusInfo;
-import com.zebra.sdk.common.card.printer.ZebraCardPrinter;
-import com.zebra.sdk.common.card.printer.ZebraCardPrinterFactory;
 
 public class PrinterStatusModel extends PrinterModel {
 
@@ -35,42 +32,38 @@ public class PrinterStatusModel extends PrinterModel {
 		printer, general, media, sensors
 	}
 
-	public Map<StatusGroup, Object[][]> getPrinterStatus(DiscoveredPrinterForDevDemo printer) {
-		Map<StatusGroup, Object[][]> statusDataMap = new HashMap<StatusGroup, Object[][]>();
-		ZebraCardPrinter zebraCardPrinter = null;
+	public Map<StatusGroup, String[][]> getPrinterStatus() {
+		Map<StatusGroup, String[][]> statusDataMap = new HashMap<StatusGroup, String[][]>();
 
 		try {
-			connection = printer.getConnection();
-			connection.open();
-
-			zebraCardPrinter = ZebraCardPrinterFactory.getInstance(connection);
+			getConnection().open();
 
 			for (StatusGroup group : StatusGroup.values()) {
-				statusDataMap.put(group, getStatusData(zebraCardPrinter, group));
+				statusDataMap.put(group, getStatusData(group));
 			}
 		} catch (ConnectionException e) {
 			JOptionPane.showMessageDialog(null, e.getLocalizedMessage());
 		} finally {
-			cleanUpQuietly(zebraCardPrinter, connection);
+			cleanUpQuietly();
 		}
 		return statusDataMap;
 	}
 
-	private Object[][] getStatusData(ZebraCardPrinter zebraCardPrinter, StatusGroup group) {
-		Object[][] result = null;
+	private String[][] getStatusData(StatusGroup group) {
+		String[][] result = null;
 		try {
 			switch (group) {
 				case printer:
-					result = mapPrinterInfoToNameValueList(zebraCardPrinter.getPrinterInformation());
+					result = mapPrinterInfoToNameValueList(getZebraCardPrinter().getPrinterInformation());
 					break;
 				case general:
-					result = mapPrinterStatusToNameValueList(zebraCardPrinter.getPrinterStatus());
+					result = mapPrinterStatusToNameValueList(getZebraCardPrinter().getPrinterStatus());
 					break;
 				case media:
-					result = mapMediaInfoToNameValueList(zebraCardPrinter.getMediaInformation());
+					result = mapMediaInfoToNameValueList(getZebraCardPrinter().getMediaInformation());
 					break;
 				case sensors:
-					result = mapSensorStatesToNameValueList(zebraCardPrinter.getSensorStates(), zebraCardPrinter.getSensorValues());
+					result = mapSensorStatesToNameValueList(getZebraCardPrinter().getSensorStates(), getZebraCardPrinter().getSensorValues());
 					break;
 			}
 		} catch (Exception e) {
@@ -79,7 +72,7 @@ public class PrinterStatusModel extends PrinterModel {
 		return result;
 	}
 
-	private Object[][] mapPrinterStatusToNameValueList(PrinterStatusInfo printerStatus) {
+	private String[][] mapPrinterStatusToNameValueList(PrinterStatusInfo printerStatus) {
 		final String[][] result = new String[9][2];
 
 		int counter = 0;
@@ -95,7 +88,7 @@ public class PrinterStatusModel extends PrinterModel {
 		return result;
 	}
 
-	private Object[][] mapPrinterInfoToNameValueList(PrinterInfo printerInfo) {
+	private String[][] mapPrinterInfoToNameValueList(PrinterInfo printerInfo) {
 		final String[][] result = new String[10][2];
 
 		int counter = 0;
@@ -112,7 +105,7 @@ public class PrinterStatusModel extends PrinterModel {
 		return result;
 	}
 
-	private Object[][] mapMediaInfoToNameValueList(List<MediaInfo> mediaInfo) {
+	private String[][] mapMediaInfoToNameValueList(List<MediaInfo> mediaInfo) {
 		final String[][] result = new String[mediaInfo.size()][6];
 
 		int counter = 0;
@@ -124,7 +117,7 @@ public class PrinterStatusModel extends PrinterModel {
 		return result;
 	}
 
-	private Object[][] mapSensorStatesToNameValueList(Map<String, String> sensorStates, Map<String, String> sensorValues) {
+	private String[][] mapSensorStatesToNameValueList(Map<String, String> sensorStates, Map<String, String> sensorValues) {
 		final String[][] result = new String[sensorStates.size() + sensorValues.size()][2];
 
 		int counter = 0;

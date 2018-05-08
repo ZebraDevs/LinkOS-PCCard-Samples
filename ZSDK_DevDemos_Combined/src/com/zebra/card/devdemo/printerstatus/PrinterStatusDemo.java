@@ -18,7 +18,6 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -26,8 +25,6 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -35,40 +32,27 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.zebra.card.devdemo.DiscoveredPrinterForDevDemo;
-import com.zebra.card.devdemo.PrinterDemo;
 import com.zebra.card.devdemo.PrinterDemoBase;
 import com.zebra.card.devdemo.printerstatus.PrinterStatusModel.StatusGroup;
 
-public class PrinterStatusDemo extends PrinterDemoBase implements PrinterDemo {
+public class PrinterStatusDemo extends PrinterDemoBase<PrinterStatusModel> {
 
 	private final Map<StatusGroup, JTable> statusTables = new HashMap<StatusGroup, JTable>();
 
 	public PrinterStatusDemo() {
+		super(new PrinterStatusModel());
 	}
 
 	@Override
-	public void createDemoDialog(JFrame owner) {
-		demoDialog = new JDialog(owner, "Zebra Multi Platform SDK - Developer Demo", true);
-
-		Container mainPane = demoDialog.getContentPane();
-		mainPane.add(createPanelHeader("Printer Status"), BorderLayout.PAGE_START);
-		mainPane.add(createSelectPrinterPanel());
-
-		JPanel lowerPart = createLowerPanel();
-		mainPane.add(lowerPart, BorderLayout.PAGE_END);
-
-		demoDialog.pack();
-		demoDialog.setResizable(false);
-		demoDialog.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (mainPane.getWidth() / 2), 0);
-		demoDialog.setVisible(true);
-		demoDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	protected void addDemoDialogContent(Container container) {
+		container.add(createPanelHeader("Printer Status"), BorderLayout.PAGE_START);
+		container.add(createSelectPrinterPanel(true));
+		container.add(createLowerPanel(), BorderLayout.PAGE_END);
 	}
 
 	@Override
-	protected void additionalPostDiscoveryAction() {
-		boolean printerListNotEmpty = addressDropdown.getItemCount() > 0;
-		enableActionButton(printerListNotEmpty);
+	protected void onConnectionEstablished() {
+		setActionButtonEnabled(getPrinterModel().getConnection() != null);
 	}
 
 	private JPanel createLowerPanel() {
@@ -88,7 +72,7 @@ public class PrinterStatusDemo extends PrinterDemoBase implements PrinterDemo {
 		tabbedPane.addTab("Sensors", sensorStatusTab);
 
 		actionButton = new JButton("Refresh");
-		enableActionButton(false);
+		setActionButtonEnabled(false);
 		actionButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -97,15 +81,14 @@ public class PrinterStatusDemo extends PrinterDemoBase implements PrinterDemo {
 
 					@Override
 					public void run() {
-						enableActionButton(false);
+						setActionButtonEnabled(false);
 						demoDialog.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 
-						DiscoveredPrinterForDevDemo printer = (DiscoveredPrinterForDevDemo) addressDropdown.getSelectedItem();
-						Map<StatusGroup, Object[][]> printerStatusDataMap = new PrinterStatusModel().getPrinterStatus(printer);
+						Map<StatusGroup, String[][]> printerStatusDataMap = getPrinterModel().getPrinterStatus();
 						updatePrinterStatus(printerStatusDataMap);
 
 						demoDialog.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-						enableActionButton(true);
+						setActionButtonEnabled(true);
 					}
 				}).start();
 			}
@@ -130,13 +113,13 @@ public class PrinterStatusDemo extends PrinterDemoBase implements PrinterDemo {
 		return settingListScroller;
 	}
 
-	private void updatePrinterStatus(Map<StatusGroup, Object[][]> statusDataMap) {
+	private void updatePrinterStatus(Map<StatusGroup, String[][]> statusDataMap) {
 		for (PrinterStatusModel.StatusGroup group : StatusGroup.values()) {
 			updateStatusGroup(group, statusDataMap.get(group));
 		}
 	}
 
-	private void updateTableModel(Object[][] settingsData, String[] headerLabels, JTable table) {
+	private void updateTableModel(String[][] settingsData, String[] headerLabels, JTable table) {
 		DefaultTableModel tableModel = new DefaultTableModel(settingsData, headerLabels) {
 			private static final long serialVersionUID = 4646379300019834951L;
 
@@ -151,7 +134,7 @@ public class PrinterStatusDemo extends PrinterDemoBase implements PrinterDemo {
 		table.invalidate();
 	}
 
-	private void updateStatusGroup(StatusGroup group, Object[][] settingsData) {
+	private void updateStatusGroup(StatusGroup group, String[][] settingsData) {
 		JTable table = statusTables.get(group);
 		String[] headerLabels = getHeaderLabels(group);
 		updateTableModel(settingsData, headerLabels, table);

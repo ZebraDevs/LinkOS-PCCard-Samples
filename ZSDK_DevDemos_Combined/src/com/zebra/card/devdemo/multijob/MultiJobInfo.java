@@ -7,15 +7,25 @@
  * displayed or distributed, in whole or in part, in any medium, by any means, for any purpose except as
  * expressly permitted under such license agreement.
  * 
- * Copyright ZIH Corp. 2016
+ * Copyright ZIH Corp. 2018
  * 
  * ALL RIGHTS RESERVED
  ***********************************************/
 
-package com.zebra.card.devdemo;
+package com.zebra.card.devdemo.multijob;
 
-import javax.swing.JFrame;
+import com.zebra.card.devdemo.JobInfo;
+import com.zebra.sdk.common.card.enumerations.CardSource;
 
-public interface PrinterDemo {
-	public void createDemoDialog(JFrame owner);
+public class MultiJobInfo extends JobInfo {
+	private final Job job;
+
+	public MultiJobInfo(CardSource cardSource, Integer jobId, Job job) {
+		super(jobId, cardSource);
+		this.job = job;
+	}
+
+	public Job getJob() {
+		return job;
+	}
 }

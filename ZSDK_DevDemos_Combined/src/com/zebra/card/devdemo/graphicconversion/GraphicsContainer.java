@@ -14,12 +14,12 @@
 
 package com.zebra.card.devdemo.graphicconversion;
 
-public class GraphicsContainer {
 
+public class GraphicsContainer {
 	String format;
 	String outputFilePath;
 	String inputFilePath;
-	String printerModelString;
+	PrinterModelInfo printerModelInfo;
 	String widthString;
 	String heightString;
 	String xoffsetString;

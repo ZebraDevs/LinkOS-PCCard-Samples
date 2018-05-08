@@ -15,80 +15,25 @@
 package com.zebra.card.devdemo;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
-import com.zebra.sdk.common.card.containers.JobStatusInfo;
-import com.zebra.sdk.common.card.errors.ZebraCardErrors;
 import com.zebra.sdk.common.card.exceptions.ZebraCardException;
 import com.zebra.sdk.common.card.printer.ZebraCardPrinter;
+import com.zebra.sdk.common.card.printer.ZebraCardPrinterFactory;
 
 public class PrinterModel {
 
-	protected Connection connection;
 	public static final String USB_SELECTION = "USB";
 	public static final String NETWORK_SELECTION = "Network";
-	private static final Integer CARD_FEED_TIMEOUT = 30000;
-	public static final Integer RESUME_OPTION = 0;
 
-	public PrinterModel() {
-		super();
-	}
-
-	protected void pollJobStatus(ZebraCardPrinter zebraCardPrinter, int jobId, JTextArea jobStatusArea) throws ConnectionException, ZebraCardException {
-		boolean done = false;
-		long start = System.currentTimeMillis();
-
-		jobStatusArea.setText("Polling status for job id " + jobId + "...\n");
-
-		while (!done) {
-			JobStatusInfo jobStatus = zebraCardPrinter.getJobStatus(jobId);
-
-			String alarmDesc = jobStatus.alarmInfo.value > 0 ? " (" + jobStatus.alarmInfo.description + ")" : "";
-			String errorDesc = jobStatus.errorInfo.value > 0 ? " (" + jobStatus.errorInfo.description + ")" : "";
-
-			jobStatusArea.append(String.format("Job %d: status:%s, position:%s, contact:%s, contactless:%s, alarm:%d%s, error:%d%s%n", jobId, jobStatus.printStatus, jobStatus.cardPosition,
-					jobStatus.contactSmartCard, jobStatus.contactlessSmartCard, jobStatus.alarmInfo.value, alarmDesc, jobStatus.errorInfo.value, errorDesc));
-
-			if (jobStatus.printStatus.contains("done_ok")) {
-				done = true;
-			} else if (jobStatus.printStatus.contains("error") || jobStatus.printStatus.contains("cancelled")) {
-				if (jobStatus.errorInfo.value > 0) {
-					showErrorDialog(jobId, jobStatus);
-				} else {
-					jobStatusArea.append("Job ID " + jobId + " was cancelled.%n");
-				}
-				done = true;
-			} else if (jobStatus.alarmInfo.value > 0) {
-				done = waitForUserInput(zebraCardPrinter, jobId, jobStatus.alarmInfo.description);
-			} else if (jobStatus.errorInfo.value > 0) {
-				zebraCardPrinter.cancel(jobId);
-				showErrorDialog(jobId, jobStatus);
-				done = true;
-			} else if ((jobStatus.printStatus.contains("in_progress") && jobStatus.cardPosition.contains("feeding")) // ZMotif printers
-					|| (jobStatus.printStatus.contains("alarm_handling") && jobStatus.alarmInfo.value == ZebraCardErrors.MEDIA_OUT_OF_CARDS)) { // ZXP printers
-				if (System.currentTimeMillis() > start + CARD_FEED_TIMEOUT) {
-					zebraCardPrinter.cancel(jobId);
-					jobStatusArea.append("Job ID " + jobId + " was cancelled.%n");
-					done = true;
-				}
-			}
-
-			if (!done) {
-				sleep(500);
-			}
-		}
-	}
-
-	private void showErrorDialog(int jobId, JobStatusInfo jobStatus) {
-		Object[] options = { "Okay" };
-		JOptionPane.showOptionDialog(null, "Printer Error Encountered: " + jobStatus.errorInfo.description + "\nJob " + jobId + " was canceled.", "Error Encountered", JOptionPane.DEFAULT_OPTION,
-				JOptionPane.ERROR_MESSAGE, null, options, null);
-	}
+	private ZebraCardPrinter zebraCardPrinter;
+	private Connection connection;
+	private boolean isManualConnection = false;
 
 	public static void showInformationDialog(String title, String message) {
-		Object[] options = { "Okay" };
+		Object[] options = { "OK" };
 		showInformationDialog(options, title, message);
 	}
 
@@ -96,25 +41,24 @@ public class PrinterModel {
 		return JOptionPane.showOptionDialog(null, message, title, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null);
 	}
 
-	public static boolean waitForUserInput(ZebraCardPrinter zebraCardPrinter, int jobId, String alarmDesc) throws ZebraCardException, ConnectionException {
-		Object[] options = { "Resume", "Cancel" };
-		int option = showInformationDialog(options, "Alarm Encountered",
-				"The job encountered an alarm [" + alarmDesc + "].\nEither fix the alarm and Click Resume once the job begins again,\nor select cancel to cancel the job.");
+	public void showErrorDialog(final String message) {
+		SwingUtilities.invokeLater(new Runnable() {
 
-		if (option != RESUME_OPTION) {
-			zebraCardPrinter.cancel(jobId);
-			return true;
-		}
-
-		return false;
+			@Override
+			public void run() {
+				JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		});
 	}
 
-	public static void cleanUpQuietly(ZebraCardPrinter zebraCardPrinter, Connection connection) {
+	public void cleanUpQuietly() {
 		try {
 			if (zebraCardPrinter != null) {
 				zebraCardPrinter.destroy();
 			}
 		} catch (ZebraCardException e) {
+		} finally {
+			zebraCardPrinter = null;
 		}
 
 		try {
@@ -125,10 +69,24 @@ public class PrinterModel {
 		}
 	}
 
-	public static void sleep(long millis) {
-		try {
-			Thread.sleep(millis);
-		} catch (InterruptedException e) {
+	public ZebraCardPrinter getZebraCardPrinter() throws ConnectionException {
+		if (zebraCardPrinter == null) {
+			zebraCardPrinter = ZebraCardPrinterFactory.getInstance(connection);
 		}
+		return zebraCardPrinter;
+	}
+
+	public boolean isManualConnection() {
+		return isManualConnection;
+	}
+
+	public Connection getConnection() {
+		return connection;
+	}
+
+	public void setConnection(Connection connection, boolean isManualConnection) {
+		this.connection = connection;
+		this.isManualConnection = isManualConnection;
+		zebraCardPrinter = null; // Set to null so that next getZebraCardPrinter() call creates a new instance of ZebraCardPrinter with the new connection
 	}
 }

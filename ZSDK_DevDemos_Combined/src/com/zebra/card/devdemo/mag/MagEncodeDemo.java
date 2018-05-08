@@ -19,7 +19,6 @@ import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintStream;
@@ -30,20 +29,14 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import com.zebra.card.devdemo.DiscoveredPrinterForDevDemo;
-import com.zebra.card.devdemo.PrinterDemo;
 import com.zebra.card.devdemo.PrinterDemoBase;
-import com.zebra.card.devdemo.PrinterModel;
 import com.zebra.card.devdemo.TextAreaOutputStream;
-import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
 import com.zebra.sdk.common.card.containers.MagTrackData;
 import com.zebra.sdk.common.card.enumerations.CardDestination;
@@ -52,11 +45,9 @@ import com.zebra.sdk.common.card.enumerations.CoercivityType;
 import com.zebra.sdk.common.card.enumerations.DataSource;
 import com.zebra.sdk.common.card.exceptions.ZebraCardException;
 import com.zebra.sdk.common.card.jobSettings.ZebraCardJobSettingNames;
-import com.zebra.sdk.common.card.printer.ZebraCardPrinter;
-import com.zebra.sdk.common.card.printer.ZebraCardPrinterFactory;
 import com.zebra.sdk.settings.SettingsException;
 
-public class MagEncodeDemo extends PrinterDemoBase implements PrinterDemo {
+public class MagEncodeDemo extends PrinterDemoBase<MagEncodeModel> {
 
 	private JTextField track1DataTextField;
 	private JTextField track2DataTextField;
@@ -73,41 +64,20 @@ public class MagEncodeDemo extends PrinterDemoBase implements PrinterDemo {
 	private JCheckBox track2CheckBox;
 	private JCheckBox track3CheckBox;
 
-	private ZebraCardPrinter zebraCardPrinter;
+	public MagEncodeDemo() {
+		super(new MagEncodeModel());
+	}
 
 	@Override
-	public void createDemoDialog(JFrame owner) {
-		demoDialog = new JDialog(owner, "Zebra Multi Platform SDK - Developer Demo", true);
-
-		Container mainPane = demoDialog.getContentPane();
-		mainPane.add(createPanelHeader("Magnetic Encode"), BorderLayout.PAGE_START);
-		mainPane.setPreferredSize(new Dimension(1350, 675));
-
-		JPanel settingsPanel = new JPanel();
-		settingsPanel.add(createSelectPrinterPanel());
-
-		JPanel lowerPanel = createLowerPanel();
-		settingsPanel.add(lowerPanel, BorderLayout.PAGE_END);
-		mainPane.add(settingsPanel);
-
-		addressDropdown.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				additionalPostDiscoveryAction();
-			}
-		});
-
-		demoDialog.pack();
-		demoDialog.setResizable(false);
-		demoDialog.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (mainPane.getWidth() / 2), 0);
-		demoDialog.setVisible(true);
-		demoDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	public void addDemoDialogContent(Container container) {
+		container.add(createPanelHeader("Magnetic Encode"), BorderLayout.PAGE_START);
+		container.add(createLowerPanel());
 	}
 
 	private JPanel createLowerPanel() {
 		JPanel lowerPanel = new JPanel();
 		lowerPanel.setLayout(new BoxLayout(lowerPanel, BoxLayout.PAGE_AXIS));
+		lowerPanel.add(createSelectPrinterPanel(true));
 		lowerPanel.add(createJobSettingPanel());
 		lowerPanel.add(createMagEncodingPanel());
 		lowerPanel.add(createJobStatusPanel(10, 86));
@@ -120,7 +90,7 @@ public class MagEncodeDemo extends PrinterDemoBase implements PrinterDemo {
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
 		actionButton = new JButton("Write");
-		enableActionButton(false);
+		setActionButtonEnabled(false);
 
 		actionButton.addActionListener(new ActionListener() {
 
@@ -131,21 +101,16 @@ public class MagEncodeDemo extends PrinterDemoBase implements PrinterDemo {
 					@Override
 					public void run() {
 						enableMagEncoding(false);
-						enableActionButton(false);
+						setActionButtonEnabled(false);
 
 						demoDialog.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 
-						Connection connection = null;
 						try {
-							DiscoveredPrinterForDevDemo printer = (DiscoveredPrinterForDevDemo) addressDropdown.getSelectedItem();
-							connection = printer.getConnection();
-							connection.open();
-
-							zebraCardPrinter = ZebraCardPrinterFactory.getInstance(connection);
+							getPrinterModel().getConnection().open();
 
 							if (magEncodeJob.getSelectedItem().equals("Write")) {
 								MagEncodeContainer magEncodeContainer = buildMagEncodeContainer();
-								new MagEncodeModel().MagEncode(zebraCardPrinter, magEncodeContainer, statusTextArea);
+								getPrinterModel().magEncode(magEncodeContainer, statusTextArea);
 							} else {
 								clearData();
 
@@ -159,11 +124,11 @@ public class MagEncodeDemo extends PrinterDemoBase implements PrinterDemo {
 						} catch (Exception e) {
 							JOptionPane.showMessageDialog(null, e.getLocalizedMessage());
 						} finally {
-							PrinterModel.cleanUpQuietly(zebraCardPrinter, connection);
+							getPrinterModel().cleanUpQuietly();
 						}
 
 						demoDialog.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-						enableActionButton(true);
+						setActionButtonEnabled(true);
 						enableMagEncoding(true);
 					}
 				}).start();
@@ -186,7 +151,7 @@ public class MagEncodeDemo extends PrinterDemoBase implements PrinterDemo {
 			String source = (String) cardSourceComboBox.getSelectedItem();
 			String destination = (String) cardDestinationComboBox.getSelectedItem();
 
-			MagTrackData data = new MagEncodeModel().MagRead(zebraCardPrinter, tracksToRead, source, destination);
+			MagTrackData data = getPrinterModel().magRead(tracksToRead, source, destination);
 
 			boolean dataRead = false;
 
@@ -209,6 +174,7 @@ public class MagEncodeDemo extends PrinterDemoBase implements PrinterDemo {
 				System.out.println("No data read from card.");
 			}
 		} finally {
+			getPrinterModel().cleanUpQuietly();
 			System.setOut(System.out);
 		}
 	}
@@ -258,7 +224,7 @@ public class MagEncodeDemo extends PrinterDemoBase implements PrinterDemo {
 		jobSettingsArea.add(coercivityTypeComboBox);
 
 		verifyCheckBox = new JCheckBox("Verify Encoding");
-		verifyCheckBox.setEnabled(false);
+		verifyCheckBox.setEnabled(true);
 		jobSettingsArea.add(verifyCheckBox);
 
 		JLabel quantityLabel = new JLabel("Quantity");
@@ -335,68 +301,66 @@ public class MagEncodeDemo extends PrinterDemoBase implements PrinterDemo {
 	}
 
 	@Override
-	protected void additionalPostDiscoveryAction() {
+	protected void onConnectionEstablished() {
 		clearData();
+		setUpMagDemo();
+	}
 
-		DiscoveredPrinterForDevDemo printer = (DiscoveredPrinterForDevDemo) addressDropdown.getSelectedItem();
-		if (printer != null) {
-			Connection connection = printer.getConnection();
-			String cardSourceRange = null;
-			String cardDestinationRange = null;
-			String coercivityTypeRange = null;
-			boolean hasMagEncoder = false;
-			boolean hasLaminator = false;
+	private void setUpMagDemo() {
+		String cardSourceRange = null;
+		String cardDestinationRange = null;
+		String coercivityTypeRange = null;
+		boolean hasMagEncoder = false;
+		boolean hasLaminator = false;
 
-			try {
-				connection.open();
+		try {
+			getPrinterModel().getConnection().open();
 
-				zebraCardPrinter = ZebraCardPrinterFactory.getInstance(connection);
-				hasMagEncoder = zebraCardPrinter.hasMagneticEncoder();
-				hasLaminator = zebraCardPrinter.hasLaminator();
-				if (hasMagEncoder) {
-					cardSourceRange = zebraCardPrinter.getJobSettingRange(ZebraCardJobSettingNames.CARD_SOURCE);
-					cardDestinationRange = zebraCardPrinter.getJobSettingRange(ZebraCardJobSettingNames.CARD_DESTINATION);
-					coercivityTypeRange = zebraCardPrinter.getJobSettingRange(ZebraCardJobSettingNames.MAG_COERCIVITY);
-				}
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, e.getLocalizedMessage());
-			} finally {
-				PrinterModel.cleanUpQuietly(zebraCardPrinter, connection);
-			}
-
+			hasMagEncoder = getPrinterModel().getZebraCardPrinter().hasMagneticEncoder();
+			hasLaminator = getPrinterModel().getZebraCardPrinter().hasLaminator();
 			if (hasMagEncoder) {
-				cardSourceComboBox.removeAllItems();
-				for (CardSource source : CardSource.values()) {
-					if (cardSourceRange != null && cardSourceRange.contains(source.name())) {
-						cardSourceComboBox.addItem(source.name());
-					}
-				}
-				cardSourceComboBox.setSelectedItem(CardSource.Feeder.name());
-
-				cardDestinationComboBox.removeAllItems();
-				for (CardDestination destination : CardDestination.values()) {
-					if (cardDestinationRange != null && cardDestinationRange.contains(destination.name())) {
-						if (!destination.name().contains("Laminator") || hasLaminator) {
-							cardDestinationComboBox.addItem(destination.name());
-						}
-					}
-				}
-				cardDestinationComboBox.setSelectedItem(CardDestination.Eject.name());
-
-				coercivityTypeComboBox.removeAllItems();
-				for (CoercivityType coercivity : CoercivityType.values()) {
-					if (coercivityTypeRange != null && coercivityTypeRange.contains(coercivity.name())) {
-						coercivityTypeComboBox.addItem(coercivity.name());
-					}
-				}
-				coercivityTypeComboBox.setSelectedItem(CoercivityType.High.name());
-
-				enableMagEncoding(true);
-				setUpJobSettings();
-			} else {
-				enableMagEncoding(false);
-				JOptionPane.showMessageDialog(null, "The selected printer does not have a Magnetic Encoder.\nPlease choose a different printer from the list.");
+				cardSourceRange = getPrinterModel().getZebraCardPrinter().getJobSettingRange(ZebraCardJobSettingNames.CARD_SOURCE);
+				cardDestinationRange = getPrinterModel().getZebraCardPrinter().getJobSettingRange(ZebraCardJobSettingNames.CARD_DESTINATION);
+				coercivityTypeRange = getPrinterModel().getZebraCardPrinter().getJobSettingRange(ZebraCardJobSettingNames.MAG_COERCIVITY);
 			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getLocalizedMessage());
+		} finally {
+			getPrinterModel().cleanUpQuietly();
+		}
+
+		if (hasMagEncoder) {
+			cardSourceComboBox.removeAllItems();
+			for (CardSource source : CardSource.values()) {
+				if (cardSourceRange != null && cardSourceRange.contains(source.name())) {
+					cardSourceComboBox.addItem(source.name());
+				}
+			}
+			cardSourceComboBox.setSelectedItem(CardSource.Feeder.name());
+
+			cardDestinationComboBox.removeAllItems();
+			for (CardDestination destination : CardDestination.values()) {
+				if (cardDestinationRange != null && cardDestinationRange.contains(destination.name())) {
+					if (!destination.name().contains("Laminator") || hasLaminator) {
+						cardDestinationComboBox.addItem(destination.name());
+					}
+				}
+			}
+			cardDestinationComboBox.setSelectedItem(CardDestination.Eject.name());
+
+			coercivityTypeComboBox.removeAllItems();
+			for (CoercivityType coercivity : CoercivityType.values()) {
+				if (coercivityTypeRange != null && coercivityTypeRange.contains(coercivity.name())) {
+					coercivityTypeComboBox.addItem(coercivity.name());
+				}
+			}
+			coercivityTypeComboBox.setSelectedItem(CoercivityType.High.name());
+
+			enableMagEncoding(true);
+			setUpJobSettings();
+		} else {
+			enableMagEncoding(false);
+			JOptionPane.showMessageDialog(null, "The selected printer does not have a Magnetic Encoder.\nPlease choose a different printer from the list.");
 		}
 	}
 

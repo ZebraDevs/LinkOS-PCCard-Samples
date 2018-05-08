@@ -16,23 +16,29 @@ package com.zebra.card.devdemo.mag;
 
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
+import com.zebra.card.devdemo.JobInfo;
+import com.zebra.card.devdemo.PollJobStatusWorker;
 import com.zebra.card.devdemo.PrinterModel;
 import com.zebra.sdk.comm.ConnectionException;
 import com.zebra.sdk.common.card.containers.MagTrackData;
+import com.zebra.sdk.common.card.enumerations.CardSource;
 import com.zebra.sdk.common.card.enumerations.DataSource;
 import com.zebra.sdk.common.card.exceptions.ZebraCardException;
 import com.zebra.sdk.common.card.jobSettings.ZebraCardJobSettingNames;
-import com.zebra.sdk.common.card.printer.ZebraCardPrinter;
 import com.zebra.sdk.settings.SettingsException;
 
 public class MagEncodeModel extends PrinterModel {
 
-	public void MagEncode(ZebraCardPrinter zebraCardPrinter, MagEncodeContainer container, JTextArea jobStatusArea) throws ConnectionException, SettingsException, ZebraCardException {
+	public void magEncode(MagEncodeContainer container, final JTextArea jobStatusArea) throws ConnectionException, SettingsException, ZebraCardException {
+		jobStatusArea.setText("");
+
 		Map<String, String> jobSettings = new HashMap<String, String>();
 
 		jobSettings.put(ZebraCardJobSettingNames.CARD_SOURCE, container.cardSource);
@@ -45,24 +51,31 @@ public class MagEncodeModel extends PrinterModel {
 			jobSettings.put(ZebraCardJobSettingNames.MAG_VERIFY, "no");
 		}
 
-		zebraCardPrinter.setJobSettings(jobSettings);
-		int jobId = zebraCardPrinter.magEncode(container.quantity, container.track1Data, container.track2Data, container.track3Data);
+		getZebraCardPrinter().setJobSettings(jobSettings);
 
-		if (container.cardSource.equalsIgnoreCase("atm")) {
-			showInformationDialog("Mag Encode Demo", "Please place a card into the ATM slot and click Okay.");
-		}
+		int jobId = getZebraCardPrinter().magEncode(container.quantity, container.track1Data, container.track2Data, container.track3Data);
+		new PollJobStatusWorker(getZebraCardPrinter(), new JobInfo(jobId, CardSource.fromString(container.cardSource))) {
+			@Override
+			protected void process(final List<StatusUpdateInfo> updateList) {
+				SwingUtilities.invokeLater(new Runnable() {
 
-		pollJobStatus(zebraCardPrinter, jobId, jobStatusArea);
+					@Override
+					public void run() {
+						StatusUpdateInfo update = updateList.get(updateList.size() - 1);
+						jobStatusArea.append(update.getMessage());
+					}
+				});
+			};
+		}.execute();
 	}
 
-	public MagTrackData MagRead(ZebraCardPrinter zebraCardPrinter, EnumSet<DataSource> tracksToRead, String source, String destination)
-			throws ConnectionException, SettingsException, ZebraCardException, TimeoutException {
+	public MagTrackData magRead(EnumSet<DataSource> tracksToRead, String source, String destination) throws ConnectionException, SettingsException, ZebraCardException, TimeoutException {
 		Map<String, String> jobSettings = new HashMap<String, String>();
 
 		jobSettings.put(ZebraCardJobSettingNames.CARD_SOURCE, source);
 		jobSettings.put(ZebraCardJobSettingNames.CARD_DESTINATION, destination);
 
-		zebraCardPrinter.setJobSettings(jobSettings);
-		return zebraCardPrinter.readMagData(tracksToRead, true);
+		getZebraCardPrinter().setJobSettings(jobSettings);
+		return getZebraCardPrinter().readMagData(tracksToRead, true);
 	}
 }

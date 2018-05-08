@@ -16,70 +16,105 @@ package com.zebra.card.devdemo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
-import java.util.HashMap;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultCaret;
 
+import com.zebra.sdk.comm.Connection;
+import com.zebra.sdk.comm.ConnectionException;
+import com.zebra.sdk.comm.TcpConnection;
 import com.zebra.sdk.common.card.printer.discovery.NetworkCardDiscoverer;
+import com.zebra.sdk.common.card.printer.discovery.ZebraCardPrinterFilter;
 import com.zebra.sdk.printer.discovery.DiscoveredPrinter;
 import com.zebra.sdk.printer.discovery.DiscoveredUsbPrinter;
 import com.zebra.sdk.printer.discovery.DiscoveryHandler;
 import com.zebra.sdk.printer.discovery.UsbDiscoverer;
 
-public class PrinterDemoBase {
-
-	public PrinterDemoBase() {
-		super();
-	}
+public abstract class PrinterDemoBase<T extends PrinterModel> {
 
 	protected JButton actionButton = null;
 	protected JButton discoveryButton = null;
 	protected JComboBox connectionTypeDropdown;
 	protected JDialog demoDialog;
 	protected static JComboBox addressDropdown;
+	protected JTextField manualIpAddress;
+	protected JButton manuallyConnectButton;
 	protected JTextArea statusTextArea;
+	private final T printerModel;
+	private JDialog progressDialog;
+
+	public PrinterDemoBase(T printerModel) {
+		this.printerModel = printerModel;
+	}
+
+	protected void createDemoDialog(JFrame owner) {
+		demoDialog = new JDialog(owner, "Zebra Multiplatform SDK - Developer Demo", true);
+		addDemoDialogContent(demoDialog.getContentPane());
+		demoDialog.pack();
+		demoDialog.setResizable(false);
+		demoDialog.setLocationRelativeTo(null);
+		demoDialog.setVisible(true);
+		demoDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	};
+
+	protected abstract void addDemoDialogContent(Container container);
+
+	protected abstract void onConnectionEstablished();
+
+	protected void onDiscoveryStart() {
+	}
 
 	protected JPanel createPanelHeader(String demoTitle) {
 		JPanel panelHeaderArea = new JPanel(new BorderLayout());
 		panelHeaderArea.setBorder(new EmptyBorder(10, 10, 10, 10));
 		panelHeaderArea.setBackground(Color.BLACK);
 
-		final JLabel textLabel = adjustLabelFontSize(new JLabel(demoTitle));
+		JLabel textLabel = adjustLabelFontSize(new JLabel(demoTitle));
 		textLabel.setForeground(Color.WHITE);
 		panelHeaderArea.add(textLabel, BorderLayout.LINE_START);
 
-		String zebra_logo_path = "resources/zebra-logo-50px.png";
-		ImageIcon zebraHead = loadIcon(zebra_logo_path);
-
+		ImageIcon zebraHead = loadIcon("resources/zebra-logo-50px.png");
 		panelHeaderArea.add(new JLabel(zebraHead, JLabel.CENTER), BorderLayout.LINE_END);
+
 		return panelHeaderArea;
 	}
 
-	protected JPanel createSelectPrinterPanel() {
+	protected JPanel createSelectPrinterPanel(boolean shouldAddManualConnection) {
 		JPanel selectedPrinterPanel = new JPanel(new BorderLayout());
 		selectedPrinterPanel.setBorder(new TitledBorder("Selected Printer"));
 		selectedPrinterPanel.add(createConnectionArea(), BorderLayout.WEST);
 		selectedPrinterPanel.add(createPrinterAddressArea(), BorderLayout.CENTER);
+		if (shouldAddManualConnection) {
+			selectedPrinterPanel.add(createManualSelectionArea(), BorderLayout.SOUTH);
+		}
 
 		JPanel spacerForSelectedPrinter = new JPanel(new BorderLayout());
 		spacerForSelectedPrinter.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -99,8 +134,8 @@ public class PrinterDemoBase {
 				clearDiscoveredPrinters();
 			}
 		});
-
 		connectionArea.add(connectionTypeDropdown);
+
 		return connectionArea;
 	}
 
@@ -109,19 +144,43 @@ public class PrinterDemoBase {
 		addressArea.add(new JLabel("Printer"));
 
 		addressDropdown = new JComboBox();
-		addressDropdown.setPrototypeDisplayValue(new DiscoveredPrinterForDevDemo(createPrototypeForCombobox()));
+		addressDropdown.setPreferredSize(new Dimension(600, 25));
+		addressDropdown.setRenderer(new DefaultListCellRenderer() {
+
+			private static final long serialVersionUID = -6124994881797463668L;
+
+			@Override
+			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+				super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+				if (value instanceof DiscoveredPrinter) {
+					DiscoveredPrinter printer = (DiscoveredPrinter) value;
+					setText(printer.getDiscoveryDataMap().get("MODEL") + " (" + printer.getDiscoveryDataMap().get("ADDRESS") + ")");
+				}
+				return this;
+			}
+		});
+		addressDropdown.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Object selectedItem = addressDropdown.getSelectedItem();
+				if (selectedItem != null && selectedItem instanceof DiscoveredPrinter) {
+					printerModel.setConnection(((DiscoveredPrinter) selectedItem).getConnection(), false);
+					if (printerModel.getConnection() != null && manualIpAddress != null) {
+						manualIpAddress.setText("");
+					}
+					onConnectionEstablished();
+				}
+			}
+		});
 		addressArea.add(addressDropdown);
 
-		String reloadIconPath = "resources/ic_refresh_16px.png";
-		ImageIcon reloadIcon = loadIcon(reloadIconPath);
-
+		ImageIcon reloadIcon = loadIcon("resources/ic_refresh_16px.png");
 		Image resizedImage = reloadIcon.getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT);
 		reloadIcon = new ImageIcon(resizedImage);
 
 		discoveryButton = new JButton();
 		discoveryButton.setIcon(reloadIcon);
-		addressArea.add(discoveryButton);
-
 		discoveryButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -130,16 +189,54 @@ public class PrinterDemoBase {
 
 					@Override
 					public void run() {
-						additionalPreDiscoveryAction();
-						enableDiscoveryButton(false);
+						onDiscoveryStart();
+						setConnectionButtonsEnabled(false);
 						discoverPrinters();
-						enableDiscoveryButton(true);
+						setConnectionButtonsEnabled(true);
 					}
 				}).start();
 			}
 		});
+		addressArea.add(discoveryButton);
 
 		return addressArea;
+	}
+
+	private JPanel createManualSelectionArea() {
+		JPanel selectionArea = new JPanel();
+		selectionArea.add(new JLabel("IP Address"));
+
+		manualIpAddress = new JTextField();
+		manualIpAddress.setPreferredSize(new Dimension(350, 25));
+		selectionArea.add(manualIpAddress);
+
+		manuallyConnectButton = new JButton("Connect");
+		manuallyConnectButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Thread(new Runnable() {
+
+					@Override
+					public void run() {
+						try {
+							setConnectionButtonsEnabled(false);
+							connectManuallyToPrinter();
+							if (printerModel.getConnection() != null) {
+								addressDropdown.removeAllItems();
+							}
+						} catch (ConnectionException e) {
+							JOptionPane.showMessageDialog(null, "Unable to connect to printer : " + e.getLocalizedMessage());
+						} finally {
+							setConnectionButtonsEnabled(true);
+						}
+					}
+				}).start();
+			}
+		});
+		selectionArea.add(manuallyConnectButton);
+
+		return selectionArea;
 	}
 
 	public JPanel createJobStatusPanel(int height, int width) {
@@ -160,7 +257,7 @@ public class PrinterDemoBase {
 		return new JScrollPane(statusTextArea);
 	}
 
-	public static void clearDiscoveredPrinters() {
+	public void clearDiscoveredPrinters() {
 		addressDropdown.setModel(new DefaultComboBoxModel());
 	}
 
@@ -171,8 +268,8 @@ public class PrinterDemoBase {
 
 			@Override
 			public void foundPrinter(DiscoveredPrinter printer) {
-				if (printer.getDiscoveryDataMap().get("MODEL").contains("ZXP")) {
-					addressComboBoxModel.addElement(new DiscoveredPrinterForDevDemo(printer));
+				if (printer.getDiscoveryDataMap().get("MODEL").contains("ZXP") || printer.getDiscoveryDataMap().get("MODEL").contains("ZC")) {
+					addressComboBoxModel.addElement(printer);
 				}
 			}
 
@@ -180,7 +277,15 @@ public class PrinterDemoBase {
 			public void discoveryFinished() {
 				addressDropdown.setModel(addressComboBoxModel);
 				demoDialog.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-				additionalPostDiscoveryAction();
+				if (addressDropdown.getItemCount() > 0) {
+					printerModel.setConnection(((DiscoveredPrinter) addressDropdown.getSelectedItem()).getConnection(), false);
+					if (printerModel.getConnection() != null && manualIpAddress != null) {
+						manualIpAddress.setText("");
+					}
+					onConnectionEstablished();
+				} else {
+					JOptionPane.showMessageDialog(null, "Discovery finished without finding any printers.");
+				}
 			}
 
 			@Override
@@ -195,7 +300,7 @@ public class PrinterDemoBase {
 			if (connectionTypeDropdown.getSelectedItem().equals(PrinterModel.NETWORK_SELECTION)) {
 				NetworkCardDiscoverer.findPrinters(discoveryHandler);
 			} else {
-				for (DiscoveredUsbPrinter discoPrinter : UsbDiscoverer.getZebraUsbPrinters()) {
+				for (DiscoveredUsbPrinter discoPrinter : UsbDiscoverer.getZebraUsbPrinters(new ZebraCardPrinterFilter())) {
 					discoveryHandler.foundPrinter(discoPrinter);
 				}
 				discoveryHandler.discoveryFinished();
@@ -205,46 +310,55 @@ public class PrinterDemoBase {
 		}
 	}
 
-	private DiscoveredUsbPrinter createPrototypeForCombobox() {
-		HashMap<String, String> attributes = new HashMap<String, String>();
-		attributes.put("MODEL", "");
-
-		StringBuffer eightyChars = new StringBuffer(); // Wide enough to hold Card Printer usb address
-		for (int ix = 1; ix <= 8; ix++) {
-			eightyChars.append("HHHHHHHHHH");
+	private void connectManuallyToPrinter() throws ConnectionException {
+		String ipAddress = manualIpAddress.getText();
+		int port = 9100;
+		if (manualIpAddress.getText().contains(":")) {
+			ipAddress = manualIpAddress.getText().substring(0, manualIpAddress.getText().indexOf(":"));
+			port = Integer.parseInt(manualIpAddress.getText().substring(manualIpAddress.getText().indexOf(":") + 1));
 		}
-
-		return new DiscoveredUsbPrinter(eightyChars.toString(), attributes);
+		Connection connection = new TcpConnection(ipAddress, port);
+		testPrinterConnection(connection);
+		printerModel.setConnection(connection, true);
+		onConnectionEstablished();
 	}
 
-	protected void additionalPreDiscoveryAction() {
-	}
-
-	protected void additionalPostDiscoveryAction() {
+	public void testPrinterConnection(Connection connection) throws ConnectionException {
+		try {
+			connection.open();
+		} finally {
+			try {
+				connection.close();
+			} catch (ConnectionException e) {
+				// Do nothing
+			}
+		}
 	}
 
 	private JLabel adjustLabelFontSize(JLabel label) {
-		Font labelFont = label.getFont();
-		label.setFont(new Font(labelFont.getName(), Font.PLAIN, 30));
+		label.setFont(new Font(label.getFont().getName(), Font.PLAIN, 30));
 		return label;
 	}
 
-	protected void enableActionButton(final boolean b) {
+	public void setActionButtonEnabled(final boolean enabled) {
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
 			public void run() {
-				actionButton.setEnabled(b);
+				actionButton.setEnabled(enabled);
 			}
 		});
 	}
 
-	protected void enableDiscoveryButton(final boolean b) {
+	protected void setConnectionButtonsEnabled(final boolean enabled) {
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
 			public void run() {
-				discoveryButton.setEnabled(b);
+				discoveryButton.setEnabled(enabled);
+				if (manuallyConnectButton != null) {
+					manuallyConnectButton.setEnabled(enabled);
+				}
 			}
 		});
 	}
@@ -256,5 +370,66 @@ public class PrinterDemoBase {
 			icon = new ImageIcon(logoContentURL);
 		}
 		return icon;
+	}
+
+	public void showProgressDialog(String message) {
+		if (progressDialog != null) {
+			progressDialog.dispose();
+		}
+
+		progressDialog = new JDialog(demoDialog, null, true);
+
+		JPanel progressPanel = new JPanel();
+		progressPanel.setLayout(new BoxLayout(progressPanel, BoxLayout.Y_AXIS));
+		progressPanel.setBorder(new EmptyBorder(10, 15, 10, 15));
+
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setIndeterminate(true);
+		progressBar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		progressPanel.add(progressBar);
+
+		JLabel progressMessage = new JLabel(message);
+		progressMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
+		progressPanel.add(progressMessage);
+
+		progressDialog.getContentPane().add(progressPanel);
+		progressDialog.setUndecorated(true);
+		progressDialog.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+		progressDialog.pack();
+		progressDialog.setResizable(false);
+		progressDialog.setLocationRelativeTo(null);
+		progressDialog.setVisible(true);
+		progressDialog.setModal(false);
+	}
+
+	public void dismissProgressDialog() {
+		if (progressDialog != null) {
+			progressDialog.dispose();
+			progressDialog = null;
+		}
+	}
+
+	public JDialog getDemoDialog() {
+		return demoDialog;
+	}
+
+	public T getPrinterModel() {
+		return printerModel;
+	}
+
+	public JComboBox getAddressComboBox() {
+		return addressDropdown;
+	}
+
+	public String getSelectedConnectionType() {
+		return (String) connectionTypeDropdown.getSelectedItem();
+	}
+
+	public void setConnectionType(String connectionType) {
+		connectionTypeDropdown.setSelectedItem(connectionType);
+	}
+
+	public void setManualConnectionText(String ipAddress) {
+		manualIpAddress.setText(ipAddress);
 	}
 }

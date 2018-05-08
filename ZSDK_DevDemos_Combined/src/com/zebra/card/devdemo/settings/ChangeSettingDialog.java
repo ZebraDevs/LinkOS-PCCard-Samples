@@ -16,6 +16,7 @@ package com.zebra.card.devdemo.settings;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -23,14 +24,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.zebra.card.devdemo.DiscoveredPrinterForDevDemo;
 import com.zebra.card.devdemo.settings.PrinterSettingsModel.SettingsGroup;
 import com.zebra.sdk.comm.ConnectionException;
 import com.zebra.sdk.settings.SettingsException;
@@ -42,20 +41,22 @@ public class ChangeSettingDialog extends JDialog {
 	public static final int DIALOG_HEIGHT = 200;
 	public static final int DIALOG_WIDTH = 500;
 
-	private final DiscoveredPrinterForDevDemo printer;
+	private final PrinterSettingsDemo printerSettingsDemo;
 	private final SettingsGroup group;
 	private final String settingName;
+	private final PrinterSettingsModel printerSettingsModel;
 
 	private JTextField settingValueTextField;
 
-	public ChangeSettingDialog(JFrame owner, DiscoveredPrinterForDevDemo printer, SettingsGroup group, String settingName) {
-		super(owner, "Set printer setting value", true);
+	public ChangeSettingDialog(Dialog dialog, PrinterSettingsDemo printerSettingsDemo, SettingsGroup group, String settingName, PrinterSettingsModel printerSettingsModel) {
+		super(dialog, "Set printer setting value", true);
 		this.setSize(DIALOG_WIDTH, DIALOG_HEIGHT);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		this.printer = printer;
+		this.printerSettingsDemo = printerSettingsDemo;
 		this.group = group;
 		this.settingName = settingName;
+		this.printerSettingsModel = printerSettingsModel;
 
 		Container mainPane = this.getContentPane();
 
@@ -90,7 +91,7 @@ public class ChangeSettingDialog extends JDialog {
 
 		String allowedValues = "";
 		try {
-			allowedValues = new PrinterSettingsModel().getSettingRange(printer, group, settingName);
+			allowedValues = printerSettingsModel.getSettingRange(group, settingName);
 		} catch (ConnectionException e) {
 			JOptionPane.showMessageDialog(null, "Unable to get range for " + settingName + " : " + e.getLocalizedMessage());
 		} catch (SettingsException e) {
@@ -99,7 +100,7 @@ public class ChangeSettingDialog extends JDialog {
 
 		String settingType = "";
 		try {
-			settingType = new PrinterSettingsModel().getSettingType(printer, group, settingName);
+			settingType = printerSettingsModel.getSettingType(group, settingName);
 		} catch (ConnectionException e) {
 			JOptionPane.showMessageDialog(null, "Unable to get type for " + settingName + " : " + e.getLocalizedMessage());
 		} catch (SettingsException e) {
@@ -138,11 +139,11 @@ public class ChangeSettingDialog extends JDialog {
 					@Override
 					public void run() {
 						try {
-							new PrinterSettingsModel().setSettingValue(printer, group, settingName, settingValue);
+							printerSettingsModel.setSettingValue(printerSettingsDemo, ChangeSettingDialog.this, settingName, settingValue);
 						} catch (ConnectionException e) {
-							JOptionPane.showMessageDialog(null, "Unable to set value for printer at " + printer + " : " + e.getLocalizedMessage());
+							JOptionPane.showMessageDialog(null, "Unable to set value for printer at " + printerSettingsModel.getConnection().getSimpleConnectionName() + " : " + e.getLocalizedMessage());
 						} catch (SettingsException e) {
-							JOptionPane.showMessageDialog(null, "Unable to set value for printer at " + printer + " : " + e.getLocalizedMessage());
+							JOptionPane.showMessageDialog(null, "Unable to set value for printer at " + printerSettingsModel.getConnection().getSimpleConnectionName() + " : " + e.getLocalizedMessage());
 						}
 					}
 				}).start();
@@ -151,9 +152,5 @@ public class ChangeSettingDialog extends JDialog {
 		});
 
 		return buttonArea;
-	}
-
-	public static void showErrorDialog(JDialog parent, String message, String title) {
-		JOptionPane.showMessageDialog(parent, message, title, JOptionPane.ERROR_MESSAGE);
 	}
 }

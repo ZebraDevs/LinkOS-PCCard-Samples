@@ -18,35 +18,25 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import com.zebra.card.devdemo.DiscoveredPrinterForDevDemo;
-import com.zebra.card.devdemo.PrinterDemo;
 import com.zebra.card.devdemo.PrinterDemoBase;
-import com.zebra.card.devdemo.PrinterModel;
-import com.zebra.sdk.comm.Connection;
-import com.zebra.sdk.common.card.containers.SmartCardInfo;
 import com.zebra.sdk.common.card.enumerations.CardDestination;
 import com.zebra.sdk.common.card.enumerations.CardSource;
-import com.zebra.sdk.common.card.enumerations.SmartCardEncoderType;
 import com.zebra.sdk.common.card.jobSettings.ZebraCardJobSettingNames;
-import com.zebra.sdk.common.card.printer.ZebraCardPrinter;
-import com.zebra.sdk.common.card.printer.ZebraCardPrinterFactory;
 
-public class SmartCardDemo extends PrinterDemoBase implements PrinterDemo {
+public class SmartCardDemo extends PrinterDemoBase<SmartCardModel> {
 
 	public static final String NO_ENCODER = "None";
 
@@ -54,34 +44,17 @@ public class SmartCardDemo extends PrinterDemoBase implements PrinterDemo {
 	private JComboBox cardDestinationComboBox;
 	private JComboBox cardTypeComboBox;
 
-	private ZebraCardPrinter zebraCardPrinter = null;
+	public SmartCardDemo() {
+		super(new SmartCardModel());
+	}
 
 	@Override
-	public void createDemoDialog(JFrame owner) {
-		demoDialog = new JDialog(owner, "Zebra Multi Platform SDK - Developer Demo", true);
-
-		Container mainPane = demoDialog.getContentPane();
-		mainPane.add(createPanelHeader("Smart Card"), BorderLayout.PAGE_START);
-		mainPane.add(createSelectPrinterPanel());
+	public void addDemoDialogContent(Container container) {
+		container.add(createPanelHeader("Smart Card"), BorderLayout.PAGE_START);
+		container.add(createSelectPrinterPanel(false));
+		container.add(createLowerPanel(), BorderLayout.PAGE_END);
 
 		connectionTypeDropdown.removeItemAt(0);
-
-		JPanel lowerPart = createLowerPanel();
-		mainPane.add(lowerPart, BorderLayout.PAGE_END);
-
-		addressDropdown.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				additionalPostDiscoveryAction();
-			}
-		});
-
-		demoDialog.pack();
-		demoDialog.setResizable(false);
-		demoDialog.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (mainPane.getWidth() / 2), 0);
-		demoDialog.setVisible(true);
-		demoDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	}
 
 	private JPanel createLowerPanel() {
@@ -92,9 +65,7 @@ public class SmartCardDemo extends PrinterDemoBase implements PrinterDemo {
 		JPanel jobStatusPanel = new JPanel();
 		jobStatusPanel.setLayout(new BoxLayout(jobStatusPanel, BoxLayout.PAGE_AXIS));
 		jobStatusPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-
-		JPanel jobStatusArea = createJobStatusPanel(10, 92);
-		jobStatusPanel.add(jobStatusArea);
+		jobStatusPanel.add(createJobStatusPanel(10, 92));
 
 		lowerPanel.add(jobStatusPanel);
 		lowerPanel.add(createSmartCardEncodeButton());
@@ -106,7 +77,7 @@ public class SmartCardDemo extends PrinterDemoBase implements PrinterDemo {
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
 		actionButton = new JButton("Start Job");
-		enableActionButton(false);
+		setActionButtonEnabled(false);
 		actionButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -115,23 +86,21 @@ public class SmartCardDemo extends PrinterDemoBase implements PrinterDemo {
 
 					@Override
 					public void run() {
-						enableActionButton(false);
-						enableSmartCard(false);
-						enableSelectedPrinterOptions(false);
+						setActionButtonEnabled(false);
+						setSmartCardOptionsEnabled(false);
+						setConnectionOptionsEnabled(false);
 						demoDialog.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-
-						DiscoveredPrinterForDevDemo printer = (DiscoveredPrinterForDevDemo) addressDropdown.getSelectedItem();
 
 						String source = (String) cardSourceComboBox.getSelectedItem();
 						String destination = (String) cardDestinationComboBox.getSelectedItem();
 						String cardType = (String) cardTypeComboBox.getSelectedItem();
 
-						new SmartCardModel().runSmartCardOperation(printer, source, destination, cardType, statusTextArea);
+						getPrinterModel().runSmartCardOperation(source, destination, cardType, statusTextArea);
 
 						demoDialog.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-						enableActionButton(true);
-						enableSmartCard(true);
-						enableSelectedPrinterOptions(true);
+						setActionButtonEnabled(true);
+						setSmartCardOptionsEnabled(true);
+						setConnectionOptionsEnabled(true);
 					}
 				}).start();
 			}
@@ -150,32 +119,23 @@ public class SmartCardDemo extends PrinterDemoBase implements PrinterDemo {
 		jobSettingArea.setBorder(new TitledBorder("Job Settings"));
 
 		JPanel jobSettingsInnerArea = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 10));
-		JPanel leftSpacer = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
-		jobSettingsInnerArea.add(leftSpacer);
+		jobSettingsInnerArea.add(new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10))); // Left spacer
 
-		JLabel sourceLabel = new JLabel("Source");
-		jobSettingsInnerArea.add(sourceLabel);
-
+		jobSettingsInnerArea.add(new JLabel("Source"));
 		cardSourceComboBox = new JComboBox();
 		cardSourceComboBox.setEnabled(false);
 		jobSettingsInnerArea.add(cardSourceComboBox);
 
-		JPanel middleSpacer = new JPanel(new FlowLayout(FlowLayout.LEFT, 50, 10));
-		jobSettingsInnerArea.add(middleSpacer);
+		jobSettingsInnerArea.add(new JPanel(new FlowLayout(FlowLayout.LEFT, 50, 10))); // Middle spacer
 
-		JLabel destinationLabel = new JLabel("Destination");
-		jobSettingsInnerArea.add(destinationLabel);
-
+		jobSettingsInnerArea.add(new JLabel("Destination"));
 		cardDestinationComboBox = new JComboBox();
 		cardDestinationComboBox.setEnabled(false);
 		jobSettingsInnerArea.add(cardDestinationComboBox);
 
-		JPanel rightSpacer = new JPanel(new FlowLayout(FlowLayout.LEFT, 50, 10));
-		jobSettingsInnerArea.add(rightSpacer);
+		jobSettingsInnerArea.add(new JPanel(new FlowLayout(FlowLayout.LEFT, 50, 10))); // Right spacer
 
-		JLabel cardTypeLabel = new JLabel("Card Type");
-		jobSettingsInnerArea.add(cardTypeLabel);
-
+		jobSettingsInnerArea.add(new JLabel("Card Type"));
 		cardTypeComboBox = new JComboBox();
 		cardTypeComboBox.setEnabled(false);
 		jobSettingsInnerArea.add(cardTypeComboBox);
@@ -191,85 +151,68 @@ public class SmartCardDemo extends PrinterDemoBase implements PrinterDemo {
 	}
 
 	@Override
-	protected void additionalPostDiscoveryAction() {
-		if (addressDropdown.getItemCount() > 0) {
-			DiscoveredPrinterForDevDemo printer = (DiscoveredPrinterForDevDemo) addressDropdown.getSelectedItem();
-			Connection connection = null;
+	protected void onConnectionEstablished() {
+		String cardSourceRange = null;
+		String cardDestinationRange = null;
+		Map<String, String> smartCardConfigurations = null;
+		boolean hasLaminator = false;
+		boolean hasSmartCardEncoder = false;
 
-			String cardSourceRange = null;
-			String cardDestinationRange = null;
-			boolean hasLaminator = false;
-			SmartCardInfo smartCardInfo = null;
+		try {
+			getPrinterModel().getConnection().open();
 
-			try {
-				connection = printer.getConnection();
-				connection.open();
+			cardSourceRange = getPrinterModel().getZebraCardPrinter().getJobSettingRange(ZebraCardJobSettingNames.CARD_SOURCE);
+			cardDestinationRange = getPrinterModel().getZebraCardPrinter().getJobSettingRange(ZebraCardJobSettingNames.CARD_DESTINATION);
+			smartCardConfigurations = getPrinterModel().getZebraCardPrinter().getSmartCardConfigurations();
+			hasSmartCardEncoder = getPrinterModel().getZebraCardPrinter().hasSmartCardEncoder();
+			hasLaminator = getPrinterModel().getZebraCardPrinter().hasLaminator();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Error encountered getting setting ranges: " + e.getLocalizedMessage());
+		} finally {
+			getPrinterModel().cleanUpQuietly();
+		}
 
-				zebraCardPrinter = ZebraCardPrinterFactory.getInstance(connection);
-				smartCardInfo = zebraCardPrinter.getSmartCardConfiguration();
-				cardSourceRange = zebraCardPrinter.getJobSettingRange(ZebraCardJobSettingNames.CARD_SOURCE);
-				cardDestinationRange = zebraCardPrinter.getJobSettingRange(ZebraCardJobSettingNames.CARD_DESTINATION);
-				hasLaminator = zebraCardPrinter.hasLaminator();
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Error encountered getting setting ranges: " + e.getLocalizedMessage());
-			} finally {
-				PrinterModel.cleanUpQuietly(zebraCardPrinter, connection);
+		if (hasSmartCardEncoder) {
+			setSmartCardOptionsEnabled(true);
+			setActionButtonEnabled(true);
+
+			cardSourceComboBox.removeAllItems();
+			for (CardSource source : CardSource.values()) {
+				if (cardSourceRange != null && cardSourceRange.contains(source.name())) {
+					cardSourceComboBox.addItem(source.name());
+				}
 			}
+			cardSourceComboBox.setSelectedItem(CardSource.Feeder.name());
 
-			if (hasSmartCardEncoder(smartCardInfo)) {
-				enableSmartCard(true);
-				enableActionButton(true);
-
-				cardSourceComboBox.removeAllItems();
-				for (CardSource source : CardSource.values()) {
-					if (cardSourceRange != null && cardSourceRange.contains(source.name())) {
-						cardSourceComboBox.addItem(source.name());
-					}
+			cardDestinationComboBox.removeAllItems();
+			for (CardDestination destination : CardDestination.values()) {
+				if (!hasLaminator && destination.getValue().contains("lam")) {
+					continue;
 				}
-				cardSourceComboBox.setSelectedItem(CardSource.Feeder.name());
-
-				cardDestinationComboBox.removeAllItems();
-				for (CardDestination destination : CardDestination.values()) {
-					if (!hasLaminator && destination.getValue().contains("lam")) {
-						continue;
-					}
-					if (cardDestinationRange != null && cardDestinationRange.contains(destination.name())) {
-						cardDestinationComboBox.addItem(destination.name());
-					}
+				if (cardDestinationRange != null && cardDestinationRange.contains(destination.name())) {
+					cardDestinationComboBox.addItem(destination.name());
 				}
-				cardDestinationComboBox.setSelectedItem(CardDestination.Eject.name());
-
-				cardTypeComboBox.removeAllItems();
-				if (!smartCardInfo.contactEncoder.equals(SmartCardEncoderType.None)) {
-					cardTypeComboBox.addItem("Contact");
-				}
-
-				if (!smartCardInfo.contactlessEncoder.equals(SmartCardEncoderType.None)) {
-					cardTypeComboBox.addItem("Contactless");
-				}
-
-			} else {
-				enableSmartCard(false);
-				enableActionButton(false);
-				JOptionPane.showMessageDialog(null, "The selected printer does not have a smart card encoder.\nPlease choose a different printer from the list.");
 			}
+			cardDestinationComboBox.setSelectedItem(CardDestination.Eject.name());
+
+			cardTypeComboBox.removeAllItems();
+			for (String encoderType : smartCardConfigurations.keySet()) {
+				cardTypeComboBox.addItem(encoderType);
+			}
+		} else {
+			setSmartCardOptionsEnabled(false);
+			setActionButtonEnabled(false);
+			JOptionPane.showMessageDialog(null, "The selected printer does not have a smart card encoder.\nPlease choose a different printer from the list.");
 		}
 	}
 
-	private boolean hasSmartCardEncoder(SmartCardInfo smartCardInfo) {
-		if (smartCardInfo.contactEncoder != SmartCardEncoderType.None || smartCardInfo.contactlessEncoder != SmartCardEncoderType.None) {
-			return true;
-		}
-		return false;
-	}
-
-	private void enableSmartCard(boolean enabled) {
+	private void setSmartCardOptionsEnabled(boolean enabled) {
 		cardSourceComboBox.setEnabled(enabled);
 		cardDestinationComboBox.setEnabled(enabled);
 		cardTypeComboBox.setEnabled(enabled);
 	}
 
-	private void enableSelectedPrinterOptions(boolean enabled) {
+	private void setConnectionOptionsEnabled(boolean enabled) {
 		addressDropdown.setEnabled(enabled);
 		connectionTypeDropdown.setEnabled(enabled);
 		discoveryButton.setEnabled(enabled);

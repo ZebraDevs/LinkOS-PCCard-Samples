@@ -15,10 +15,11 @@
 package com.zebra.card.devdemo.template;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Toolkit;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -36,9 +37,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -55,12 +54,10 @@ import javax.swing.table.DefaultTableModel;
 
 import org.apache.commons.io.IOUtils;
 
-import com.zebra.card.devdemo.DiscoveredPrinterForDevDemo;
-import com.zebra.card.devdemo.PrinterDemo;
 import com.zebra.card.devdemo.PrinterDemoBase;
 import com.zebra.sdk.common.card.containers.GraphicsInfo;
 
-public class TemplateDemo extends PrinterDemoBase implements PrinterDemo {
+public class TemplateDemo extends PrinterDemoBase<TemplateModel> {
 
 	private static final int VARIABLES_TAB_INDEX = 0;
 
@@ -71,45 +68,32 @@ public class TemplateDemo extends PrinterDemoBase implements PrinterDemo {
 	private DefaultTableModel variablesTableModel = null;
 
 	public TemplateDemo() {
+		super(new TemplateModel());
 	}
 
 	@Override
-	public void createDemoDialog(JFrame owner) {
-		demoDialog = new JDialog(owner, "Zebra Multi Platform SDK - Developer Demo", true);
-
-		JPanel mainPane = (JPanel) demoDialog.getContentPane();
-
-		JPanel wrapper = new JPanel(new BorderLayout());
-
-		wrapper.add(createTopPanel(), BorderLayout.PAGE_START);
-		wrapper.add(createMiddlePanel(), BorderLayout.CENTER);
-		wrapper.add(createLowerPanel(), BorderLayout.PAGE_END);
-
-		mainPane.add(wrapper);
-
-		demoDialog.pack();
-		demoDialog.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (mainPane.getWidth() / 2), 0);
-		demoDialog.setVisible(true);
-		demoDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	public void addDemoDialogContent(Container container) {
+		container.add(createTopPanel(), BorderLayout.PAGE_START);
+		container.add(createMiddlePanel(), BorderLayout.CENTER);
+		container.add(createLowerPanel(), BorderLayout.PAGE_END);
 	}
 
 	@Override
-	protected void additionalPostDiscoveryAction() {
+	protected void onConnectionEstablished() {
 		enablePrintButtonWhenReady();
 	}
 
 	private void enablePrintButtonWhenReady() {
-		boolean printerListNotEmpty = addressDropdown.getItemCount() > 0;
 		String templateFileName = templateFileNameTextField.getText();
 		boolean templateSpecified = (templateFileName != null) && (templateFileName.isEmpty() == false);
-		enableActionButton(printerListNotEmpty && templateSpecified);
+		setActionButtonEnabled(templateSpecified);
 	}
 
 	private JPanel createTopPanel() {
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.PAGE_AXIS));
 		topPanel.add(createPanelHeader("Template"), BorderLayout.PAGE_START);
-		topPanel.add(createSelectPrinterPanel());
+		topPanel.add(createSelectPrinterPanel(true));
 		topPanel.add(createSelectTemplatePanel());
 		topPanel.add(createSelectImageDirectoryPanel());
 		return topPanel;
@@ -124,7 +108,7 @@ public class TemplateDemo extends PrinterDemoBase implements PrinterDemo {
 
 	private JPanel createLowerPanel() {
 		actionButton = new JButton("Print");
-		enableActionButton(false);
+		setActionButtonEnabled(false);
 
 		actionButton.addActionListener(new ActionListener() {
 
@@ -134,19 +118,17 @@ public class TemplateDemo extends PrinterDemoBase implements PrinterDemo {
 
 					@Override
 					public void run() {
-						enableActionButton(false);
+						setActionButtonEnabled(false);
 						demoDialog.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-
-						DiscoveredPrinterForDevDemo printer = (DiscoveredPrinterForDevDemo) addressDropdown.getSelectedItem();
 						try {
-							TemplateModel templateModel = new TemplateModel(templateFileNameTextField.getText(), imageDirectoryTextField.getText(), statusTextArea);
+							getPrinterModel().setTemplateData(templateFileNameTextField.getText(), imageDirectoryTextField.getText(), statusTextArea);
 							Map<String, String> variableData = getVariablesTabData();
-							templateModel.print(printer, variableData, statusTextArea);
+							getPrinterModel().print(variableData, statusTextArea);
 						} catch (Exception e) {
 							JOptionPane.showMessageDialog(null, e.getLocalizedMessage());
 						} finally {
 							demoDialog.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-							enableActionButton(true);
+							setActionButtonEnabled(true);
 						}
 					}
 				}).start();
@@ -213,8 +195,8 @@ public class TemplateDemo extends PrinterDemoBase implements PrinterDemo {
 					enablePrintButtonWhenReady();
 
 					try {
-						TemplateModel templateModel = new TemplateModel(templateFilePath, imageDirectoryTextField.getText(), statusTextArea);
-						List<String> fieldNames = templateModel.getTemplateFields();
+						getPrinterModel().setTemplateData(templateFilePath, imageDirectoryTextField.getText(), statusTextArea);
+						List<String> fieldNames = getPrinterModel().getTemplateFields();
 						addFieldsToVariablesPane(fieldNames);
 					} catch (Exception e) {
 						JOptionPane.showMessageDialog(null, "Error reading template : " + templateFilePath + " : " + e.getLocalizedMessage());
@@ -327,21 +309,35 @@ public class TemplateDemo extends PrinterDemoBase implements PrinterDemo {
 			JOptionPane.showMessageDialog(null, "Please specify a template name");
 		} else {
 			try {
-				TemplateModel templateModel = new TemplateModel(templateFileNameTextField.getText(), imageDirectoryTextField.getText(), statusTextArea);
+				getPrinterModel().setTemplateData(templateFileNameTextField.getText(), imageDirectoryTextField.getText(), statusTextArea);
 
 				Map<String, String> variableData = getVariablesTabData();
-				List<GraphicsInfo> graphicsData = templateModel.generatePreview(variableData);
+				List<GraphicsInfo> graphicsData = getPrinterModel().generatePreview(variableData);
 
 				JPanel imageHolder = new JPanel();
 				imageHolder.setLayout(new BoxLayout(imageHolder, BoxLayout.PAGE_AXIS));
 
 				for (GraphicsInfo info : graphicsData) {
-					JLabel imageLabel = new JLabel(info.side + " " + info.printType);
-					imageHolder.add(imageLabel);
+					JPanel previewContainer = new JPanel();
+					previewContainer.setBorder(new EmptyBorder(15, 15, 15, 15));
+					previewContainer.setLayout(new BoxLayout(previewContainer, BoxLayout.PAGE_AXIS));
 
-					byte[] loopImageData = info.graphicData.getImageData();
-					JLabel loopImage = labelFromImageData(loopImageData);
-					imageHolder.add(loopImage);
+					JLabel imageLabel = new JLabel(info.side + " " + info.printType);
+					imageLabel.setBorder(new EmptyBorder(0, 0, 10, 0));
+					imageLabel.setFont(new Font(imageLabel.getFont().getName(), Font.BOLD, imageLabel.getFont().getSize()));
+					previewContainer.add(imageLabel);
+
+					if (info.graphicData != null) {
+						byte[] loopImageData = info.graphicData.getImageData();
+						JLabel loopImage = labelFromImageData(loopImageData);
+						previewContainer.add(loopImage);
+					} else {
+						JLabel label = new JLabel("No image data found");
+						label.setFont(new Font(label.getFont().getName(), Font.ITALIC, label.getFont().getSize()));
+						previewContainer.add(label);
+					}
+
+					imageHolder.add(previewContainer);
 				}
 
 				previewScrollers[0].getViewport().add(imageHolder);
@@ -367,7 +363,10 @@ public class TemplateDemo extends PrinterDemoBase implements PrinterDemo {
 		Map<String, String> data = new HashMap<String, String>();
 		if (variablesTableModel != null) {
 			for (int ix = 0; ix < variablesTableModel.getRowCount(); ix++) {
-				data.put((String) variablesTableModel.getValueAt(ix, 0), (String) variablesTableModel.getValueAt(ix, 1));
+				String fieldValue = (String) variablesTableModel.getValueAt(ix, 1);
+				if (fieldValue != null && !fieldValue.isEmpty()) {
+					data.put((String) variablesTableModel.getValueAt(ix, 0), fieldValue);
+				}
 			}
 		}
 		return data;

@@ -47,14 +47,13 @@ import com.zebra.card.devdemo.template.TemplateDemo;
 public class DevDemoMainPage {
 
 	public DevDemoMainPage() {
-		final JFrame devDemoFrame = new JFrame("Zebra Multi Platform SDK - Developer Demo");
+		JFrame devDemoFrame = new JFrame("Zebra Multiplatform SDK - Developer Demo");
 
 		Container mainPane = devDemoFrame.getContentPane();
 
 		mainPane.add(createPanelHeader(), BorderLayout.PAGE_START);
 
 		JPanel boxOfButtons = new JPanel();
-
 		boxOfButtons.setLayout(new BoxLayout(boxOfButtons, BoxLayout.PAGE_AXIS));
 		boxOfButtons.setBorder(new EmptyBorder(10, 10, 10, 10));
 		boxOfButtons.add(createOneDevDemoStartButtonArea("Graphic Conversion", new GraphicConversionDemo(), devDemoFrame));
@@ -73,31 +72,23 @@ public class DevDemoMainPage {
 		devDemoFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	private Component createOneDevDemoStartButtonArea(String demoTitle, final PrinterDemo demo, final JFrame devDemoFrame) {
-		JPanel area = new JPanel();
-		area.setLayout(new BorderLayout());
-
-		Color lightBlue = new Color(135, 201, 222);
+	private Component createOneDevDemoStartButtonArea(String demoTitle, final PrinterDemoBase<? extends PrinterModel> demo, final JFrame devDemoFrame) {
+		JPanel area = new JPanel(new BorderLayout());
 		area.setBorder(new EmptyBorder(10, 10, 10, 10));
 		area.add(adjustLabelFontSize(new JLabel(demoTitle), 20), BorderLayout.WEST);
+
 		JButton runDemoButton = new JButton("Run demo");
 		runDemoButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new Thread(new Runnable() {
-
-					@Override
-					public void run() {
-						demo.createDemoDialog(devDemoFrame);
-					}
-				}).start();
+				demo.createDemoDialog(devDemoFrame);
 			}
 
 		});
 		area.add(runDemoButton, BorderLayout.EAST);
 
 		JPanel spacerForButtonArea = new JPanel(new BorderLayout());
-		spacerForButtonArea.setBorder(BorderFactory.createLineBorder(lightBlue));
+		spacerForButtonArea.setBorder(BorderFactory.createLineBorder(new Color(135, 201, 222))); // Set light blue border
 		spacerForButtonArea.add(area);
 
 		return spacerForButtonArea;
@@ -122,8 +113,7 @@ public class DevDemoMainPage {
 
 		panelHeaderArea.add(leftHandSideText, BorderLayout.LINE_START);
 
-		String zebra_logo_path = "resources/zebra-logo-50px.png";
-		ImageIcon zebraHead = loadIcon(zebra_logo_path);
+		ImageIcon zebraHead = loadIcon("resources/zebra-logo-50px.png");
 		panelHeaderArea.add(new JLabel(zebraHead, JLabel.CENTER), BorderLayout.LINE_END);
 
 		panelHeaderArea.add(Box.createRigidArea(new Dimension(50, 0)), BorderLayout.CENTER);
@@ -131,8 +121,7 @@ public class DevDemoMainPage {
 	}
 
 	private JLabel adjustLabelFontSize(JLabel label, int newSize) {
-		Font labelFont = label.getFont();
-		label.setFont(new Font(labelFont.getName(), Font.PLAIN, newSize));
+		label.setFont(new Font(label.getFont().getName(), Font.PLAIN, newSize));
 		return label;
 	}
 

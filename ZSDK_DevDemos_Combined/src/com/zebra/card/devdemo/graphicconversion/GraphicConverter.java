@@ -19,7 +19,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -31,10 +30,8 @@ import org.apache.commons.io.IOUtils;
 import com.zebra.sdk.common.card.enumerations.OrientationType;
 import com.zebra.sdk.common.card.enumerations.PrintType;
 import com.zebra.sdk.common.card.graphics.ZebraCardGraphics;
-import com.zebra.sdk.common.card.graphics.ZebraCardImageI;
 import com.zebra.sdk.common.card.graphics.ZebraGraphics;
 import com.zebra.sdk.common.card.graphics.enumerations.MonochromeConversion;
-import com.zebra.sdk.common.card.graphics.enumerations.PrinterModel;
 import com.zebra.sdk.common.card.graphics.enumerations.RotationType;
 
 public class GraphicConverter {
@@ -49,7 +46,7 @@ public class GraphicConverter {
 
 	private final String inputFilePath;
 	private final String outputFilePath;
-	private final String printerModelString;
+	private final PrinterModelInfo printerModelInfo;
 	private final String format;
 	private final String widthString;
 	private final String heightString;
@@ -58,9 +55,6 @@ public class GraphicConverter {
 
 	private final DimensionOption dimensionOption;
 	private final JTextArea outputArea;
-
-	private final HashMap<PrinterModel, Integer> maxHeightForLandscape = new HashMap<PrinterModel, Integer>();
-	private final HashMap<PrinterModel, Integer> maxWidthForLandscape = new HashMap<PrinterModel, Integer>();
 
 	protected enum DimensionOption {
 		original, crop, resize;
@@ -71,25 +65,13 @@ public class GraphicConverter {
 
 		this.inputFilePath = graphicsContainer.inputFilePath;
 		this.outputFilePath = graphicsContainer.outputFilePath;
-		this.printerModelString = graphicsContainer.printerModelString;
+		this.printerModelInfo = graphicsContainer.printerModelInfo;
 		this.format = graphicsContainer.format;
 		this.widthString = graphicsContainer.widthString;
 		this.heightString = graphicsContainer.heightString;
 		this.dimensionOption = graphicsContainer.dimensionOption;
 		this.xoffsetString = graphicsContainer.xoffsetString;
 		this.yoffsetString = graphicsContainer.yoffsetString;
-
-		maxHeightForLandscape.put(PrinterModel.ZXPSeries1, 640);
-		maxHeightForLandscape.put(PrinterModel.ZXPSeries3, 640);
-		maxHeightForLandscape.put(PrinterModel.ZXPSeries7, 640);
-		maxHeightForLandscape.put(PrinterModel.ZXPSeries8, 648);
-		maxHeightForLandscape.put(PrinterModel.ZXPSeries9, 648);
-
-		maxWidthForLandscape.put(PrinterModel.ZXPSeries1, 1024);
-		maxWidthForLandscape.put(PrinterModel.ZXPSeries3, 1024);
-		maxWidthForLandscape.put(PrinterModel.ZXPSeries7, 1006);
-		maxWidthForLandscape.put(PrinterModel.ZXPSeries8, 1024);
-		maxWidthForLandscape.put(PrinterModel.ZXPSeries9, 1024);
 	}
 
 	protected void verboseFormatPrint(String format, Object... args) {
@@ -109,88 +91,87 @@ public class GraphicConverter {
 		return heightAndWidth;
 	}
 
+	private int constrainDimension(int value, int maxValue, String maxExceededMessage, String minExceededMessage) {
+		if (value > maxValue) {
+			verbosePrint(maxExceededMessage);
+			showConversionErrorDialog(maxExceededMessage);
+			outputArea.setText("");
+
+			value = maxValue;
+		} else if (value < 1) {
+			verbosePrint(minExceededMessage);
+			showConversionErrorDialog(minExceededMessage);
+			outputArea.setText("");
+
+			value = 1;
+		}
+		return value;
+	}
+
 	public void processImage() throws IOException, Exception {
 		ZebraGraphics graphics = null;
 		FileOutputStream fileOutputStream = null;
 
 		try {
 			graphics = new ZebraCardGraphics(null);
+			graphics.setPrinterModel(printerModelInfo.getPrinterModel());
 
-			int width = widthString.isEmpty() ? 0 : Integer.parseInt(widthString);
-			int height = heightString.isEmpty() ? 0 : Integer.parseInt(heightString);
+			int[] imageSize = getImageSize(inputFilePath);
 
-			if (height == 0 || width == 0) {
-				verbosePrint("Keeping current image dimensions unless they exceed the maximum model specific height and width\n");
+			int inputWidth = widthString.isEmpty() ? 0 : Integer.parseInt(widthString);
+			int inputHeight = heightString.isEmpty() ? 0 : Integer.parseInt(heightString);
+
+			String widthGreaterThanMaxMessage = String.format("Specified width %s is greater than the maximum width %d. Setting width to maximum width...\n", widthString, printerModelInfo.getMaxWidth());
+			String widthNotPositiveMessage = "Width must be positive. Setting width to 1...";
+			String heightGreaterThanMaxMessage = String.format("Specified height %s is greater than the maximum height %d. Setting height to maximum height...\n", heightString, printerModelInfo.getMaxHeight());
+			String heightNotPositiveMessage = "Height must be positive. Setting height to 1...";
+
+			byte[] imageData = FileUtils.readFileToByteArray(new File(inputFilePath));
+
+			int width; // Width of final output image
+			int height; // Height of final output image
+
+			switch (dimensionOption) {
+				case crop:
+					int croppedWidth = constrainDimension(inputWidth, printerModelInfo.getMaxWidth(), widthGreaterThanMaxMessage, widthNotPositiveMessage);
+					int croppedHeight = constrainDimension(inputHeight, printerModelInfo.getMaxHeight(), heightGreaterThanMaxMessage, heightNotPositiveMessage);
+					imageData = cropImage(graphics, imageData, croppedWidth, croppedHeight);
+
+					width = croppedWidth;
+					height = croppedHeight;
+					break;
+				case resize:
+					width = constrainDimension(inputWidth, printerModelInfo.getMaxWidth(), widthGreaterThanMaxMessage, widthNotPositiveMessage);
+					height = constrainDimension(inputHeight, printerModelInfo.getMaxHeight(), heightGreaterThanMaxMessage, heightNotPositiveMessage);
+
+					verboseFormatPrint("Resizing image to %dx%d...\n", width, height);
+					break;
+				case original:
+				default:
+					width = constrainDimension(imageSize[1], printerModelInfo.getMaxWidth(), widthGreaterThanMaxMessage, widthNotPositiveMessage);
+					height = constrainDimension(imageSize[0], printerModelInfo.getMaxHeight(), heightGreaterThanMaxMessage, heightNotPositiveMessage);
+
+					verbosePrint("Keeping current image dimensions unless they exceed the maximum model-specific width and height...\n");
+					break;
 			}
 
-			if (width < 0) {
-				String errorMessage = "";
-				if (height < 0) {
-					errorMessage = String.format("Error converting graphic: Width(%d) and height(%d) must be > 0.", width, height);
-				} else {
-					errorMessage = String.format("Error converting graphic: Width(%d) must be > 0.", width);
-				}
-				showConversionErrorDialog(errorMessage);
-				outputArea.setText("");
-			} else if (height < 0) {
-				String errorMessage = String.format("Error converting graphic: Height(%d) must be > 0.", height);
-				showConversionErrorDialog(errorMessage);
-				outputArea.setText("");
-			} else {
-				byte[] imageData = FileUtils.readFileToByteArray(new File(inputFilePath));
-				fileOutputStream = new FileOutputStream(outputFilePath);
+			fileOutputStream = new FileOutputStream(outputFilePath);
 
-				if (dimensionOption == DimensionOption.original || dimensionOption == DimensionOption.resize) {
-					PrinterModel printerModel = getPrinterModelType(printerModelString);
-					graphics.setPrinterModel(printerModel);
+			MonochromeConversion monochromeConversionType = getMonochromeConversionType();
+			PrintType printType = getPrintType();
+			OrientationType orientationType = OrientationType.Landscape;
 
-					if (dimensionOption != DimensionOption.original) {
-						int maxWidth = maxWidthForLandscape.get(printerModel);
-						int maxHeigth = maxHeightForLandscape.get(printerModel);
+			verboseFormatPrint("Setting orientation to %s...\n", orientationType);
 
-						if (width > maxWidth) {
-							verboseFormatPrint("Specified width %s is greater than the maximum width %d\n", widthString, maxWidth);
-							width = maxWidth;
-						}
+			graphics.initialize(width, height, orientationType, printType, Color.WHITE);
+			graphics.drawImage(imageData, 0, 0, width, height, RotationType.RotateNoneFlipNone);
+			applyMonochromeConversion(graphics, printType, monochromeConversionType);
 
-						if (height > maxHeigth) {
-							verboseFormatPrint("Specified height %s is greater than the maximum height %d\n", heightString, maxHeigth);
-							height = maxHeigth;
-						}
+			verboseFormatPrint("Writing graphic file to path %s...\n", outputFilePath);
 
-						if (width != 0 && height != 0) {
-							verboseFormatPrint("Resizing image to %dx%d\n", width, height);
-						}
-					} else {
-						height = 0;
-						width = 0;
-					}
+			fileOutputStream.write(graphics.createImage().getImageData());
 
-					OrientationType orientationType = OrientationType.Landscape;
-					verboseFormatPrint("Setting orientation to %s\n", orientationType);
-
-					PrintType printType = getPrintType();
-					graphics.initialize(width, height, orientationType, printType, Color.WHITE);
-					graphics.drawImage(imageData, 0, 0, width, height, RotationType.RotateNoneFlipNone);
-
-					verbosePrint("Converting graphic\n");
-					MonochromeConversion monochromeConversionType = getMonochromeConversionType();
-					applyMonochromeConversion(graphics, printType, monochromeConversionType);
-
-					ZebraCardImageI zci = graphics.createImage(null);
-					fileOutputStream.write(zci.getImageData());
-					verbosePrint("Finished converting graphic\n");
-				} else {
-					int xoffset = xoffsetString.isEmpty() ? 0 : Integer.parseInt(xoffsetString);
-					int yoffset = yoffsetString.isEmpty() ? 0 : Integer.parseInt(yoffsetString);
-
-					verboseFormatPrint("Cropping image from xOffset:%d yOffset:%d with width:%d and height:%d\n", xoffset, yoffset, width, height);
-					imageData = graphics.cropImage(imageData, xoffset, yoffset, width, height);
-					fileOutputStream.write(imageData);
-
-					verbosePrint("Finished cropping image\n");
-				}
-			}
+			verbosePrint("Finished converting graphic\n");
 		} finally {
 			if (graphics != null) {
 				graphics.close();
@@ -201,28 +182,43 @@ public class GraphicConverter {
 	}
 
 	private void showConversionErrorDialog(String errorMessage) {
-		Object[] options = { "Okay" };
+		Object[] options = { "OK" };
 		JOptionPane.showOptionDialog(null, errorMessage, "Graphic Conversion Error", JOptionPane.PLAIN_MESSAGE, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 	}
 
+	private byte[] cropImage(ZebraGraphics graphics, byte[] imageData, int croppedWidth, int croppedHeight) throws IOException {
+		int xoffset = xoffsetString.isEmpty() ? 0 : Integer.parseInt(xoffsetString);
+		int yoffset = yoffsetString.isEmpty() ? 0 : Integer.parseInt(yoffsetString);
+
+		verboseFormatPrint("Cropping image from xOffset:%d yOffset:%d with width:%d and height:%d...\n", xoffset, yoffset, croppedWidth, croppedHeight);
+
+		byte[] croppedImage = graphics.cropImage(imageData, xoffset, yoffset, croppedWidth, croppedHeight);
+
+		verbosePrint("Finished cropping image");
+
+		return croppedImage;
+	}
+
 	private void applyMonochromeConversion(ZebraGraphics graphics, PrintType printType, MonochromeConversion monochromeConversionType) {
+		verbosePrint("Converting graphic...\n");
+
 		if (monochromeConversionType == MonochromeConversion.Diffusion) {
 			if (printType != PrintType.MonoK && printType != PrintType.GrayDye) {
-				verbosePrint("Ignoring diffusion option for non-mono/gray format type\n");
+				verbosePrint("Ignoring diffusion option for non-mono/gray format type...\n");
 			} else {
 				graphics.monochromeConversionType(MonochromeConversion.Diffusion);
-				verbosePrint("Applying diffusion algorithm\n");
+				verbosePrint("Applying diffusion algorithm...\n");
 			}
 		} else if (monochromeConversionType == MonochromeConversion.HalfTone_6x6 || monochromeConversionType == MonochromeConversion.HalfTone_8x8) {
 			if (printType != PrintType.MonoK && printType != PrintType.GrayDye) {
-				verbosePrint("Ignoring halftone option for non-mono/gray format type\n");
+				verbosePrint("Ignoring halftone option for non-mono/gray format type...\n");
 			} else {
 				if (monochromeConversionType == MonochromeConversion.HalfTone_6x6) {
 					graphics.monochromeConversionType(MonochromeConversion.HalfTone_6x6);
-					verbosePrint("Applying 6x6 halftone algorithm\n");
+					verbosePrint("Applying 6x6 halftone algorithm...\n");
 				} else if (monochromeConversionType == MonochromeConversion.HalfTone_8x8) {
 					graphics.monochromeConversionType(MonochromeConversion.HalfTone_8x8);
-					verbosePrint("Applying 8x8 halftone algorithm\n");
+					verbosePrint("Applying 8x8 halftone algorithm...\n");
 				}
 			}
 		}
@@ -232,8 +228,7 @@ public class GraphicConverter {
 		PrintType printType = PrintType.Color;
 		if (format.equalsIgnoreCase(GraphicConverter.GRAPHICS_FORMAT_COLOR)) {
 			printType = PrintType.Color;
-		} else if (format.equalsIgnoreCase(GRAPHICS_FORMAT_MONO_HALFTONE_8X8) || format.equalsIgnoreCase(GRAPHICS_FORMAT_MONO_HALFTONE_6X6)
-				|| format.equalsIgnoreCase(GRAPHICS_FORMAT_MONO_DIFFUSION)) {
+		} else if (format.equalsIgnoreCase(GRAPHICS_FORMAT_MONO_HALFTONE_8X8) || format.equalsIgnoreCase(GRAPHICS_FORMAT_MONO_HALFTONE_6X6) || format.equalsIgnoreCase(GRAPHICS_FORMAT_MONO_DIFFUSION)) {
 			printType = PrintType.MonoK;
 		} else if (format.equalsIgnoreCase(GRAY_HALFTONE_8X8) || format.equalsIgnoreCase(GRAY_HALFTONE_6X6) || format.equalsIgnoreCase(GRAPHICS_FORMAT_GRAY_DIFFUSION)) {
 			printType = PrintType.GrayDye;
@@ -253,21 +248,5 @@ public class GraphicConverter {
 			conversionType = MonochromeConversion.HalfTone_8x8;
 		}
 		return conversionType;
-	}
-
-	public static PrinterModel getPrinterModelType(String printerModelString) throws IllegalArgumentException {
-		PrinterModel printerModel = PrinterModel.ZXPSeries7;
-		if (printerModelString.equalsIgnoreCase("zxp1")) {
-			printerModel = PrinterModel.ZXPSeries1;
-		} else if (printerModelString.equalsIgnoreCase("zxp3")) {
-			printerModel = PrinterModel.ZXPSeries3;
-		} else if (printerModelString.equalsIgnoreCase("zxp7")) {
-			printerModel = PrinterModel.ZXPSeries7;
-		} else if (printerModelString.equalsIgnoreCase("zxp8")) {
-			printerModel = PrinterModel.ZXPSeries8;
-		} else if (printerModelString.equalsIgnoreCase("zxp9")) {
-			printerModel = PrinterModel.ZXPSeries9;
-		}
-		return printerModel;
 	}
 }

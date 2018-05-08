@@ -19,7 +19,6 @@ import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -29,9 +28,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -42,12 +39,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 
-import com.zebra.card.devdemo.DiscoveredPrinterForDevDemo;
-import com.zebra.card.devdemo.PrinterDemo;
 import com.zebra.card.devdemo.PrinterDemoBase;
 import com.zebra.sdk.common.card.enumerations.PrintType;
 
-public class PrintDemo extends PrinterDemoBase implements PrinterDemo {
+public class PrintDemo extends PrinterDemoBase<PrintModel> {
 
 	private static final String PRINT_TYPE_COLOR = "Color";
 	private static final String PRINT_TYPE_MONO = "MonoK";
@@ -64,36 +59,25 @@ public class PrintDemo extends PrinterDemoBase implements PrinterDemo {
 	private JComboBox printQuantityComboBox;
 
 	public PrintDemo() {
+		super(new PrintModel());
 	}
 
 	@Override
-	public void createDemoDialog(JFrame owner) {
-		demoDialog = new JDialog(owner, "Zebra Multi Platform SDK - Developer Demo", true);
-
-		Container mainPane = demoDialog.getContentPane();
-		mainPane.add(createPanelHeader("Print YMCKO / Mono"), BorderLayout.PAGE_START);
-		mainPane.add(createSelectPrinterPanel());
-
-		JPanel lowerPart = createLowerPanel();
-		mainPane.add(lowerPart, BorderLayout.PAGE_END);
-
-		demoDialog.pack();
-		demoDialog.setResizable(false);
-		demoDialog.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (mainPane.getWidth() / 2), 0);
-		demoDialog.setVisible(true);
-		demoDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	public void addDemoDialogContent(Container container) {
+		container.add(createPanelHeader("Print YMCKO / Mono"), BorderLayout.PAGE_START);
+		container.add(createSelectPrinterPanel(true));
+		container.add(createLowerPanel(), BorderLayout.PAGE_END);
 	}
 
 	@Override
-	protected void additionalPostDiscoveryAction() {
-		boolean printerListNotEmpty = addressDropdown.getItemCount() > 0;
+	protected void onConnectionEstablished() {
 		boolean atLeastOneImageSpecified = selectPrintFrontCheckBox.isSelected() || selectPrintOverlayCheckBox.isSelected() || selectPrintBackCheckBox.isSelected();
-		enableActionButton(printerListNotEmpty && atLeastOneImageSpecified);
+		setActionButtonEnabled(atLeastOneImageSpecified);
 	}
 
 	private JPanel createLowerPanel() {
 		actionButton = new JButton("Print");
-		enableActionButton(false);
+		setActionButtonEnabled(false);
 
 		actionButton.addActionListener(new ActionListener() {
 
@@ -103,10 +87,9 @@ public class PrintDemo extends PrinterDemoBase implements PrinterDemo {
 
 					@Override
 					public void run() {
-						enableActionButton(false);
+						setActionButtonEnabled(false);
 						demoDialog.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 
-						DiscoveredPrinterForDevDemo printer = (DiscoveredPrinterForDevDemo) addressDropdown.getSelectedItem();
 						PrintJobOptions printJobOptions = new PrintJobOptions();
 						String frontSideImageFile = null;
 						PrintType printType = PrintType.MonoK;
@@ -133,13 +116,13 @@ public class PrintDemo extends PrinterDemoBase implements PrinterDemo {
 
 						try {
 							demoDialog.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-							new PrintModel().print(printer, printJobOptions, statusTextArea);
+							getPrinterModel().print(printJobOptions, statusTextArea);
 						} catch (Exception e) {
 							JOptionPane.showMessageDialog(null, "Error printing card : " + e.getLocalizedMessage());
 						}
 
 						demoDialog.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-						enableActionButton(true);
+						setActionButtonEnabled(true);
 
 					}
 				}).start();
@@ -240,8 +223,8 @@ public class PrintDemo extends PrinterDemoBase implements PrinterDemo {
 
 	private void checkIfImageSpecified() {
 		boolean atLeastOneImageSpecified = selectPrintFrontCheckBox.isSelected() || selectPrintOverlayCheckBox.isSelected() || selectPrintBackCheckBox.isSelected();
-		boolean printerListNotEmpty = addressDropdown.getItemCount() > 0;
-		enableActionButton(atLeastOneImageSpecified && printerListNotEmpty);
+		boolean printerListNotEmpty = getPrinterModel().getConnection() != null;
+		setActionButtonEnabled(atLeastOneImageSpecified && printerListNotEmpty);
 	}
 
 	private JPanel createFrontOverlayPanel() {
@@ -392,4 +375,5 @@ public class PrintDemo extends PrinterDemoBase implements PrinterDemo {
 
 		return printOptionsArea;
 	}
+
 }

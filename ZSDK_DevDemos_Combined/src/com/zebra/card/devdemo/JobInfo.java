@@ -7,37 +7,33 @@
  * displayed or distributed, in whole or in part, in any medium, by any means, for any purpose except as
  * expressly permitted under such license agreement.
  * 
- * Copyright ZIH Corp. 2016
+ * Copyright ZIH Corp. 2018
  * 
  * ALL RIGHTS RESERVED
  ***********************************************/
 
 package com.zebra.card.devdemo;
 
-import java.util.Map;
+import com.zebra.sdk.common.card.enumerations.CardSource;
 
-import com.zebra.sdk.comm.Connection;
-import com.zebra.sdk.printer.discovery.DiscoveredPrinter;
+public class JobInfo {
+	private Integer jobId;
+	private final CardSource cardSource;
 
-public class DiscoveredPrinterForDevDemo {
-	private DiscoveredPrinter printer;
-
-	public DiscoveredPrinterForDevDemo(DiscoveredPrinter printer) {
-		this.printer = printer;
+	public JobInfo(Integer jobId, CardSource cardSource) {
+		this.jobId = jobId;
+		this.cardSource = cardSource;
 	}
 
-	public Connection getConnection() {
-		return printer.getConnection();
+	public Integer getJobId() {
+		return jobId;
 	}
 
-	@Override
-	public String toString() {
-		return printer.address + " : " + getModel();
+	public CardSource getCardSource() {
+		return cardSource;
 	}
 
-	private String getModel() {
-		Map<String, String> discoveryDataMap = printer.getDiscoveryDataMap();
-		String model = discoveryDataMap.get("MODEL");
-		return model;
+	public void setJobId(Integer jobId) {
+		this.jobId = jobId;
 	}
 }
