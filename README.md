@@ -1,3 +1,10 @@
+# Notes
+All card printer sample code is selectable from the branches on this repository.
+
+This sample code is designed to work with the [Link-OS Multiplatform SDK](http://www.zebra.com/sdk)
+[API Documentation](http://techdocs.zebra.com/link-os)
+[Developer Community](https://developer.zebra.com/community/technologies/printers) and Forums.
+---
 # LinkOS_SDK license
 ## END USER LICENSE AGREEMENT ##
 **(UNRESTRICTED SOFTWARE)** 
