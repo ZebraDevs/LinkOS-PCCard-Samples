@@ -7,7 +7,7 @@ Find [API Documentation](http://techdocs.zebra.com/link-os) here.
 
 
 
-# Projects contained in this repository:
+## Projects contained in this repository:
 
 
 [CardIDPrinting_ZXPSeries3_C#]( https://github.com/Zebra/LinkOS-PCCard-Samples/tree/CardIDPrinting_ZXPSeries3_C%23) 
