@@ -5,6 +5,52 @@ Find [API Documentation](http://techdocs.zebra.com/link-os) here.
 
 [Developer Community](https://developer.zebra.com/community/technologies/printers) and Forums.
 
+
+Projects contained in this repository:
+
+[CardIDPrinting_ZXPSeries3_C#]( https://github.com/Zebra/LinkOS-PCCard-Samples/tree/CardIDPrinting_ZXPSeries3_C%23) 
+
+[CenterBarcode_ZXPSeries3_C#](https://github.com/Zebra/LinkOS-PCCard-Samples/tree/CenterBarcode_ZXPSeries3_C%23)
+
+[ConnectAndPrint_ZXPSeries1and3_C#](https://github.com/Zebra/LinkOS-PCCard-Samples/tree/ConnectAndPrint_ZXPSeries1and3_C%23) 
+
+[ContactSmartCardPrinting_ZXPSeries7and9_C#](https://github.com/Zebra/LinkOS-PCCard-Samples/tree/ContactSmartCardPrinting_ZXPSeries7and9_C%23)
+
+[ContactSmartCardSample_ZXPSeries1and3_C#](https://github.com/Zebra/LinkOS-PCCard-Samples/tree/ContactSmartCardSample_Series1and3_C%23) 
+
+[ContactSmartCardSample_ZXPSeries7and9_C#](https://github.com/Zebra/LinkOS-PCCard-Samples/tree/ContactSmartCardSample_ZXPSeries7and9_C%23)
+
+[ContactlessSmartCard_ZXPSeries7and9_C#](https://github.com/Zebra/LinkOS-PCCard-Samples/tree/ContactlessSmartCard_ZXPSeries7and9_C%23)
+
+[ContactlessSmartCardSample_ZXPSeries1and3_C#](https://github.com/Zebra/LinkOS-PCCard-Samples/tree/ContactlessSmartCardSample_ZXPSeries1and3_C%23)
+
+[DualSidePrint_ZXPSeries7and9_C++](https://github.com/Zebra/LinkOS-PCCard-Samples/tree/DualSidePrint_ZXPSeries7and9_C++)
+
+[FindingPrinters_ZXPSeries3_C#](https://github.com/Zebra/LinkOS-PCCard-Samples/tree/FindingPrinters_ZXPSeries3_C%23)
+
+[IDCardDesignerDemo_ZXPSeries3_VB.NET]( https://github.com/Zebra/LinkOS-PCCard-Samples/tree/IDCardDesignerDemo_ZXPSeries3_VB.NET)
+
+[JobTracking_ZXPSeries7and9_C#](https://github.com/Zebra/LinkOS-PCCard-Samples/tree/JobTracking_ZXPSeries7and9_C%23)
+
+[MagneticCardEncoding_ZXPSeries1and3_C#](https://github.com/Zebra/LinkOS-PCCard-Samples/tree/MagneticCardEncoding_ZXPSeries1and3_C%23)
+
+[MagneticEncoding_ZXPSeries7and9_C#](https://github.com/Zebra/LinkOS-PCCard-Samples/tree/MagneticEncoding_ZXPSeries7and9_C%23)
+
+[MagneticEncoding_ZXPSeries7and9_VB.NETrrr]( https://github.com/Zebra/LinkOS-PCCard-Samples/tree/MagneticEncoding_ZXPSeries7and9_VB.NET)
+
+[Print-MagEncode-ContactSmartCardEncode_ZXPSeries7and9_VB.NET]( https://github.com/Zebra/LinkOS-PCCard-Samples/tree/Print-MagEncode-ContactSmartCardEncode_ZXPSeries7and9_VB.NET)
+
+[Print-MagEncode-ContactlessSmartcardEncode_ZXPSeries7and9_VB.NETrrr]( https://github.com/Zebra/LinkOS-PCCard-Samples/tree/Print-MagEncode-ContactlessSmartcardEncode_ZXPSeries7and9_VB.NET)
+[PrintInhibitImage_ZXPSeries7and9_C#](https://github.com/Zebra/LinkOS-PCCard-Samples/tree/PrintInhibitImage_ZXPSeries7and9_C%23)
+
+[SetErrorRecoveryMode_ZXPSeries7and9_C#](https://github.com/Zebra/LinkOS-PCCard-Samples/tree/SetErrorRecoveryMode_ZXPSeries7and9_C%23)
+
+[UsingBlackExtractionMonochromePrinting_ZXPSeries7and9_C#](https://github.com/Zebra/LinkOS-PCCard-Samples/tree/UsingBlackExtractionMonochromePrinting_ZXPSeries7and9_C%23)
+
+[ZSDK_DevDemos_Combined_C#](https://github.com/Zebra/LinkOS-PCCard-Samples/tree/ZSDK_DevDemos_Combined_C%23)
+
+[ZSDK_DevDemos_Combined]( https://github.com/Zebra/LinkOS-PCCard-Samples/tree/ZSDK_DevDemos_Combined)
+
 ---
 # LinkOS_SDK license
 ## END USER LICENSE AGREEMENT ##
